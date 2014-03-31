@@ -1,3 +1,0 @@
-@interface DQUViewController : UIViewController
-
-@end
