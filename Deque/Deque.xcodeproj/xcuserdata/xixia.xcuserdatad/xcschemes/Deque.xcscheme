@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4EB038CF18E8F83B0084D175"
+               BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
                BuildableName = "Deque.app"
                BlueprintName = "Deque"
                ReferencedContainer = "container:Deque.xcodeproj">
@@ -28,21 +28,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4EB038EA18E8F8410084D175"
-               BuildableName = "DequeTests.xctest"
-               BlueprintName = "DequeTests"
-               ReferencedContainer = "container:Deque.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4EB038CF18E8F83B0084D175"
+            BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
             BuildableName = "Deque.app"
             BlueprintName = "Deque"
             ReferencedContainer = "container:Deque.xcodeproj">
@@ -61,7 +51,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4EB038CF18E8F83B0084D175"
+            BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
             BuildableName = "Deque.app"
             BlueprintName = "Deque"
             ReferencedContainer = "container:Deque.xcodeproj">
@@ -79,7 +69,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4EB038CF18E8F83B0084D175"
+            BlueprintIdentifier = "09ABC06C13A1D52D009C3FCF"
             BuildableName = "Deque.app"
             BlueprintName = "Deque"
             ReferencedContainer = "container:Deque.xcodeproj">
