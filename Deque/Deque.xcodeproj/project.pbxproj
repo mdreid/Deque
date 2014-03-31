@@ -143,9 +143,8 @@
 				09ABC08913A1D52E009C3FCF /* ParseStarterProjectViewController.xib */,
 				09ABC07813A1D52D009C3FCF /* Supporting Files */,
 			);
-			name = Deque;
-			path = ParseStarterProject;
-			sourceTree = "<group>";
+			path = Deque;
+			sourceTree = SOURCE_ROOT;
 		};
 		09ABC07813A1D52D009C3FCF /* Supporting Files */ = {
 			isa = PBXGroup;
