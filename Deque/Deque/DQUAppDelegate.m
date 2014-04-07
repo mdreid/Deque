@@ -8,6 +8,8 @@
 
 #import "DQUAppDelegate.h"
 #import <Parse/Parse.h>
+#import "DQUCard.h"
+#import "DQUHand.h"
 
 @implementation DQUAppDelegate
 
@@ -21,14 +23,33 @@
     [Parse setApplicationId:@"4b8rGvOFXnu0he9tTjcFGfAI4rtj4PrApTuUflYO"
                   clientKey:@"c6R2NoRcBD62mwLacnzOYRVNsbqrtl6um0ibiFJR"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+
+// code to store something on database, and grab it back from db
+    [DQUCard registerSubclass];
+    [DQUHand registerSubclass];
+    DQUHand *hand = [[DQUHand alloc] init];
+    [hand saveInBackground];
     
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    testObject[@"foo"] = @"bar";
-    [testObject saveInBackground];
-    
+    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %d scores.", objects.count);
+            // Do something with the found objects
+            for (PFObject *object in objects) {
+                DQUHand *h = (DQUHand *)object;
+                [h printHand];
+                NSLog(@"%@", object.objectId);
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+        
     return YES;
 }
-
+    
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
