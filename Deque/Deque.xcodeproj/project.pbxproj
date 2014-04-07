@@ -30,6 +30,9 @@
 		4EB0391318E8FA440084D175 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391218E8FA440084D175 /* StoreKit.framework */; };
 		4EB0391518E8FA4B0084D175 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391418E8FA4B0084D175 /* SystemConfiguration.framework */; };
 		4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4E75518E9C9E4007946C7 /* DQUGame.m */; };
+		4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */; };
+		4EDBAD7418F2187C0016AAF2 /* DQU_HandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */; };
+		4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBAD7618F218B70016AAF2 /* DQU_HandCard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,11 @@
 		4EB0391418E8FA4B0084D175 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4ED4E75418E9C9E4007946C7 /* DQUGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUGame.h; sourceTree = "<group>"; };
 		4ED4E75518E9C9E4007946C7 /* DQUGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUGame.m; sourceTree = "<group>"; };
+		4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		4EDBAD7218F2187C0016AAF2 /* DQU_HandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_HandViewController.h; sourceTree = "<group>"; };
+		4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_HandViewController.m; sourceTree = "<group>"; };
+		4EDBAD7518F218B70016AAF2 /* DQU_HandCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_HandCard.h; sourceTree = "<group>"; };
+		4EDBAD7618F218B70016AAF2 /* DQU_HandCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_HandCard.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +161,11 @@
 				4ED4E75318E9C985007946C7 /* Model */,
 				4EB038E218E8F83D0084D175 /* DQUAppDelegate.h */,
 				4EB038E318E8F83D0084D175 /* DQUAppDelegate.m */,
+				4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */,
+				4EDBAD7518F218B70016AAF2 /* DQU_HandCard.h */,
+				4EDBAD7618F218B70016AAF2 /* DQU_HandCard.m */,
+				4EDBAD7218F2187C0016AAF2 /* DQU_HandViewController.h */,
+				4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */,
 				4EB038E518E8F83D0084D175 /* Images.xcassets */,
 				4EB038DA18E8F83B0084D175 /* Supporting Files */,
 			);
@@ -276,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */,
 				4EB038DE18E8F83C0084D175 /* InfoPlist.strings in Resources */,
 				4EB038E618E8F83D0084D175 /* Images.xcassets in Resources */,
 			);
@@ -298,6 +312,8 @@
 			files = (
 				4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */,
 				4EB038E018E8F83D0084D175 /* main.m in Sources */,
+				4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */,
+				4EDBAD7418F2187C0016AAF2 /* DQU_HandViewController.m in Sources */,
 				4EB038E418E8F83D0084D175 /* DQUAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

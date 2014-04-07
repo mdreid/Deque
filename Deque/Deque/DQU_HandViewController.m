@@ -23,10 +23,47 @@
     return self;
 }
 
+- (NSMutableArray *) cardValues
+{
+    if (!_cardValues) {
+        _cardValues = [NSMutableArray array];
+    }
+    return _cardValues;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
+//    NSMutableArray *temp = [[NSMutableArray alloc] init];
+    [query whereKey:@"Name" equalTo:@"Xixia"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %d scores.", objects.count);
+            // Do something with the found objects
+            for (PFObject *object in objects) {
+                NSLog(@"%@", object.objectId);
+                for (NSString *strTemp in object[@"Cards"]) {
+                    NSLog(@"card: %@", strTemp);
+                }
+//                [_cardValues addObject:(NSString*) [object objectForKey:@"Cards"]];
+//                [_cardValues addObject:(NSString*) @"hello"];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+//    NSLog(@"%@", _cardValues[0]);
+    
+//    _cardValues = [@[@"a_h",
+//                     @"a_s",
+//                     @"a_c",
+//                     @"a_d"] mutableCopy];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,6 +72,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+#pragma mark UICollectionViewDataSource
+
+-(NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
+{
+    return 1;
+}
+
+-(NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _cardValues.count;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    DQU_HandCard *myCard = [collectionView dequeueReusableCellWithReuseIdentifier:@"Card" forIndexPath:indexPath];
+    
+    NSString *label;
+    long row = [indexPath row];
+    
+    label = _cardValues[row];
+    myCard.cardView.text = label;
+    
+    return myCard;
+}
 /*
 #pragma mark - Navigation
 

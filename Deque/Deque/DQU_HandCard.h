@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface DQU_HandCard : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UILabel *cardView;
 
 @end

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "DQU_HandCard.h"
 
 @interface DQU_HandViewController : UICollectionViewController
+<UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (strong, nonatomic) NSMutableArray *cardValues;
 
 @end
