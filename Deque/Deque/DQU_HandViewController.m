@@ -19,16 +19,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
-}
-
-- (NSMutableArray *) cardValues
-{
-    if (!_cardValues) {
-        _cardValues = [NSMutableArray array];
-    }
-    return _cardValues;
 }
 
 - (void)viewDidLoad
@@ -37,10 +30,12 @@
     // Do any additional setup after loading the view.
     
     PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
-//    NSMutableArray *temp = [[NSMutableArray alloc] init];
+//    NSMutableArray *_cardValues = [[NSMutableArray alloc] init];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
+//    _cardValues = [@[@"first element"] mutableCopy];
+    
     [query whereKey:@"Name" equalTo:@"Xixia"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
         if (!error) {
             // The find succeeded.
             NSLog(@"Successfully retrieved %d scores.", objects.count);
@@ -49,6 +44,8 @@
                 NSLog(@"%@", object.objectId);
                 for (NSString *strTemp in object[@"Cards"]) {
                     NSLog(@"card: %@", strTemp);
+                    [temp addObject:(NSString *) strTemp];
+//                    NSLog(@"%@", _cardValues[0]);
                 }
 //                [_cardValues addObject:(NSString*) [object objectForKey:@"Cards"]];
 //                [_cardValues addObject:(NSString*) @"hello"];
@@ -59,11 +56,12 @@
         }
     }];
 //    NSLog(@"%@", _cardValues[0]);
+    _cardValues = temp;
     
-//    _cardValues = [@[@"a_h",
-//                     @"a_s",
-//                     @"a_c",
-//                     @"a_d"] mutableCopy];
+    _cardValues = [@[@"ace of hearts",
+                     @"ace of spades",
+                     @"ace of clubs",
+                     @"ace of diamonds"] mutableCopy];
 }
 
 - (void)didReceiveMemoryWarning
