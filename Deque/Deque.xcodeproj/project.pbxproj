@@ -29,6 +29,9 @@
 		4EB0391118E8FA3F0084D175 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391018E8FA3F0084D175 /* Security.framework */; };
 		4EB0391318E8FA440084D175 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391218E8FA440084D175 /* StoreKit.framework */; };
 		4EB0391518E8FA4B0084D175 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391418E8FA4B0084D175 /* SystemConfiguration.framework */; };
+		4EC0557218F3478900CBA2B1 /* DQUCard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0556D18F3478900CBA2B1 /* DQUCard.mm */; };
+		4EC0557318F3478900CBA2B1 /* DQUDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0556F18F3478900CBA2B1 /* DQUDeck.m */; };
+		4EC0557418F3478900CBA2B1 /* DQUHand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0557118F3478900CBA2B1 /* DQUHand.m */; };
 		4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4E75518E9C9E4007946C7 /* DQUGame.m */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +72,12 @@
 		4EB0391018E8FA3F0084D175 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4EB0391218E8FA440084D175 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		4EB0391418E8FA4B0084D175 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		4EC0556C18F3478900CBA2B1 /* DQUCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUCard.h; sourceTree = "<group>"; };
+		4EC0556D18F3478900CBA2B1 /* DQUCard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DQUCard.mm; sourceTree = "<group>"; };
+		4EC0556E18F3478900CBA2B1 /* DQUDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUDeck.h; sourceTree = "<group>"; };
+		4EC0556F18F3478900CBA2B1 /* DQUDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUDeck.m; sourceTree = "<group>"; };
+		4EC0557018F3478900CBA2B1 /* DQUHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUHand.h; sourceTree = "<group>"; };
+		4EC0557118F3478900CBA2B1 /* DQUHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUHand.m; sourceTree = "<group>"; };
 		4ED4E75418E9C9E4007946C7 /* DQUGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUGame.h; sourceTree = "<group>"; };
 		4ED4E75518E9C9E4007946C7 /* DQUGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUGame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,6 +159,12 @@
 		4EB038D918E8F83B0084D175 /* Deque */ = {
 			isa = PBXGroup;
 			children = (
+				4EC0556C18F3478900CBA2B1 /* DQUCard.h */,
+				4EC0556D18F3478900CBA2B1 /* DQUCard.mm */,
+				4EC0556E18F3478900CBA2B1 /* DQUDeck.h */,
+				4EC0556F18F3478900CBA2B1 /* DQUDeck.m */,
+				4EC0557018F3478900CBA2B1 /* DQUHand.h */,
+				4EC0557118F3478900CBA2B1 /* DQUHand.m */,
 				4ED4E75318E9C985007946C7 /* Model */,
 				4EB038E218E8F83D0084D175 /* DQUAppDelegate.h */,
 				4EB038E318E8F83D0084D175 /* DQUAppDelegate.m */,
@@ -298,7 +313,10 @@
 			files = (
 				4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */,
 				4EB038E018E8F83D0084D175 /* main.m in Sources */,
+				4EC0557218F3478900CBA2B1 /* DQUCard.mm in Sources */,
+				4EC0557418F3478900CBA2B1 /* DQUHand.m in Sources */,
 				4EB038E418E8F83D0084D175 /* DQUAppDelegate.m in Sources */,
+				4EC0557318F3478900CBA2B1 /* DQUDeck.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
