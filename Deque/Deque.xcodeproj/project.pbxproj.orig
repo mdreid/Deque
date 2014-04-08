@@ -327,8 +327,13 @@
 			files = (
 				4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */,
 				4EB038E018E8F83D0084D175 /* main.m in Sources */,
+<<<<<<< HEAD
+				4EC0557218F3478900CBA2B1 /* DQUCard.mm in Sources */,
+				4EC0557418F3478900CBA2B1 /* DQUHand.m in Sources */,
+=======
 				4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */,
 				4EDBAD7418F2187C0016AAF2 /* DQU_HandViewController.m in Sources */,
+>>>>>>> xixia_views
 				4EB038E418E8F83D0084D175 /* DQUAppDelegate.m in Sources */,
 				4EC0557318F3478900CBA2B1 /* DQUDeck.m in Sources */,
 			);
