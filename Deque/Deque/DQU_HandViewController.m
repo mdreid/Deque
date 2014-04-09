@@ -13,15 +13,24 @@
 @end
 
 @implementation DQU_HandViewController
+//@synthesize cardValues = _cardValues;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
+//        self.cardValues = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+- (NSMutableArray *)cardValues
+{
+    if (!_cardValues) {
+        _cardValues = [[NSMutableArray alloc] init];
+    }
+    return _cardValues;
 }
 
 - (void)viewDidLoad
@@ -31,7 +40,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
 //    NSMutableArray *_cardValues = [[NSMutableArray alloc] init];
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
+//    NSMutableArray *temp = [[NSMutableArray alloc] init];
 //    _cardValues = [@[@"first element"] mutableCopy];
     
     [query whereKey:@"Name" equalTo:@"Xixia"];
@@ -44,12 +53,14 @@
                 NSLog(@"%@", object.objectId);
                 for (NSString *strTemp in object[@"Cards"]) {
                     NSLog(@"card: %@", strTemp);
-                    [temp addObject:(NSString *) strTemp];
+//                    [temp addObject:(NSString *) strTemp];
+                    [self.cardValues addObject: strTemp];
 //                    NSLog(@"%@", _cardValues[0]);
                 }
 //                [_cardValues addObject:(NSString*) [object objectForKey:@"Cards"]];
 //                [_cardValues addObject:(NSString*) @"hello"];
             }
+            [self.collectionView reloadData];
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -58,10 +69,13 @@
 //    NSLog(@"%@", _cardValues[0]);
 //    _cardValues = temp;
     
-    _cardValues = [@[@"ace of hearts",
-                     @"ace of spades",
-                     @"ace of clubs",
-                     @"ace of diamonds"] mutableCopy];
+//    _cardValues = [@[@"ace of hearts",
+//                     @"ace of spades",
+//                     @"ace of clubs",
+//                     @"ace of diamonds"] mutableCopy];
+//    [self.collectionView performBatchUpdates:^{
+//        [self.collectionView reloadData];
+//    } completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
