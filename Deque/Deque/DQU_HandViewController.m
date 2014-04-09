@@ -56,7 +56,7 @@
         }
     }];
 //    NSLog(@"%@", _cardValues[0]);
-    _cardValues = temp;
+//    _cardValues = temp;
     
     _cardValues = [@[@"ace of hearts",
                      @"ace of spades",
