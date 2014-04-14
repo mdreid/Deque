@@ -9,7 +9,10 @@
 #import "DQU_HandViewController.h"
 
 @interface DQU_HandViewController ()
-
+@property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
+@property(nonatomic, weak) IBOutlet UIBarButtonItem *deckButton;
+@property(nonatomic, weak) IBOutlet UITextField *textField;
+- (IBAction)deckButtonTapped:(id)sender;
 @end
 
 @implementation DQU_HandViewController
@@ -39,15 +42,12 @@
     // Do any additional setup after loading the view.
     
     PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
-//    NSMutableArray *_cardValues = [[NSMutableArray alloc] init];
-//    NSMutableArray *temp = [[NSMutableArray alloc] init];
-//    _cardValues = [@[@"first element"] mutableCopy];
     
-    [query whereKey:@"Name" equalTo:@"Xixia"];
+    [query whereKey:@"Name" equalTo:@"User"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
-            NSLog(@"Successfully retrieved %d scores.", objects.count);
+            NSLog(@"Successfully retrieved %lu scores.",(unsigned long) objects.count);
             // Do something with the found objects
             for (PFObject *object in objects) {
                 NSLog(@"%@", object.objectId);
@@ -108,6 +108,10 @@
     myCard.cardView.text = label;
     
     return myCard;
+}
+
+-(IBAction)deckButtonTapped:(id)sender {
+    // TODO
 }
 /*
 #pragma mark - Navigation
