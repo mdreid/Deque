@@ -14,21 +14,31 @@
 @implementation DQUCard
 @synthesize rank;
 @synthesize suit;
-@synthesize text;
+@synthesize name;
+@synthesize picName;
+
 // Initializer sets rank and suit
--(id) initWithRank:(int)r Suit:(char)s {
+-(id) initWithRank:(NSString *)r Suit:(char)s Name:(NSString*)n Pic:(NSString *)p  {
     self = [super init];
-    rank = r;
-    suit = s;
+    
+    if (self) {
+        rank = [r copy];
+        suit = s;
+        name = [n copy];
+        picName = [p copy];
+    }
     return self;
 }
+
 // Initializer sets text
--(id) initWithText:(NSString *)string {
-    self = [super init];
-    text = string;
-    return self;
-}
+//-(id) initWithText:(NSString *)string {
+//    self = [super init];
+//    text = string;
+//    return self;
+//}
+
 +(NSString *)parseClassName {
     return @"Card";
 }
+
 @end

@@ -13,6 +13,6 @@
 @interface DQU_HandViewController : UICollectionViewController
 <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray *cardValues;
+@property (strong, nonatomic) NSMutableArray *deckValues;
 
 @end

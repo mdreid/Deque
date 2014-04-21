@@ -12,38 +12,39 @@
 @property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
 @property(nonatomic, weak) IBOutlet UIBarButtonItem *deckButton;
 @property(nonatomic, weak) IBOutlet UITextField *textField;
-- (IBAction)deckButtonTapped:(id)sender;
+
+@property (nonatomic, copy) NSString *handID;
+@property (nonatomic, copy) NSString *deckID;
 @end
 
 @implementation DQU_HandViewController
-//@synthesize cardValues = _cardValues;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-//        self.cardValues = [[NSMutableArray alloc] init];
+
     }
     return self;
 }
 
-- (NSMutableArray *)cardValues
+- (NSMutableArray *)deckValues
 {
-    if (!_cardValues) {
-        _cardValues = [[NSMutableArray alloc] init];
+    if (_deckValues) {
+        _deckValues = [[NSMutableArray alloc] init];
     }
-    return _cardValues;
+    return _deckValues;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.deckValues = [@[] mutableCopy];
     // Do any additional setup after loading the view.
     
     PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
     
-    [query whereKey:@"Name" equalTo:@"User"];
+    [query whereKey:@"Name" equalTo:@"Deck"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
@@ -51,14 +52,11 @@
             // Do something with the found objects
             for (PFObject *object in objects) {
                 NSLog(@"%@", object.objectId);
+                self.deckID = [NSString stringWithString:object.objectId];
                 for (NSString *strTemp in object[@"Cards"]) {
-                    NSLog(@"card: %@", strTemp);
-//                    [temp addObject:(NSString *) strTemp];
-                    [self.cardValues addObject: strTemp];
-//                    NSLog(@"%@", _cardValues[0]);
+//                    NSLog(@"card: %@", strTemp);
+                    [self.deckValues addObject: strTemp];
                 }
-//                [_cardValues addObject:(NSString*) [object objectForKey:@"Cards"]];
-//                [_cardValues addObject:(NSString*) @"hello"];
             }
             [self.collectionView reloadData];
         } else {
@@ -66,16 +64,19 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-//    NSLog(@"%@", _cardValues[0]);
-//    _cardValues = temp;
+
+    // query for decks.
+    query = [PFQuery queryWithClassName:@"Hands"];
     
-//    _cardValues = [@[@"ace of hearts",
-//                     @"ace of spades",
-//                     @"ace of clubs",
-//                     @"ace of diamonds"] mutableCopy];
-//    [self.collectionView performBatchUpdates:^{
-//        [self.collectionView reloadData];
-//    } completion:nil];
+    [query whereKey:@"Name" equalTo:@"User"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // the find succeeded.
+            for (PFObject *object in objects) {
+                self.handID = [NSString stringWithString:object.objectId];
+            }
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,7 +95,7 @@
 
 -(NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _cardValues.count;
+    return _deckValues.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -104,14 +105,44 @@
     NSString *label;
     long row = [indexPath row];
     
-    label = _cardValues[row];
+    label = _deckValues[row];
     myCard.cardView.text = label;
     
     return myCard;
 }
 
--(IBAction)deckButtonTapped:(id)sender {
-    // TODO
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // TODO: fires when a cell is selected.
+    PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
+    long row = [indexPath row];
+    NSString *selectedCard = _deckValues[row];
+    
+    [query getObjectInBackgroundWithId:self.deckID block:^(PFObject *object, NSError *e) {
+        NSMutableArray* temp = [@[] mutableCopy];
+        
+        for (NSString *strTemp in object[@"Cards"]) {
+            if (![strTemp isEqualToString:selectedCard]) {
+                NSLog(@"put in: %@", strTemp);
+                [temp addObject:(NSString *) strTemp];
+            }
+        }
+        object[@"Cards"] = [NSArray arrayWithArray:temp];
+        [object saveInBackground];
+    }];
+    
+    query = [PFQuery queryWithClassName:@"Hands"];
+    [query getObjectInBackgroundWithId:self.handID block:^(PFObject *object, NSError *e) {
+        NSMutableArray* temp = [@[] mutableCopy];
+        for (NSString *strTemp in object[@"Cards"]) {
+            [temp addObject:(NSString *) strTemp];
+        }
+        [temp addObject:(NSString *) selectedCard];
+        object[@"Cards"] = [NSArray arrayWithArray:temp];
+        [object saveInBackground];
+    }];
+    
+    [self.collectionView reloadData];
 }
 /*
 #pragma mark - Navigation

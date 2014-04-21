@@ -12,9 +12,9 @@
 
 //#define DECK_SZ 52;
 
-@implementation DQUHand {
-    int numCards;
-}
+@implementation DQUHand
+
+@synthesize cards;
 
 + (NSString *)parseClassName {
     return @"DQUHand";
@@ -22,16 +22,23 @@
 
 -(id)init {
     self = [super init];
-    int count = 0;
-    for (int i = 0; i <= 3; i++) {
-        for (int j = 1; j <= 13; j++) {
-            DQUCard *card = [[DQUCard alloc] initWithRank:i Suit:j];
-            hand[count] = card;
-            //[card saveInBackground];
-            count++;
-        }
-    }
-    numCards = count;
+    
+    static int ind = 0;
+    
+    cards = [[NSMutableArray alloc] init];
+    numCards = 0;
+    handID = [NSString stringWithFormat:@"%d", ind++];
+    
+//    int count = 0;
+//    for (int i = 0; i <= 3; i++) {
+//        for (int j = 1; j <= 13; j++) {
+//            DQUCard *card = [[DQUCard alloc] initWithRank:i Suit:j];
+//            hand[count] = card;
+//            //[card saveInBackground];
+//            count++;
+//        }
+//    }
+//    numCards = count;
     return self;
 }
 
@@ -39,10 +46,35 @@
     return numCards;
 }
 
--(void)printHand {
+-(NSString *)getHandID {
+    return handID;
+}
+
+-(void)printCards {
     for (int i = 0; i < numCards; i++) {
-        NSLog(@"Rank: %d, Suit: %d", hand[i].rank, hand[i].suit);
+        NSLog(@"Rank: %@, Suit: %c", [(DQUCard*)cards[i] rank], [(DQUCard*)cards[i] suit]);
     }
+}
+
+-(void)addCard:(DQUCard*)c
+{
+    [cards addObject:c];
+    numCards++;
+}
+
+-(void)removeCardAtIndex:(int)i
+{
+    [cards removeObjectAtIndex:i];
+    numCards--;
+}
+
+-(DQUCard *)grabAndRemoveCardAtIndex:(int)i
+{
+    DQUCard *retCard = cards[i];
+    [cards removeObjectAtIndex:i];
+    numCards--;
+    
+    return retCard;
 }
 
 // give card from own hand and place it in Hand other

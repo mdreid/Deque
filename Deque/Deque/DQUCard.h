@@ -12,12 +12,15 @@
 
 @interface DQUCard : PFObject<PFSubclassing>
 
-@property (readonly) int rank;
+@property (readonly) NSString* rank;
 @property (readonly) char suit;
-@property (readonly, nonatomic, retain) NSString *text;
+@property (readonly, nonatomic, retain) NSString *name;
+@property (readonly, nonatomic, retain) NSString *picName;
 
 + (NSString *)parseClassName;
--(id) initWithRank:(int)r Suit:(char)s;
--(id) initWithText:(NSString *)string;
+
+-(id) initWithRank:(NSString*)r Suit:(char)s Name:(NSString *)n Pic:(NSString *)p;
+
+//-(id) initWithText:(NSString *)string;
 
 @end

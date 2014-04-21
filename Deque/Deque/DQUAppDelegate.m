@@ -8,45 +8,109 @@
 
 #import "DQUAppDelegate.h"
 #import <Parse/Parse.h>
+#import <stdlib.h>
 #import "DQUCard.h"
 #import "DQUHand.h"
 
 @implementation DQUAppDelegate
 
+// getter for currHand
+- (DQUHand *)currHand
+{
+    if (!currHand) {
+        currHand = [[DQUHand alloc] init];
+    }
+    return currHand;
+}
+
+// getter for currDeck
+- (DQUHand *)currDeck
+{
+    if (!currDeck) {
+        currDeck = [[DQUHand alloc] init];
+    }
+    return currDeck;
+}
+
+//- (id) init
+//{
+//    // call the init method from the super class.
+//    self = [super init];
+//    
+//    if (self) {
+//        
+//    }
+//    
+//    // return address of new object (which is itself)
+//    return self;
+//}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    // Override point for customization after application launch.
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
     
+    // registering subclasses.
+    [DQUCard registerSubclass];
+    [DQUHand registerSubclass];
+    
+    // necessary for the Parse application.
     [Parse setApplicationId:@"4b8rGvOFXnu0he9tTjcFGfAI4rtj4PrApTuUflYO"
                   clientKey:@"c6R2NoRcBD62mwLacnzOYRVNsbqrtl6um0ibiFJR"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-
-// code to store something on database, and grab it back from db
-    [DQUCard registerSubclass];
-    [DQUHand registerSubclass];
-    DQUHand *deck = [[DQUHand alloc] init];
-    [deck saveInBackground];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            NSLog(@"Successfully retrieved %lu scores.", (unsigned long)objects.count);
-            // Do something with the found objects
-//            for (PFObject *object in objects) {
-//                DQUHand *h = (DQUHand *)object;
-//                [h printHand];
-//                NSLog(@"%@", object.objectId);
-//            }
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    // parse is set up at this point. can now handle work.
+    // initialize a deck
+    
+    char suits[] = {'S', 'C', 'D', 'H'};
+    NSArray *ranks = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4",
+                      @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q",
+                      @"K", nil];
+    
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 13; j++) {
+            NSString *currCard = [NSString stringWithFormat:@"%@_%c", ranks[j], suits[i]];
+            NSString *currCardPic = [NSString stringWithFormat:@"%@.png", currCard];
+            
+            [self.currDeck addCard:[[DQUCard alloc]
+                                    initWithRank:ranks[j]
+                                    Suit: suits[i]
+                                    Name: currCard
+                                    Pic: currCardPic]];
         }
-    }];
+    }
+    
+    for (int i = 0; i < 6; i++) {
+        int r = arc4random() % [self.currDeck getCardCount];
         
+        [self.currHand addCard:[self.currDeck grabAndRemoveCardAtIndex:r]];
+    }
+    
+    [self.currDeck saveInBackground];
+    [self.currHand saveInBackground];
+    
+    // put them into the database.
+    
+    
+// code to store something on database, and grab it back from db
+//    DQUHand *deck = [[DQUHand alloc] init];
+//    [deck saveInBackground];
+//    
+//    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            // The find succeeded.
+//            NSLog(@"Successfully retrieved %lu scores.", (unsigned long)objects.count);
+//            // Do something with the found objects
+////            for (PFObject *object in objects) {
+////                DQUHand *h = (DQUHand *)object;
+////                [h printHand];
+////                NSLog(@"%@", object.objectId);
+////            }
+//        } else {
+//            // Log details of the failure
+//            NSLog(@"Error: %@ %@", error, [error userInfo]);
+//        }
+//    }];
+    
     return YES;
 }
     

@@ -7,21 +7,30 @@
 //
 
 #import "DQU_MainHandViewController.h"
+#import "DQUAppDelegate.h"
 
-@interface DQU_MainHandViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface DQU_MainHandViewController () <UIActionSheetDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+{
+    DQUAppDelegate *appDel;
+}
+
 @property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
 @property(nonatomic, weak) IBOutlet UIBarButtonItem *deckButton;
-- (IBAction)deckButtonTapped:(id)sender;
 
-@property (strong, nonatomic) NSMutableArray *cardValues;
 @property (nonatomic, copy) NSString *handID;
 @property (nonatomic, copy) NSString *deckID;
 
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 
+- (IBAction)deckButtonTapped:(id)sender;
+- (IBAction)displayActionSheet:(id)sender;
+
+
 @end
 
 @implementation DQU_MainHandViewController
+
+@synthesize cardValues;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,11 +41,30 @@
     return self;
 }
 
+- (NSMutableArray *)cardValues
+{
+    if (cardValues) {
+        cardValues = [[NSMutableArray alloc] init];
+    }
+    return cardValues;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.cardValues = [@[] mutableCopy];
+    
+    appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
+
+    
+    PFQuery *query = [DQUHand query];
+    [query whereKey:@"handID" equalTo:(id)[[appDel currHand] getHandID]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            DQUHand *hand = objects[0];
+        }
+    }];
     
     // query for hands.
     PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
@@ -52,7 +80,7 @@
                 self.handID = [NSString stringWithString:object.objectId];
                 for (NSString *strTemp in object[@"Cards"]) {
                     NSLog(@"card: %@", strTemp);
-                    [self.cardValues addObject: strTemp];
+                    [cardValues addObject: strTemp];
                 }
             }
             [self.collectionView reloadData];
@@ -95,7 +123,7 @@
 
 -(NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _cardValues.count;
+    return cardValues.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -105,7 +133,7 @@
     NSString *label;
     long row = [indexPath row];
     
-    label = _cardValues[row];
+    label = cardValues[row];
     myCard.labelView.text = label;
     
     return myCard;
@@ -114,36 +142,45 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // TODO: fires when a cell is selected.
-    PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
-    long row = [indexPath row];
-    NSString *selectedCard = _cardValues[row];
     
-    [query getObjectInBackgroundWithId:self.handID block:^(PFObject *object, NSError *e) {
-        NSMutableArray* temp = [@[] mutableCopy];
-        
-        for (NSString *strTemp in object[@"Cards"]) {
-            if (![strTemp isEqualToString:selectedCard]) {
-                NSLog(@"put in: %@", strTemp);
-                [temp addObject:(NSString *) strTemp];
-            }
-        }
-        object[@"Cards"] = [NSArray arrayWithArray:temp];
-        [object saveInBackground];
-    }];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:@"What would you like to do?"
+                                  delegate:self
+                                  cancelButtonTitle:@"Cancel"
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:@"Give to...", nil];
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionSheet showInView:self.view];
     
-    query = [PFQuery queryWithClassName:@"Hands"];
-    [query getObjectInBackgroundWithId:self.deckID block:^(PFObject *object, NSError *e) {
-        NSMutableArray* temp = [@[] mutableCopy];
-        for (NSString *strTemp in object[@"Cards"]) {
-            [temp addObject:(NSString *) strTemp];
-        }
-        [temp addObject:(NSString *) selectedCard];
-        object[@"Cards"] = [NSArray arrayWithArray:temp];
-        [object saveInBackground];
-    }];
-    
-    [self.collectionView reloadData];    
+//    PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
+//    long row = [indexPath row];
+//    NSString *selectedCard = _cardValues[row];
+//    
+//    [query getObjectInBackgroundWithId:self.handID block:^(PFObject *object, NSError *e) {
+//        NSMutableArray* temp = [@[] mutableCopy];
+//        
+//        for (NSString *strTemp in object[@"Cards"]) {
+//            if (![strTemp isEqualToString:selectedCard]) {
+//                NSLog(@"put in: %@", strTemp);
+//                [temp addObject:(NSString *) strTemp];
+//            }
+//        }
+//        object[@"Cards"] = [NSArray arrayWithArray:temp];
+//        [object saveInBackground];
+//    }];
+//    
+//    query = [PFQuery queryWithClassName:@"Hands"];
+//    [query getObjectInBackgroundWithId:self.deckID block:^(PFObject *object, NSError *e) {
+//        NSMutableArray* temp = [@[] mutableCopy];
+//        for (NSString *strTemp in object[@"Cards"]) {
+//            [temp addObject:(NSString *) strTemp];
+//        }
+//        [temp addObject:(NSString *) selectedCard];
+//        object[@"Cards"] = [NSArray arrayWithArray:temp];
+//        [object saveInBackground];
+//    }];
+//    
+//    [self.collectionView reloadData];    
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -158,11 +195,27 @@
     return retval;
 }
 
+#pragma mark - UIActionSheet stuff
+- (IBAction)displayActionSheet:(id)sender
+{
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+//                                  initWithTitle:@"What would you like to do?"
+//                                  delegate:self
+//                                  cancelButtonTitle:@"Cancel"
+//                                  destructiveButtonTitle:nil
+//                                  otherButtonTitles:@"Give to...", nil];
+}
+
+- (void)showActionSheet:(id)sender
+{
+    
+}
 //- (UIEdgeInsets)collectionView:
 //(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 //{
 //    return UIEdgeInsetsMake(30, 20, 30, 20);
 //}
+
 
 
 /*

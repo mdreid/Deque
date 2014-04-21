@@ -12,5 +12,10 @@
 
 
 @interface DQU_MainHandViewController : UIViewController
+{
+
+}
+
+@property (strong, nonatomic) NSMutableArray *cardValues;
 
 @end
