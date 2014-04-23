@@ -14,7 +14,9 @@
 
 @implementation DQUHand
 
-@synthesize cards;
+@dynamic cards;
+@dynamic handID;
+@dynamic numCards;
 
 + (NSString *)parseClassName {
     return @"DQUHand";
@@ -25,9 +27,9 @@
     
     static int ind = 0;
     
-    cards = [[NSMutableArray alloc] init];
-    numCards = 0;
-    handID = [NSString stringWithFormat:@"%d", ind++];
+    self.cards = [[NSMutableArray alloc] init];
+    self.numCards = 0;
+    self.handID = [NSString stringWithFormat:@"%d", ind++];
     
 //    int count = 0;
 //    for (int i = 0; i <= 3; i++) {
@@ -43,36 +45,36 @@
 }
 
 -(int)getCardCount {
-    return numCards;
+    return self.numCards;
 }
 
 -(NSString *)getHandID {
-    return handID;
+    return self.handID;
 }
 
 -(void)printCards {
-    for (int i = 0; i < numCards; i++) {
-        NSLog(@"Rank: %@, Suit: %c", [(DQUCard*)cards[i] rank], [(DQUCard*)cards[i] suit]);
+    for (int i = 0; i < self.numCards; i++) {
+        NSLog(@"Rank: %@, Suit: %c", [(DQUCard*)self.cards[i] rank], [(DQUCard*)self.cards[i] suit]);
     }
 }
 
 -(void)addCard:(DQUCard*)c
 {
-    [cards addObject:c];
-    numCards++;
+    [self.cards addObject:c];
+    self.numCards++;
 }
 
 -(void)removeCardAtIndex:(int)i
 {
-    [cards removeObjectAtIndex:i];
-    numCards--;
+    [self.cards removeObjectAtIndex:i];
+    self.numCards--;
 }
 
 -(DQUCard *)grabAndRemoveCardAtIndex:(int)i
 {
-    DQUCard *retCard = cards[i];
-    [cards removeObjectAtIndex:i];
-    numCards--;
+    DQUCard *retCard = self.cards[i];
+    [self.cards removeObjectAtIndex:i];
+    self.numCards--;
     
     return retCard;
 }

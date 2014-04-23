@@ -19,6 +19,8 @@
 
 @implementation DQU_HandViewController
 
+@synthesize deckValues;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,10 +32,10 @@
 
 - (NSMutableArray *)deckValues
 {
-    if (_deckValues) {
-        _deckValues = [[NSMutableArray alloc] init];
+    if (deckValues) {
+        deckValues = [[NSMutableArray alloc] init];
     }
-    return _deckValues;
+    return deckValues;
 }
 
 - (void)viewDidLoad
@@ -55,7 +57,7 @@
                 self.deckID = [NSString stringWithString:object.objectId];
                 for (NSString *strTemp in object[@"Cards"]) {
 //                    NSLog(@"card: %@", strTemp);
-                    [self.deckValues addObject: strTemp];
+                    [deckValues addObject: strTemp];
                 }
             }
             [self.collectionView reloadData];
@@ -95,7 +97,7 @@
 
 -(NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _deckValues.count;
+    return deckValues.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -105,7 +107,7 @@
     NSString *label;
     long row = [indexPath row];
     
-    label = _deckValues[row];
+    label = deckValues[row];
     myCard.cardView.text = label;
     
     return myCard;
@@ -116,7 +118,7 @@
     // TODO: fires when a cell is selected.
     PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
     long row = [indexPath row];
-    NSString *selectedCard = _deckValues[row];
+    NSString *selectedCard = deckValues[row];
     
     [query getObjectInBackgroundWithId:self.deckID block:^(PFObject *object, NSError *e) {
         NSMutableArray* temp = [@[] mutableCopy];

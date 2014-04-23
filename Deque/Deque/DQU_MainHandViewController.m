@@ -56,39 +56,48 @@
     self.cardValues = [@[] mutableCopy];
     
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
-
     
-    PFQuery *query = [DQUHand query];
-    [query whereKey:@"handID" equalTo:(id)[[appDel currHand] getHandID]];
+    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
+    NSLog(@"the hand ID we're looking for is: %@", [[appDel currHand] getHandID]);
+//    [query whereKey:@"handID" equalTo:[[appDel currHand] getHandID]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            DQUHand *hand = objects[0];
-        }
-    }];
-    
-    // query for hands.
-    PFQuery *query = [PFQuery queryWithClassName:@"Hands"];
-    
-    [query whereKey:@"Name" equalTo:@"User"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            NSLog(@"Successfully retrieved %lu scores.",(unsigned long) objects.count);
-            // Do something with the found objects
+            // find succeeded. there should only ever be one return object for the query.
+            NSLog(@"successfully retrieved %lu objects.", (unsigned long) objects.count);
+//            DQUHand *hand = (DQUHand*) objects[0];
+            
             for (PFObject *object in objects) {
-                NSLog(@"%@", object.objectId);
-                self.handID = [NSString stringWithString:object.objectId];
-                for (NSString *strTemp in object[@"Cards"]) {
-                    NSLog(@"card: %@", strTemp);
-                    [cardValues addObject: strTemp];
+                DQUHand *h = (DQUHand *) object;
+                if ([h getHandID] == [[appDel currHand] getHandID]) {
+                    NSLog(@"successfully found %d cards in hand.", [h getCardCount]);
                 }
             }
-            [self.collectionView reloadData];
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
+//            
+//            NSLog(@"successfully found %d cards in hand.", [hand getCardCount]);
+            
         }
     }];
+        
+//    [query whereKey:@"Name" equalTo:@"User"];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            // The find succeeded.
+//            NSLog(@"Successfully retrieved %lu scores.",(unsigned long) objects.count);
+//            // Do something with the found objects
+//            for (PFObject *object in objects) {
+//                NSLog(@"%@", object.objectId);
+//                self.handID = [NSString stringWithString:object.objectId];
+//                for (NSString *strTemp in object[@"Cards"]) {
+//                    NSLog(@"card: %@", strTemp);
+//                    [cardValues addObject: strTemp];
+//                }
+//            }
+//            [self.collectionView reloadData];
+//        } else {
+//            // Log details of the failure
+//            NSLog(@"Error: %@ %@", error, [error userInfo]);
+//        }
+//    }];
     
     // query for decks.
     query = [PFQuery queryWithClassName:@"Hands"];

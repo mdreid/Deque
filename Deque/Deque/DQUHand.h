@@ -13,16 +13,19 @@
 //    DQUCard *hand[52];
     //@property (readonly) int numCards;
     //NSArray *hand;
-    int numCards;
-    NSString* handID;
+//    int numCards;
+//    NSString* handID;
 }
 
 // items in this array should be of DQUCard
 @property (strong, nonatomic) NSMutableArray *cards;
+@property (retain) NSString *handID;
+@property int numCards;
 
 // returns int of number of cards.
 -(int) getCardCount;
 
+// returns the handID. prob will not need later on...gotta think on this.
 -(NSString*) getHandID;
 
 // print the cards in this hand.
