@@ -13,17 +13,13 @@
 
 @interface DQUAppDelegate : UIResponder <UIApplicationDelegate>
 {
-    // this simplistic game's objects
-    DQUHand *currHand;
-    DQUHand *currDeck;
-    
-    NSString *idHand;
-    NSString *idDeck;
+
 }
 
 @property (strong, nonatomic) UIWindow *window;
-
--(DQUHand *) currHand;
--(DQUHand *) currDeck;
+@property (strong, nonatomic) DQUHand *currHand;
+@property (strong, nonatomic) DQUHand *currDeck;
+@property (retain, nonatomic) NSString *idHand;
+@property (retain, nonatomic) NSString *idDeck;
 
 @end

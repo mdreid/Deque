@@ -22,6 +22,9 @@
 @property (retain) NSString *handID;
 @property int numCards;
 
+// initialize a hand with the name 'something'
+-(id) initWithHandID:(NSString*) handName;
+
 // returns int of number of cards.
 -(int) getCardCount;
 

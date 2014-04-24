@@ -59,7 +59,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
     NSLog(@"the hand ID we're looking for is: %@", [[appDel currHand] getHandID]);
-//    [query whereKey:@"handID" equalTo:[[appDel currHand] getHandID]];
+//    [query whereKey:@"handID" equalTo:@"myhand"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // find succeeded. there should only ever be one return object for the query.
@@ -67,10 +67,14 @@
 //            DQUHand *hand = (DQUHand*) objects[0];
             
             for (PFObject *object in objects) {
-                DQUHand *h = (DQUHand *) object;
-                if ([h getHandID] == [[appDel currHand] getHandID]) {
-                    NSLog(@"successfully found %d cards in hand.", [h getCardCount]);
-                }
+                DQUHand *h = [[DQUHand alloc] initWithHandID:@"something else"];
+                h.handID = [object objectForKey:@"handID"];
+                h.cards = [object objectForKey:@"cards"];
+                [h printCards];
+//                if ([h getHandID] == [[appDel currHand] getHandID]) {
+//                    NSLog(@"successfully found %d cards in hand.", [h getCardCount]);
+//                    [h printCards];
+//                }
             }
 //            
 //            NSLog(@"successfully found %d cards in hand.", [hand getCardCount]);

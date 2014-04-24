@@ -22,14 +22,12 @@
     return @"DQUHand";
 }
 
--(id)init {
+-(id)initWithHandID:(NSString*) handName {
     self = [super init];
-    
-    static int ind = 0;
     
     self.cards = [[NSMutableArray alloc] init];
     self.numCards = 0;
-    self.handID = [NSString stringWithFormat:@"%d", ind++];
+    self.handID = [NSString stringWithString:handName];
     
 //    int count = 0;
 //    for (int i = 0; i <= 3; i++) {

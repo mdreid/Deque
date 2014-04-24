@@ -14,23 +14,28 @@
 
 @implementation DQUAppDelegate
 
-// getter for currHand
-- (DQUHand *)currHand
-{
-    if (!currHand) {
-        currHand = [[DQUHand alloc] init];
-    }
-    return currHand;
-}
+@synthesize currHand;
+@synthesize currDeck;
+@synthesize idHand;
+@synthesize idDeck;
 
-// getter for currDeck
-- (DQUHand *)currDeck
-{
-    if (!currDeck) {
-        currDeck = [[DQUHand alloc] init];
-    }
-    return currDeck;
-}
+//// getter for currHand
+//- (DQUHand *)currHand
+//{
+//    if (!currHand) {
+//        currHand = [[DQUHand alloc] init];
+//    }
+//    return currHand;
+//}
+//
+//// getter for currDeck
+//- (DQUHand *)currDeck
+//{
+//    if (!currDeck) {
+//        currDeck = [[DQUHand alloc] init];
+//    }
+//    return currDeck;
+//}
 
 //- (id) init
 //{
@@ -47,8 +52,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    // registering subclasses.
+    // registering subclasses. must happen first thing.
     [DQUCard registerSubclass];
     [DQUHand registerSubclass];
     
@@ -58,8 +62,15 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // parse is set up at this point. can now handle work.
-    // initialize a deck
     
+    // initialization...
+    self.idHand = @"myhand";
+    self.idDeck = @"deck";
+    
+    self.currHand = [[DQUHand alloc] initWithHandID:self.idHand];
+    self.currDeck = [[DQUHand alloc] initWithHandID:self.idDeck];
+    
+    // create a deck
     char suits[] = {'S', 'C', 'D', 'H'};
     NSArray *ranks = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4",
                       @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q",
@@ -69,7 +80,7 @@
         for (int j = 0; j < 13; j++) {
             NSString *currCard = [NSString stringWithFormat:@"%@_%c", ranks[j], suits[i]];
             NSString *currCardPic = [NSString stringWithFormat:@"%@.png", currCard];
-            
+    
             [self.currDeck addCard:[[DQUCard alloc]
                                     initWithRank:ranks[j]
                                     Suit: suits[i]
@@ -80,7 +91,7 @@
     
     for (int i = 0; i < 6; i++) {
         int r = arc4random() % [self.currDeck getCardCount];
-        
+    
         [self.currHand addCard:[self.currDeck grabAndRemoveCardAtIndex:r]];
     }
     
