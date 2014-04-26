@@ -2,17 +2,28 @@
 //  DQUGame.h
 //  Deque
 //
-//  Created by Xixia Wang on 3/31/14.
+//  Created by mdreid 1 on 4/26/14.
 //  Copyright (c) 2014 Xixia Wang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
+#import "DQUHand.h"
 
-@interface DQUGame : NSObject
+@interface DQUGame : PFObject {
+    int numPlayers;
+}
 
-@property (strong) NSString *gameID;
-@property (assign) int numPlayers;
+// name of the class
++ (NSString *)parseClassName;
 
-- (id)initWithTitle:(NSString*)gameID numPlayers:(int)players;
+// make game instance with corresponding game name, owner name and number of players
+- (id) initWithGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n;
+
+// items in this array should be of type DQUHand
+@property (strong, nonatomic) NSMutableArray *hands;
+@property (readonly, nonatomic) NSString *gameID;
+@property (readonly, nonatomic) NSString *ownerID;
+@property (retain) DQUHand *deck;
+@property (retain) DQUHand *discard;
 
 @end

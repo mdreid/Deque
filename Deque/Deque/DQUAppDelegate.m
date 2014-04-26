@@ -64,6 +64,10 @@
     
     // parse is set up at this point. can now handle work.
     
+    DQUDataServer * data = [[DQUDataServer alloc] init];
+    
+    [data retrieveHandWithID:@"myhand" forGameID:@""];
+    
     // create the dictionary of cards.
     self.allCards = [[NSMutableDictionary alloc] init];
     char suits[] = {'S', 'C', 'D', 'H'};

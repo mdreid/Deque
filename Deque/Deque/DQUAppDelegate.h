@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "DQUHand.h"
 #import "DQUCard.h"
+#import "DQUDataServer.h"
 
 @interface DQUAppDelegate : UIResponder <UIApplicationDelegate>
 {

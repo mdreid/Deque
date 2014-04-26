@@ -184,7 +184,8 @@
 				4EC0557118F3478900CBA2B1 /* DQUHand.m */,
 				4E9AEC30190C28F70062C1EF /* DQUDataServer.h */,
 				4E9AEC31190C28F70062C1EF /* DQUDataServer.m */,
-				4ED4E75318E9C985007946C7 /* Model */,
+				4ED4E75418E9C9E4007946C7 /* DQUGame.h */,
+				4ED4E75518E9C9E4007946C7 /* DQUGame.m */,
 				4EB038E218E8F83D0084D175 /* DQUAppDelegate.h */,
 				4EB038E318E8F83D0084D175 /* DQUAppDelegate.m */,
 				4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */,
@@ -229,15 +230,6 @@
 				4EB038F518E8F8410084D175 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4ED4E75318E9C985007946C7 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4ED4E75418E9C9E4007946C7 /* DQUGame.h */,
-				4ED4E75518E9C9E4007946C7 /* DQUGame.m */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
