@@ -25,8 +25,10 @@
 -(id)initWithHandID:(NSString*) handName {
     self = [super init];
     
+    if (self) {
     self.cards = [[NSMutableArray alloc] init];
     self.handID = [NSString stringWithString:handName];
+    }
     
     return self;
 }

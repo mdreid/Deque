@@ -21,8 +21,8 @@
 
 // items in this array should be of type DQUHand
 @property (strong, nonatomic) NSMutableArray *hands;
-@property (readonly, nonatomic) NSString *gameID;
-@property (readonly, nonatomic) NSString *ownerID;
+@property (nonatomic) NSString *gameID;
+@property (nonatomic) NSString *ownerID;
 @property (retain) DQUHand *deck;
 @property (retain) DQUHand *discard;
 

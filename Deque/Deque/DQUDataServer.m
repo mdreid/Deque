@@ -13,9 +13,9 @@
 
 - (DQUHand *) retrieveHandWithID:(NSString *)handID forGameID:(NSString *)gameID
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
+    PFQuery *query = [DQUHand query];
     NSLog(@"the hand ID we're looking for is: %@", handID);
-    [query whereKey:@"handID" notEqualTo:handID];
+    [query whereKey:@"handID" equalTo:handID];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -25,7 +25,9 @@
             for (PFObject *object in objects) {
                 NSLog(@"one item found.");
             }
-
+        }
+        else {
+            NSLog(@"OHSHIT ERROR.");
         }
     }];
     
