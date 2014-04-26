@@ -55,7 +55,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // registering subclasses. must happen first thing.
-    [DQUCard registerSubclass];
     [DQUHand registerSubclass];
     
     // necessary for the Parse application.
@@ -109,8 +108,8 @@
         [self.currHand addCard:[self.currDeck grabAndRemoveCardAtIndex:0]];
     }
     
-    [self.currDeck printCards:self.allCards];
-    [self.currHand printCards:self.allCards];
+//    [self.currDeck printCards:self.allCards];
+//    [self.currHand printCards:self.allCards];
     
     [self.currDeck saveInBackground];
     [self.currHand saveInBackground];

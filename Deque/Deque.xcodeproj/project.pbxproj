@@ -11,6 +11,7 @@
 		4E22100518FB66190020ED2F /* DQU_CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E22100418FB66190020ED2F /* DQU_CardCell.m */; };
 		4E737E0818F4DFE1009BD8D5 /* DQUHand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0557118F3478900CBA2B1 /* DQUHand.m */; };
 		4E737E0918F4DFF8009BD8D5 /* DQUCard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0556D18F3478900CBA2B1 /* DQUCard.mm */; };
+		4E9AEC32190C28F70062C1EF /* DQUDataServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AEC31190C28F70062C1EF /* DQUDataServer.m */; };
 		4EB038D418E8F83B0084D175 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB038D318E8F83B0084D175 /* Foundation.framework */; };
 		4EB038D618E8F83B0084D175 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB038D518E8F83B0084D175 /* CoreGraphics.framework */; };
 		4EB038D818E8F83B0084D175 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB038D718E8F83B0084D175 /* UIKit.framework */; };
@@ -55,6 +56,8 @@
 		4E22100118FB57EC0020ED2F /* DQU_MainHandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_MainHandViewController.m; sourceTree = "<group>"; };
 		4E22100318FB66190020ED2F /* DQU_CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_CardCell.h; sourceTree = "<group>"; };
 		4E22100418FB66190020ED2F /* DQU_CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_CardCell.m; sourceTree = "<group>"; };
+		4E9AEC30190C28F70062C1EF /* DQUDataServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUDataServer.h; sourceTree = "<group>"; };
+		4E9AEC31190C28F70062C1EF /* DQUDataServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUDataServer.m; sourceTree = "<group>"; };
 		4EB038D018E8F83B0084D175 /* Deque.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deque.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EB038D318E8F83B0084D175 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4EB038D518E8F83B0084D175 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -179,6 +182,8 @@
 				4EC0556F18F3478900CBA2B1 /* DQUDeck.m */,
 				4EC0557018F3478900CBA2B1 /* DQUHand.h */,
 				4EC0557118F3478900CBA2B1 /* DQUHand.m */,
+				4E9AEC30190C28F70062C1EF /* DQUDataServer.h */,
+				4E9AEC31190C28F70062C1EF /* DQUDataServer.m */,
 				4ED4E75318E9C985007946C7 /* Model */,
 				4EB038E218E8F83D0084D175 /* DQUAppDelegate.h */,
 				4EB038E318E8F83D0084D175 /* DQUAppDelegate.m */,
@@ -338,6 +343,7 @@
 				4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */,
 				4EB038E018E8F83D0084D175 /* main.m in Sources */,
 				4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */,
+				4E9AEC32190C28F70062C1EF /* DQUDataServer.m in Sources */,
 				4EDBAD7418F2187C0016AAF2 /* DQU_HandViewController.m in Sources */,
 				4EB038E418E8F83D0084D175 /* DQUAppDelegate.m in Sources */,
 				4E737E0818F4DFE1009BD8D5 /* DQUHand.m in Sources */,
