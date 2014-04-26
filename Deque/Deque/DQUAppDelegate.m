@@ -19,6 +19,8 @@
 @synthesize idHand;
 @synthesize idDeck;
 
+@synthesize allCards;
+
 //// getter for currHand
 //- (DQUHand *)currHand
 //{
@@ -63,6 +65,30 @@
     
     // parse is set up at this point. can now handle work.
     
+    // create the dictionary of cards.
+    self.allCards = [[NSMutableDictionary alloc] init];
+    char suits[] = {'S', 'C', 'D', 'H'};
+    NSArray *ranks = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4",
+                      @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q",
+                      @"K", nil];
+    int ind = 0;
+    
+    for (int i = 0; i < 13; i++) {
+        for (int j = 0; j < 4; j++) {
+            NSString *currCard = [NSString stringWithFormat:@"%@_%c", ranks[i], suits[j]];
+            NSString *currCardPic = [NSString stringWithFormat:@"%@.png", currCard];
+            
+            [self.allCards setObject:[[DQUCard alloc]
+                                 initWithRank: ranks[i]
+                                 Suit: suits[j]
+                                 Name: currCard
+                                 Pic: currCardPic]
+                         forKey:[NSNumber numberWithInt:ind]];
+            
+            ind += 1;
+        }
+    }
+    
     // initialization...
     self.idHand = @"myhand";
     self.idDeck = @"deck";
@@ -71,29 +97,20 @@
     self.currDeck = [[DQUHand alloc] initWithHandID:self.idDeck];
     
     // create a deck
-    char suits[] = {'S', 'C', 'D', 'H'};
-    NSArray *ranks = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4",
-                      @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q",
-                      @"K", nil];
-    
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 13; j++) {
-            NSString *currCard = [NSString stringWithFormat:@"%@_%c", ranks[j], suits[i]];
-            NSString *currCardPic = [NSString stringWithFormat:@"%@.png", currCard];
-    
-            [self.currDeck addCard:[[DQUCard alloc]
-                                    initWithRank:ranks[j]
-                                    Suit: suits[i]
-                                    Name: currCard
-                                    Pic: currCardPic]];
-        }
+    int deckSize = (int) [self.allCards count];
+    for (int i = 0; i < deckSize; i++) {
+        [self.currDeck addCard:i];
     }
+    
+    // shuffle deck.
+    [self.currDeck shuffle];
     
     for (int i = 0; i < 6; i++) {
-        int r = arc4random() % [self.currDeck getCardCount];
-    
-        [self.currHand addCard:[self.currDeck grabAndRemoveCardAtIndex:r]];
+        [self.currHand addCard:[self.currDeck grabAndRemoveCardAtIndex:0]];
     }
+    
+    [self.currDeck printCards:self.allCards];
+    [self.currHand printCards:self.allCards];
     
     [self.currDeck saveInBackground];
     [self.currHand saveInBackground];

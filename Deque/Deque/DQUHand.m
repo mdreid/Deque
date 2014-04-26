@@ -16,65 +16,69 @@
 
 @dynamic cards;
 @dynamic handID;
-@dynamic numCards;
 
 + (NSString *)parseClassName {
     return @"DQUHand";
 }
 
+// cards is simply going to be an array of indices.
 -(id)initWithHandID:(NSString*) handName {
     self = [super init];
     
     self.cards = [[NSMutableArray alloc] init];
-    self.numCards = 0;
     self.handID = [NSString stringWithString:handName];
     
-//    int count = 0;
-//    for (int i = 0; i <= 3; i++) {
-//        for (int j = 1; j <= 13; j++) {
-//            DQUCard *card = [[DQUCard alloc] initWithRank:i Suit:j];
-//            hand[count] = card;
-//            //[card saveInBackground];
-//            count++;
-//        }
-//    }
-//    numCards = count;
     return self;
 }
 
 -(int)getCardCount {
-    return self.numCards;
+    return (int)[self.cards count];
 }
 
 -(NSString *)getHandID {
     return self.handID;
 }
 
--(void)printCards {
-    for (int i = 0; i < self.numCards; i++) {
-        NSLog(@"Rank: %@, Suit: %c", [(DQUCard*)self.cards[i] rank], [(DQUCard*)self.cards[i] suit]);
+-(void)printCards:(NSMutableDictionary *)allCards {
+    int count = [self getCardCount];
+    for (int i = 0; i < count; i++) {
+        int ind = [self.cards[i] intValue];
+        DQUCard* currCard = allCards[[NSNumber numberWithInt:ind]];
+        
+        NSLog(@"Rank: %@, Suit: %c", [currCard rank], [currCard suit]);
     }
 }
 
--(void)addCard:(DQUCard*)c
+// objects will all be NSNumbers.
+-(void)addCard:(int)i
 {
-    [self.cards addObject:c];
-    self.numCards++;
+    NSNumber* ind = [NSNumber numberWithInt:i];
+    [self.cards addObject:ind];
 }
 
 -(void)removeCardAtIndex:(int)i
 {
     [self.cards removeObjectAtIndex:i];
-    self.numCards--;
 }
 
--(DQUCard *)grabAndRemoveCardAtIndex:(int)i
+-(int)grabAndRemoveCardAtIndex:(int)i
 {
-    DQUCard *retCard = self.cards[i];
+    int retInd = [self.cards[i] intValue];
     [self.cards removeObjectAtIndex:i];
-    self.numCards--;
     
-    return retCard;
+    return retInd;
+}
+
+- (void)shuffle
+{
+    NSUInteger count = [self.cards count];
+    for (NSUInteger i = 0; i < count; i++) {
+        // select a random element between i and end of array to swap with
+        NSInteger nElements = count - i;
+        NSInteger n = arc4random_uniform((int)nElements) + i;
+        
+        [self.cards exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
 }
 
 // give card from own hand and place it in Hand other

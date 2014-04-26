@@ -67,10 +67,10 @@
 //            DQUHand *hand = (DQUHand*) objects[0];
             
             for (PFObject *object in objects) {
-                DQUHand *h = [[DQUHand alloc] initWithHandID:@"something else"];
-                h.handID = [object objectForKey:@"handID"];
-                h.cards = [object objectForKey:@"cards"];
-                [h printCards];
+                DQUHand *h = [[DQUHand alloc] initWithHandID:[object objectForKey:@"handID"]];
+                NSLog(@"%@", [h getHandID]);
+                h.cards = (NSMutableArray *)[object objectForKey:@"cards"];
+                [h printCards:appDel.allCards];
 //                if ([h getHandID] == [[appDel currHand] getHandID]) {
 //                    NSLog(@"successfully found %d cards in hand.", [h getCardCount]);
 //                    [h printCards];

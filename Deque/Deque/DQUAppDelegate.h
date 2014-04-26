@@ -21,5 +21,6 @@
 @property (strong, nonatomic) DQUHand *currDeck;
 @property (retain, nonatomic) NSString *idHand;
 @property (retain, nonatomic) NSString *idDeck;
+@property (strong, nonatomic) NSMutableDictionary *allCards;
 
 @end

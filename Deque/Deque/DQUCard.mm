@@ -30,15 +30,4 @@
     return self;
 }
 
-// Initializer sets text
-//-(id) initWithText:(NSString *)string {
-//    self = [super init];
-//    text = string;
-//    return self;
-//}
-
-+(NSString *)parseClassName {
-    return @"Card";
-}
-
 @end

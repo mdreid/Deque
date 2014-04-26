@@ -7,17 +7,12 @@
 //
 // Header file for card class
 
-#import <Parse/Parse.h>
-
-
-@interface DQUCard : PFObject<PFSubclassing>
+@interface DQUCard : NSObject
 
 @property (readonly) NSString* rank;
 @property (readonly) char suit;
 @property (readonly, nonatomic, retain) NSString *name;
 @property (readonly, nonatomic, retain) NSString *picName;
-
-+ (NSString *)parseClassName;
 
 -(id) initWithRank:(NSString*)r Suit:(char)s Name:(NSString *)n Pic:(NSString *)p;
 

@@ -10,38 +10,35 @@
 #import "DQUCard.h"
 
 @interface DQUHand : PFObject<PFSubclassing> {
-//    DQUCard *hand[52];
-    //@property (readonly) int numCards;
-    //NSArray *hand;
-//    int numCards;
-//    NSString* handID;
+
 }
 
 // items in this array should be of DQUCard
 @property (strong, nonatomic) NSMutableArray *cards;
 @property (retain) NSString *handID;
-@property int numCards;
 
 // initialize a hand with the name 'something'
--(id) initWithHandID:(NSString*) handName;
+- (id) initWithHandID:(NSString*) handName;
 
 // returns int of number of cards.
--(int) getCardCount;
+- (int) getCardCount;
 
 // returns the handID. prob will not need later on...gotta think on this.
--(NSString*) getHandID;
+- (NSString*) getHandID;
 
 // print the cards in this hand.
--(void) printCards;
+- (void) printCards:(NSMutableDictionary *)allCards;
 
 // add a card to the hand.
--(void) addCard:(DQUCard*)c;
+- (void) addCard:(int)i;
 
 // remove a card in the hand.
--(void) removeCardAtIndex:(int)i;
+- (void) removeCardAtIndex:(int)i;
 
 // return and remove the card in the hand at that index.
--(DQUCard *)grabAndRemoveCardAtIndex:(int)i;
+- (int)grabAndRemoveCardAtIndex:(int)i;
+
+- (void)shuffle;
 
 // name of the class
 + (NSString *)parseClassName;
