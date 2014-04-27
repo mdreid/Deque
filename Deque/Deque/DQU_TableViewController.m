@@ -27,19 +27,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    _p1Scrollview =  [[UIScrollView alloc] initWithFrame:CGRectMake(0, 130, 160, 60)];
+
+    _p1Scrollview =  [[UIScrollView alloc] initWithFrame:CGRectMake(0, 100, 114, 80)];
     
     _p1Scrollview.showsHorizontalScrollIndicator = NO;
     
-    CGFloat paperwidth = 150;
-    NSUInteger numberOfPapers = 5;
+    CGFloat paperwidth = 80 * 5 / 7;
+    NSUInteger numberOfPapers = 15;
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, _p1Scrollview.bounds.size.height)];
         
-        imageView.image = [UIImage imageNamed:@"star.png"];
+        imageView.image = [UIImage imageNamed:@"1_spades.png"];
         [_p1Scrollview addSubview:imageView];
         
     }
@@ -49,7 +49,7 @@
     
     [self.view addSubview:_p1Scrollview];
     
-    _p2Scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(160, 130, 160, 60)];
+    _p2Scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(115, 100, 114, 80)];
     
     _p2Scrollview.showsHorizontalScrollIndicator = NO;
     
@@ -57,7 +57,7 @@
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, _p2Scrollview.bounds.size.height)];
         
-        imageView.image = [UIImage imageNamed:@"star.png"];
+        imageView.image = [UIImage imageNamed:@"2_spades.png"];
         [_p2Scrollview addSubview:imageView];
         
     }
@@ -67,7 +67,7 @@
     
     [self.view addSubview:_p2Scrollview];
     
-    _p3Scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 320, 160, 60)];
+    _p3Scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(229, 100, 114, 80)];
     
     _p3Scrollview.showsHorizontalScrollIndicator = NO;
     
@@ -75,7 +75,7 @@
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, _p3Scrollview.bounds.size.height)];
         
-        imageView.image = [UIImage imageNamed:@"star.png"];
+        imageView.image = [UIImage imageNamed:@"3_spades.png"];
         [_p3Scrollview addSubview:imageView];
         
     }
@@ -86,7 +86,7 @@
     [self.view addSubview:_p3Scrollview];
 
     
-    _p4Scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(160, 320, 160, 60)];
+    _p4Scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(344, 100, 114, 80)];
     
     _p4Scrollview.showsHorizontalScrollIndicator = NO;
     
@@ -94,7 +94,7 @@
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, _p4Scrollview.bounds.size.height)];
         
-        imageView.image = [UIImage imageNamed:@"star.png"];
+        imageView.image = [UIImage imageNamed:@"1_spades.png"];
         [_p4Scrollview addSubview:imageView];
         
     }
@@ -104,20 +104,22 @@
     
     [self.view addSubview:_p4Scrollview];
     
-    _tableScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 420, 320, 80)];
+    CGFloat tablePaperWidth = 80 * 5 / 7;
+    
+    _tableScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 220, 458, 80)];
     
     _tableScrollview.showsHorizontalScrollIndicator = NO;
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, _tableScrollview.bounds.size.height)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tablePaperWidth * i, 0, paperwidth, _tableScrollview.bounds.size.height)];
         
-        imageView.image = [UIImage imageNamed:@"star.png"];
+        imageView.image = [UIImage imageNamed:@"2_spades.png"];
         [_tableScrollview addSubview:imageView];
         
     }
     
-    CGSize contentSizeTable = CGSizeMake(paperwidth * numberOfPapers, _tableScrollview.bounds.size.height);
+    CGSize contentSizeTable = CGSizeMake(tablePaperWidth * numberOfPapers, _tableScrollview.bounds.size.height);
     _tableScrollview.contentSize = contentSizeTable;
     
     [self.view addSubview:_tableScrollview];
@@ -128,7 +130,7 @@
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.tintColor = [UIColor darkGrayColor];*/
 
-    self.deck.center = CGPointMake(160, 525);
+    self.deck.center = CGPointMake(513, 150);
     [_deck addTarget:self action:@selector(showActionSheet:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_deck];
     

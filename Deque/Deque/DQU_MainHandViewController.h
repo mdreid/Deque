@@ -15,6 +15,9 @@
 {
 
 }
+@property (strong, nonatomic) IBOutlet UIScrollView *myHandScroll;
+
+
 
 // maintain a "current" hand for the app.
 @property (strong, nonatomic) NSMutableArray *cardValues;

@@ -72,7 +72,7 @@
     // create a game. save it to the background.
     self.gameID = @"first";
 //    self.currGame = [[DQUGame alloc] initWithGameName:@"first" OwnerName:@"m" numPlayers:2];
-//    
+//
 //    [self.currGame saveInBackground];
     
     // -----------------------------------------------------------------------------------------

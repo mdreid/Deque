@@ -14,23 +14,27 @@
     DQUAppDelegate *appDel;
 }
 
+/*
 @property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
-@property(nonatomic, weak) IBOutlet UIBarButtonItem *deckButton;
+@property(nonatomic, weak) IBOutlet UIBarButtonItem *deckButton; */
 
 @property (nonatomic, copy) NSString *handID;
 @property (nonatomic, copy) NSString *deckID;
 
-@property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
-
+/*
 - (IBAction)deckButtonTapped:(id)sender;
-- (IBAction)displayActionSheet:(id)sender;
+- (IBAction)displayActionSheet:(id)sender;*/
 
 
 @end
 
 @implementation DQU_MainHandViewController
+- (IBAction)myButton:(id)sender {
+    
+}
 
 @synthesize cardValues;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,6 +57,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    
+    
+    
     self.cardValues = [@[] mutableCopy];
     
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -92,6 +100,27 @@
             }
         }
     }];
+    
+    _myHandScroll =  [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 568, 300)];
+    
+    _myHandScroll.showsHorizontalScrollIndicator = NO;
+    
+    CGFloat paperwidth = 250;
+    NSUInteger numberOfPapers = 15;
+    
+    for (NSUInteger i = 0; i < numberOfPapers; i++) {
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, _myHandScroll.bounds.size.height)];
+        
+        imageView.image = [UIImage imageNamed:@"1_spades.png"];
+        [_myHandScroll addSubview:imageView];
+        
+    }
+    
+    CGSize contentSize = CGSizeMake(paperwidth * numberOfPapers,_myHandScroll.bounds.size.height);
+    _myHandScroll.contentSize = contentSize;
+    
+    [self.view addSubview:_myHandScroll];
     
 }
 
