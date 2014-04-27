@@ -9,7 +9,7 @@
 #import <Parse/Parse.h>
 #import "DQUHand.h"
 
-@interface DQUGame : PFObject {
+@interface DQUGame : PFObject<PFSubclassing> {
     int numPlayers;
 }
 

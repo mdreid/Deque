@@ -7,6 +7,7 @@
 //
 
 #import "DQUGame.h"
+#import <Parse/PFObject+Subclass.h>
 
 @implementation DQUGame
 
@@ -18,7 +19,7 @@
 
 int numCards = 52;
 + (NSString *)parseClassName {
-    return @"DQUHand";
+    return @"DQUGame";
 }
 
 - (id) initWithGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n {

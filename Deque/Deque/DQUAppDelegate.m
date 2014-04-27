@@ -14,61 +14,37 @@
 
 @implementation DQUAppDelegate
 
-@synthesize currHand;
-@synthesize currDeck;
-@synthesize idHand;
-@synthesize idDeck;
+@synthesize currGame;
+@synthesize gameID;
 
 @synthesize allCards;
 
-//// getter for currHand
-//- (DQUHand *)currHand
-//{
-//    if (!currHand) {
-//        currHand = [[DQUHand alloc] init];
-//    }
-//    return currHand;
-//}
-//
-//// getter for currDeck
-//- (DQUHand *)currDeck
-//{
-//    if (!currDeck) {
-//        currDeck = [[DQUHand alloc] init];
-//    }
-//    return currDeck;
-//}
-
-//- (id) init
-//{
-//    // call the init method from the super class.
-//    self = [super init];
-//    
-//    if (self) {
-//        
-//    }
-//    
-//    // return address of new object (which is itself)
-//    return self;
-//}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // -----------------------------------------------------------------------------------------
     // registering subclasses. must happen first thing.
-    [DQUHand registerSubclass];
     
+    [DQUHand registerSubclass];
+    [DQUGame registerSubclass];
+    
+    // -----------------------------------------------------------------------------------------
     // necessary for the Parse application.
+    
     [Parse setApplicationId:@"4b8rGvOFXnu0he9tTjcFGfAI4rtj4PrApTuUflYO"
                   clientKey:@"c6R2NoRcBD62mwLacnzOYRVNsbqrtl6um0ibiFJR"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    // -----------------------------------------------------------------------------------------
     // parse is set up at this point. can now handle work.
     
+    
+    // setting up the data server.
     DQUDataServer * data = [[DQUDataServer alloc] init];
+//    [data retrieveHandWithID:@"myhand" forGameID:@""];
     
-    [data retrieveHandWithID:@"myhand" forGameID:@""];
-    
+    // -----------------------------------------------------------------------------------------
     // create the dictionary of cards.
+    
     self.allCards = [[NSMutableDictionary alloc] init];
     char suits[] = {'S', 'C', 'D', 'H'};
     NSArray *ranks = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4",
@@ -92,55 +68,16 @@
         }
     }
     
-    // initialization...
-    self.idHand = @"myhand";
-    self.idDeck = @"deck";
-    
-    self.currHand = [[DQUHand alloc] initWithHandID:self.idHand];
-    self.currDeck = [[DQUHand alloc] initWithHandID:self.idDeck];
-    
-    // create a deck
-    int deckSize = (int) [self.allCards count];
-    for (int i = 0; i < deckSize; i++) {
-        [self.currDeck addCard:i];
-    }
-    
-    // shuffle deck.
-    [self.currDeck shuffle];
-    
-    for (int i = 0; i < 6; i++) {
-        [self.currHand addCard:[self.currDeck grabAndRemoveCardAtIndex:0]];
-    }
-    
-//    [self.currDeck printCards:self.allCards];
-//    [self.currHand printCards:self.allCards];
-    
-    [self.currDeck saveInBackground];
-    [self.currHand saveInBackground];
-    
-    // put them into the database.
-    
-    
-// code to store something on database, and grab it back from db
-//    DQUHand *deck = [[DQUHand alloc] init];
-//    [deck saveInBackground];
+    // -----------------------------------------------------------------------------------------
+    // create a game. save it to the background.
+//    self.gameID = @"first";
+//    self.currGame = [[DQUGame alloc] initWithGameName:@"first" OwnerName:@"m" numPlayers:2];
 //    
-//    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            // The find succeeded.
-//            NSLog(@"Successfully retrieved %lu scores.", (unsigned long)objects.count);
-//            // Do something with the found objects
-////            for (PFObject *object in objects) {
-////                DQUHand *h = (DQUHand *)object;
-////                [h printHand];
-////                NSLog(@"%@", object.objectId);
-////            }
-//        } else {
-//            // Log details of the failure
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        }
-//    }];
+//    [self.currGame saveInBackground];
+    
+    // -----------------------------------------------------------------------------------------
+    // manipulations within the game, to test DQUDataServer
+    
     
     return YES;
 }

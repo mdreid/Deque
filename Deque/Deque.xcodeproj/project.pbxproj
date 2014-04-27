@@ -178,9 +178,6 @@
 		4EB038D918E8F83B0084D175 /* Deque */ = {
 			isa = PBXGroup;
 			children = (
-				4E189F2C190C7513002878AD /* DQU_TableViewController.h */,
-				4E189F2D190C7513002878AD /* DQU_TableViewController.m */,
-				4E189F2E190C7513002878AD /* star.png */,
 				4EC0556C18F3478900CBA2B1 /* DQUCard.h */,
 				4EC0556D18F3478900CBA2B1 /* DQUCard.mm */,
 				4EC0557018F3478900CBA2B1 /* DQUHand.h */,
@@ -192,12 +189,15 @@
 				4EB038E218E8F83D0084D175 /* DQUAppDelegate.h */,
 				4EB038E318E8F83D0084D175 /* DQUAppDelegate.m */,
 				4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */,
-				4E22100018FB57EB0020ED2F /* DQU_MainHandViewController.h */,
-				4E22100118FB57EC0020ED2F /* DQU_MainHandViewController.m */,
+				4E189F2E190C7513002878AD /* star.png */,
 				4E22100318FB66190020ED2F /* DQU_CardCell.h */,
 				4E22100418FB66190020ED2F /* DQU_CardCell.m */,
 				4EDBAD7518F218B70016AAF2 /* DQU_HandCard.h */,
 				4EDBAD7618F218B70016AAF2 /* DQU_HandCard.m */,
+				4E22100018FB57EB0020ED2F /* DQU_MainHandViewController.h */,
+				4E22100118FB57EC0020ED2F /* DQU_MainHandViewController.m */,
+				4E189F2C190C7513002878AD /* DQU_TableViewController.h */,
+				4E189F2D190C7513002878AD /* DQU_TableViewController.m */,
 				4EDBAD7218F2187C0016AAF2 /* DQU_HandViewController.h */,
 				4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */,
 				4EB038E518E8F83D0084D175 /* Images.xcassets */,
