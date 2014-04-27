@@ -31,5 +31,6 @@
 @property DQUHand *discard;
 @property NSNumber *numPlayers;
 @property NSNumber *numHands;
+@property (retain) NSString *objID;
 
 @end

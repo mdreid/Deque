@@ -16,6 +16,7 @@
 // items in this array should be of DQUCard
 @property (strong, nonatomic) NSMutableArray *cards;
 @property (retain) NSString *handID;
+@property (retain) NSString *objID;
 
 // initialize a hand with the name 'something'
 - (id) initWithHandID:(NSString*) handName;

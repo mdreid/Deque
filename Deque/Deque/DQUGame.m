@@ -22,6 +22,7 @@ NSString *suffix = @"_disp";
 @dynamic hands;
 @dynamic numPlayers;
 @dynamic numHands;
+@dynamic objID;
 
 + (NSString *)parseClassName {
     return @"DQUGame";
