@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "DQUHand.h"
 #import "DQUCard.h"
+#import "DQUGame.h"
 #import "DQUDataServer.h"
 
 @interface DQUAppDelegate : UIResponder <UIApplicationDelegate>
@@ -18,10 +19,9 @@
 }
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) DQUHand *currHand;
-@property (strong, nonatomic) DQUHand *currDeck;
-@property (retain, nonatomic) NSString *idHand;
-@property (retain, nonatomic) NSString *idDeck;
+
+@property (strong, nonatomic) DQUGame *currGame;
+@property (retain, nonatomic) NSString *gameID;
 @property (strong, nonatomic) NSMutableDictionary *allCards;
 
 @end

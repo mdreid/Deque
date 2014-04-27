@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>9EDED17A-85A0-4CAF-87C7-39EDB9A21CA1</string>
+	<string>0096CF95-F09F-48B6-952F-5345932092A5</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Deque</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>682C19EA-703C-47E1-BD34-47ED0BB7FA17</key>
+		<key>411A8448-B7BF-4FFF-A5F4-168219024846</key>
 		<string>https://github.com/mdreid/Deque.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Deque/Deque.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>682C19EA-703C-47E1-BD34-47ED0BB7FA17</key>
+		<key>411A8448-B7BF-4FFF-A5F4-168219024846</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>682C19EA-703C-47E1-BD34-47ED0BB7FA17</string>
+	<string>411A8448-B7BF-4FFF-A5F4-168219024846</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>682C19EA-703C-47E1-BD34-47ED0BB7FA17</string>
+			<string>411A8448-B7BF-4FFF-A5F4-168219024846</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Deque</string>
 		</dict>

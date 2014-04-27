@@ -16,6 +16,7 @@
 
 @dynamic cards;
 @dynamic handID;
+@dynamic objID;
 
 + (NSString *)parseClassName {
     return @"DQUHand";
@@ -26,8 +27,9 @@
     self = [super init];
     
     if (self) {
-    self.cards = [[NSMutableArray alloc] init];
-    self.handID = [NSString stringWithString:handName];
+        self.cards = [[NSMutableArray alloc] init];
+        self.handID = [NSString stringWithString:handName];
+        self.objID = [NSString stringWithString:self.objectId];
     }
     
     return self;

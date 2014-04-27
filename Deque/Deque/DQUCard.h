@@ -16,6 +16,4 @@
 
 -(id) initWithRank:(NSString*)r Suit:(char)s Name:(NSString *)n Pic:(NSString *)p;
 
-//-(id) initWithText:(NSString *)string;
-
 @end

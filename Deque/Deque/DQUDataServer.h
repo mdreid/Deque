@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DQUHand.h"
+#import "DQUGame.h"
 
 @interface DQUDataServer : NSObject
 
@@ -23,13 +24,9 @@
 - (void) sendHand:(DQUHand *)hand forGameID:(NSString *)gameID;
 
 // retrieve game from the server.
-// will ultimately be:
-// - (DQUGame *) retrieveGameWithID:(NSSTring *)gameID;
-- (void) retrieveGameWithID:(NSString *)gameID;
+- (DQUGame *) retrieveGameWithID:(NSString *)gameID;
 
-// will ultimately be:
-// - (void) sendGame:(DQUGame *)game;
-- (void) sendGame;
+- (void) sendGame:(DQUGame *) game;
 
 
 @end
