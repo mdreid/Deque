@@ -8,16 +8,21 @@
 
 #import "DQUGame.h"
 #import <Parse/PFObject+Subclass.h>
+#import <Parse/Parse.h>
+
+int maxHands;
+int numCards = 52; // number of cards in deck
+NSString *suffix = @"_disp";
 
 @implementation DQUGame
-
 @dynamic deck;
 @dynamic discard;
 @dynamic ownerID;
 @dynamic gameID;
 @dynamic hands;
+@dynamic numPlayers;
+@dynamic numHands;
 
-int numCards = 52;
 + (NSString *)parseClassName {
     return @"DQUGame";
 }
@@ -34,28 +39,39 @@ int numCards = 52;
         self.ownerID = on;
     
         // set number of players
-        numPlayers = n;
-    
-        // build deck
-        DQUHand *dk = [[DQUHand alloc] initWithHandID:@"deck"];
-        for (int i = 0; i < numCards; i++) {
-            [dk addCard:i];
-        }
-        [dk shuffle];
-        self.deck = dk;
-    
-        // initialize discard
-        DQUHand *ds = [[DQUHand alloc] initWithHandID:@"discard"];
-        self.discard = ds;
-    
-        // make hands array
+        self.numPlayers = [NSNumber numberWithInt:n];
+        
+        // initialize hands
         NSMutableArray* array = [[NSMutableArray alloc] init];
-        DQUHand *r1 = [[DQUHand alloc] initWithHandID:@"r1"];
-        DQUHand *r2 = [[DQUHand alloc] initWithHandID:@"r2"];
-        [array addObject:r1];
-        [array addObject:r2];
         self.hands = array;
+    
     }
     return self;
 }
+
+// add a player to the game (both display hand and personal hand)
+- (void) addPlayer:(NSString *)playerName {
+    int nh = [self.numHands intValue];
+    if (nh < maxHands) {
+        DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
+        DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];
+        [self.hands addObject:p];
+        [self.hands addObject:pd];
+        int val = [self.numHands intValue];
+        self.numHands = [NSNumber numberWithInt:val+2];
+    }
+
+}
+
+// print game according to dictionary dict
+- (void) printGame: (NSMutableDictionary*) dict {
+    // print basic gameInfo
+    NSLog(@"Game ID: %@\n", self.gameID);
+    NSLog(@"Owner ID: %@\n", self.ownerID);
+    NSLog(@"Hands: ");
+    for (int i = 0; i < [self.hands count]; i++) {
+        [self.hands[i] printCards:dict];
+    }
+}
+
 @end
