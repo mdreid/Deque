@@ -14,8 +14,11 @@
 // name of the class
 + (NSString *)parseClassName;
 
-// make game instance with corresponding game name, owner name and number of players
-- (id) initWithGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n;
+// make game instance with corresponding game name and number of players
+- (id) initWithGameName: (NSString *) gn numPlayers: (int) n;
+
+// make game instance with corresponding game name, owner name, and number of players and deck
+- (id) initWithDeckandGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n;
 
 // add player
 - (void) addPlayer: (NSString *) playerName;

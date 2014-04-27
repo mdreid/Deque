@@ -28,16 +28,13 @@ NSString *suffix = @"_disp";
     return @"DQUGame";
 }
 
-- (id) initWithGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n {
+- (id) initWithGameName: (NSString *) gn numPlayers: (int) n {
     
     self = [super init];
     
     if (self) {
         // set game name
         self.gameID = gn;
-    
-        // set owner name
-        self.ownerID = on;
     
         // set number of players
         self.numPlayers = [NSNumber numberWithInt:n];
@@ -46,6 +43,31 @@ NSString *suffix = @"_disp";
         NSMutableArray* array = [[NSMutableArray alloc] init];
         self.hands = array;
     
+    }
+    return self;
+}
+
+- (id) initWithDeckandGameName:(NSString *)gn OwnerName:(NSString *)on numPlayers:(int)n {
+
+    self = [super init];
+    
+    if (self) {
+        self.gameID = gn;
+        self.ownerID = on;
+        self.numPlayers = [NSNumber numberWithInt:n];
+        
+        // build deck
+        DQUHand *dk = [[DQUHand alloc] initWithHandID:@"deck"];
+        for (int i = 0; i < numCards; i++) {
+            [dk addCard:i];
+        }
+        [dk shuffle];
+        self.deck = dk;
+        
+        // initialize discard
+        DQUHand *ds = [[DQUHand alloc] initWithHandID:@"discard"];
+        self.discard = ds;
+        
     }
     return self;
 }
