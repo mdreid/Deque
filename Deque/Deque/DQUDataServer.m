@@ -11,6 +11,7 @@
 
 @implementation DQUDataServer
 
+// Retrieves DQUHand specified by handID in game gameID from database
 - (DQUHand *) retrieveHandWithID:(NSString *)handID forGameID:(NSString *)gameID
 {
     __block DQUHand *theHand = nil;
@@ -22,7 +23,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            NSLog(@"successfully retrieved %lu objects.", (unsigned long) objects.count);
+            NSLog(@"successfully retrieved %lu objects.", (unsigned long) [objects count]);
             PFObject *object = objects[0];
             
             // this will be an array of pfObjects.
@@ -44,6 +45,7 @@
         }
         else {
             NSLog(@"OHSHIT ERROR.");
+            [DQUDataServer printDebugInfo:error];
         }
     }];
     
@@ -77,6 +79,7 @@
     return [[DQUHand alloc] init];
 }
 
+// sends a hand to database to update it
 - (void) sendHand:(DQUHand *)hand forGameID:(NSString *)gameID
 {
     
@@ -93,7 +96,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            NSUInteger count = objects.count;
+            NSUInteger count = [objects count];
             if (count == 0) {
                 NSLog(@"%@ could not be found.", gameID);
                 return;
@@ -101,10 +104,13 @@
             
             // actually found something. just assume there can only be one.
             PFObject *object = objects[0];
-            NSString *ownerName = [object objectForKey:@"ownerID"];
+            
+            //-mdr-commented out the following line
+            //NSString *ownerName = [object objectForKey:@"ownerID"];
             int numPlayers = 4;
             
-            game = [[DQUGame alloc] initWithGameName:gameID OwnerName:ownerName numPlayers:numPlayers];
+            // mdr-removed owner parameter from this
+            game = [[DQUGame alloc] initWithGameName:gameID numPlayers:numPlayers];
             
             // need to grab the hands, the deck, and discard.
             PFObject *objDeck = [object objectForKey:@"deck"];
@@ -122,6 +128,7 @@
                 }
                 else {
                     NSLog(@"error within query for deck.");
+                    [DQUDataServer printDebugInfo:error];
                 }
             }];
             
@@ -133,9 +140,11 @@
                 }
                 else {
                     NSLog(@"error within query for discard deck.");
+                    [DQUDataServer printDebugInfo:error];
                 }
             }];
             
+            // fill up the hands
             for (PFObject *h in currHands) {
                 [handsQuery getObjectInBackgroundWithId:h.objectId block:^(PFObject *obj, NSError *error) {
                     if (!error) {
@@ -144,6 +153,7 @@
                     }
                     else {
                         NSLog(@"error within query for hands.");
+                        [DQUDataServer printDebugInfo:error];
                     }
                 }];
             }
@@ -151,6 +161,7 @@
         }
         else {
             NSLog(@"SHIT HAPPENED");
+            [DQUDataServer printDebugInfo:error];
         }
     }];
     
@@ -158,9 +169,17 @@
 
 }
 
+// sends a game to the database
 - (void) sendGame:(DQUGame *)game;
 {
     
+}
+
+// Prints additional information for debugging
++ (void) printDebugInfo:(NSError *)e {
+    NSLog(@"Description: %@\n", [e localizedDescription]);
+    NSLog(@"Failure reason: %@\n", [e localizedFailureReason]);
+    NSLog(@"Suggestion: %@\n", [e localizedRecoverySuggestion]);
 }
 
 @end
