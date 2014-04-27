@@ -16,6 +16,8 @@
 @dynamic gameID;
 @dynamic hands;
 
+int numHands;
+int maxHands;
 int numCards = 52;
 + (NSString *)parseClassName {
     return @"DQUHand";
@@ -34,6 +36,8 @@ int numCards = 52;
     
         // set number of players
         numPlayers = n;
+        maxHands = (numPlayers * 2) + 2;
+        numHands = 2;
     
         // build deck
         DQUHand *dk = [[DQUHand alloc] initWithHandID:@"deck"];
@@ -57,4 +61,16 @@ int numCards = 52;
     }
     return self;
 }
+
+- (void) addPlayer:(NSString *)playerName {
+    if (numHands < maxHands) {
+        NSString *suffix = @"_disp";
+        DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
+        DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];
+        [self.hands addObject:p];
+        [self.hands addObject:pd];
+        numHands = numHands + 2;
+    }
+}
+
 @end

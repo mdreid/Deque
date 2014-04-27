@@ -19,6 +19,9 @@
 // make game instance with corresponding game name, owner name and number of players
 - (id) initWithGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n;
 
+// add player
+- (void) addPlayer: (NSString *) playerName;
+
 // items in this array should be of type DQUHand
 @property (strong, nonatomic) NSMutableArray *hands;
 @property (nonatomic) NSString *gameID;
