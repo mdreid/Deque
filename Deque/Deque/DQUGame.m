@@ -8,17 +8,19 @@
 
 #import "DQUGame.h"
 
-@implementation DQUGame
+int numHands; // current number of hands
+int maxHands; // max number of hands
+int numCards = 52; // number of cards in deck
+NSString *suffix = @"_disp";
 
+
+@implementation DQUGame
 @dynamic deck;
 @dynamic discard;
 @dynamic ownerID;
 @dynamic gameID;
 @dynamic hands;
 
-int numHands;
-int maxHands;
-int numCards = 52;
 + (NSString *)parseClassName {
     return @"DQUHand";
 }
@@ -51,20 +53,20 @@ int numCards = 52;
         DQUHand *ds = [[DQUHand alloc] initWithHandID:@"discard"];
         self.discard = ds;
     
-        // make hands array
+        // make hands array and add host player
         NSMutableArray* array = [[NSMutableArray alloc] init];
-        DQUHand *r1 = [[DQUHand alloc] initWithHandID:@"r1"];
-        DQUHand *r2 = [[DQUHand alloc] initWithHandID:@"r2"];
-        [array addObject:r1];
-        [array addObject:r2];
+        DQUHand *p1 = [[DQUHand alloc] initWithHandID:[on copy]];
+        DQUHand *p1d = [[DQUHand alloc] initWithHandID:[on stringByAppendingString:suffix]];
+        [array addObject:p1];
+        [array addObject:p1d];
         self.hands = array;
     }
     return self;
 }
 
+// add a player to the game (both display hand and personal hand)
 - (void) addPlayer:(NSString *)playerName {
     if (numHands < maxHands) {
-        NSString *suffix = @"_disp";
         DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
         DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];
         [self.hands addObject:p];
