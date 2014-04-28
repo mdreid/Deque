@@ -97,7 +97,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vcg-f9-SKV">
                                         <rect key="frame" x="32" y="33" width="45" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="star.png">
+                                        <state key="normal" title="your hand" image="star.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -107,7 +107,14 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YqK-ww-gzh">
                                         <rect key="frame" x="32" y="119" width="45" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="star.png">
+                                        <state key="normal" title="deck" image="star.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTj-1S-wDa">
+                                        <rect key="frame" x="32" y="202" width="86" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="trash" image="star.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
@@ -130,6 +137,7 @@
                         <outlet property="p3Scrollview" destination="s1k-8Q-Lxn" id="wel-Su-D0u"/>
                         <outlet property="p4Scrollview" destination="9s4-ce-QOz" id="cfd-95-g6w"/>
                         <outlet property="tableScrollview" destination="Vcp-K1-su2" id="PLQ-Fk-9Py"/>
+                        <outlet property="trash" destination="yTj-1S-wDa" id="Oi9-UB-Zef"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cD9-CB-YiG" userLabel="First Responder" sceneMemberID="firstResponder"/>

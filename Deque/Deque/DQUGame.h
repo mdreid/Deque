@@ -44,6 +44,7 @@
 @property (nonatomic) NSString *ownerID;
 @property DQUHand *deck;
 @property DQUHand *discard;
+@property DQUHand *table;
 @property NSNumber *numPlayers;
 @property NSNumber *numHands;
 @property NSString *objID;

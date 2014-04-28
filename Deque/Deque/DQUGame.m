@@ -15,6 +15,7 @@ NSString *suffix = @"_disp";
 @implementation DQUGame
 @dynamic deck;
 @dynamic discard;
+@dynamic table;
 @dynamic ownerID;
 @dynamic gameID;
 @dynamic hands;
@@ -36,6 +37,7 @@ NSString *suffix = @"_disp";
         self.deck = nil;
         self.discard = nil;
         self.ownerID = nil;
+        self.table = nil;
         self.numPlayers = nil;
         self.numHands = nil;
         self.objID = nil;
@@ -73,6 +75,10 @@ NSString *suffix = @"_disp";
         // initialize discard
         DQUHand *ds = [[DQUHand alloc] initWithHandID:@"discard"];
         self.discard = ds;
+        
+        // initialize table
+        DQUHand *t = [[DQUHand alloc] initWithHandID:@"table"];
+        self.table = t;
         
         // make hands array
         NSMutableArray* array = [[NSMutableArray alloc] init];

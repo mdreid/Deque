@@ -17,6 +17,7 @@
 
 @synthesize allCards;
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // -----------------------------------------------------------------------------------------
@@ -36,10 +37,10 @@
     // parse is set up at this point. can now handle work.
     
     // dispatch queue?
-//    dispatch_queue_t myQueue = dispatch_queue_create("main", NULL);
-    
+ 
     // setting up the data server.
-    __block DQUDataServer * data = [[DQUDataServer alloc] init];
+    DQUDataServer * data = [[DQUDataServer alloc] init];
+
 //    [data retrieveHandWithID:@"myhand" forGameID:@""];
     
     // -----------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@
     
     self.allCards = [[NSMutableDictionary alloc] init];
     char suits[] = {'S', 'C', 'D', 'H'};
-    NSArray *ranks = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4",
+    NSArray *ranks = [NSArray arrayWithObjects:@"A", @"2", @"3", @"4",
                       @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q",
                       @"K", nil];
     int ind = 0;
@@ -68,6 +69,12 @@
         }
     }
     
+    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
+    [game addPlayer:@"lw3"];
+    [game addPlayer:@"xiw"];
+    [game dealCards:3];
+    
+    
     // -----------------------------------------------------------------------------------------
     // Game testing and debugging stuff.
     self.gameID = @"testing here";
@@ -77,9 +84,8 @@
     // -----------------------------------------------------------------------------------------
     // manipulations within the game, to test DQUDataServer
     
-    self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
-    [self.currGame printGame:self.allCards];
-
+//    self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
+//    [self.currGame printGame:self.allCards];
     
     return YES;
 }

@@ -20,5 +20,6 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *deck;
 
+@property (strong, nonatomic) IBOutlet UIButton *trash;
 
 @end
