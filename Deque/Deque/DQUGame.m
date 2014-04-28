@@ -188,4 +188,27 @@ NSString *suffix = @"_disp";
     return [self.hands[c] getCardCount] == 0;
 }
 
+
+// deal num per hands cards
+- (void) dealCards:(int)numPerHand {
+    for (int i = 0; i < [self.hands count]; i++) {
+        if (![self.hands[i] isDisplayHand]) {
+            for (int j = 0; j < numPerHand; j++) {
+                [self drawFromDeck:[self.hands[i] getHandID]];
+            }
+        }
+    }
+}
+
+- (void) giveCard:(NSString *)src :(NSString *)dst :(int)index { // src is person giving
+    int s = [self findHandIndex:src];
+    int d = [self findHandIndex:dst];
+    int c = [self.hands[s] grabAndRemoveCardAtIndex:index];
+    [self.hands[d] addCard:c];
+}
+
+- (void) takeCard:(NSString *)from :(NSString *)to :(int)index {
+    [self giveCard:from:to:index];
+}
+
 @end

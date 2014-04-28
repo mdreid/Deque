@@ -49,6 +49,8 @@
 
 - (void)printID;
 
+- (BOOL) isDisplayHand;
+
 // name of the class
 + (NSString *)parseClassName;
 
