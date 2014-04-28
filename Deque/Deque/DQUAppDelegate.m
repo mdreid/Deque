@@ -72,7 +72,7 @@
     // create a game. save it to the background.
     self.gameID = @"first";
 //    self.currGame = [[DQUGame alloc] initWithGameName:@"first" OwnerName:@"m" numPlayers:2];
-//    
+//
 //    [self.currGame saveInBackground];
     
     // -----------------------------------------------------------------------------------------
@@ -107,6 +107,10 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // We have to clear out all data associated with this game
+    
+    
+    
 }
 
 @end
