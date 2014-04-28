@@ -29,7 +29,6 @@
     if (self) {
         self.cards = [[NSMutableArray alloc] init];
         self.handID = [NSString stringWithString:handName];
-        self.objID = [NSString stringWithString:self.objectId];
     }
     
     return self;
@@ -91,6 +90,21 @@
         
         [self.cards exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
+}
+
+- (void)saveOwnObjID
+{
+    self.objID = self.objectId;
+}
+
+- (void)saveAsObjectID:(NSString*)objID
+{
+    self.objID = [NSString stringWithString:objID];
+}
+
+- (void)printID
+{
+    NSLog(@"%@ has object ID: %@", self.handID, self.objID);
 }
 
 // give card from own hand and place it in Hand other

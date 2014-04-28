@@ -43,6 +43,12 @@
 
 - (void)shuffle;
 
+- (void)saveOwnObjID;
+
+- (void)saveAsObjectID:(NSString*)objID;
+
+- (void)printID;
+
 // name of the class
 + (NSString *)parseClassName;
 

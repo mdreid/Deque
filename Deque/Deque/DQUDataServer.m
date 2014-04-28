@@ -90,37 +90,38 @@
     PFQuery *query = [DQUGame query];
     NSLog(@"the game ID we're looking for is: %@", gameID);
     
+    // this will be the game we ultimately return which will be completely filled in.
     __block DQUGame *game = nil;
     
     [query whereKey:@"gameID" equalTo:gameID];
-//    
-//    @property (nonatomic) NSMutableArray *hands;
-//    @property DQUHand *deck;
-//    @property DQUHand *discard;
-//    @property NSNumber *numHands;
-//    @property (retain) NSString *objID;
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            // check if it actually found the game ID.
             NSUInteger count = [objects count];
             if (count == 0) {
                 NSLog(@"%@ could not be found.", gameID);
                 return;
             }
             
+//            @property (nonatomic) NSMutableArray *hands;
+//            @property DQUHand *deck;
+//            @property DQUHand *discard;
+            
             // actually found something. just assume there can only be one.
             PFObject *object = objects[0];
             NSString *ownerName = [object objectForKey:@"ownerID"];
-            NSNumber *numPlayers = [object objectForKey:@"numPlayers"];
             
-            game = [[DQUGame alloc] initWithGameName:gameID numPlayers:[numPlayers intValue]];
-            game.ownerID = ownerName;
+            game = [[DQUGame alloc] init];
+            game.gameID = [NSString stringWithString:gameID];
+            game.ownerID = [NSString stringWithString:ownerName];
+            game.numPlayers = [object objectForKey:@"numPlayers"];
             game.numHands = [object objectForKey:@"numHands"];
+            game.objID = [NSString stringWithString:object.objectId];
+            game.hands = [[NSMutableArray alloc] init];
             
             // need to grab the hands, the deck, and discard.
             PFObject *objDeck = [object objectForKey:@"deck"];
             PFObject *objDiscard = [object objectForKey:@"discard"];
-            
             NSArray *currHands = [object objectForKey:@"hands"];
             
             PFQuery *handsQuery = [DQUHand query];
@@ -130,6 +131,7 @@
                 if (!error) {
                     game.deck = [[DQUHand alloc] initWithHandID:[obj objectForKey:@"handID"]];
                     game.deck.cards = [[obj objectForKey:@"cards"] mutableCopy];
+                    game.deck.objID = [NSString stringWithString:obj.objectId];
                 }
                 else {
                     NSLog(@"error within query for deck.");
@@ -142,6 +144,7 @@
                 if (!error) {
                     game.discard = [[DQUHand alloc] initWithHandID:[obj objectForKey:@"handID"]];
                     game.discard.cards = [[obj objectForKey:@"cards"] mutableCopy];
+                    game.discard.objID = [NSString stringWithString:obj.objectId];
                 }
                 else {
                     NSLog(@"error within query for discard deck.");
@@ -155,6 +158,8 @@
                     if (!error) {
                         DQUHand *curr = [[DQUHand alloc] initWithHandID:[obj objectForKey:@"handID"]];
                         curr.cards = [[obj objectForKey:@"cards"] mutableCopy];
+                        curr.objID = [NSString stringWithString:obj.objectId];
+                        [game.hands addObject:curr];
                     }
                     else {
                         NSLog(@"error within query for hands.");

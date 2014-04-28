@@ -57,6 +57,8 @@ NSString *suffix = @"_disp";
     self = [super init];
     
     if (self) {
+        __block DQUGame *useSelf = self;
+        
         self.gameID = gn;
         self.ownerID = on;
         self.numPlayers = [NSNumber numberWithInt:n];
@@ -85,7 +87,24 @@ NSString *suffix = @"_disp";
         self.numHands = [NSNumber numberWithInt:2];
         
         // save
-        [self saveInBackground];
+        [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [useSelf.deck saveOwnObjID];
+//                [useSelf.deck printID];
+                [useSelf.discard saveOwnObjID];
+//                [useSelf.discard printID];
+                
+                for (DQUHand *h in useSelf.hands) {
+                    [h saveOwnObjID];
+//                    [h printID];
+                }
+                
+            }
+            else {
+                NSLog(@"error in callback for save.");
+            }
+        }];
+        
     }
     return self;
 }
@@ -95,12 +114,30 @@ NSString *suffix = @"_disp";
     int nh = [self.numHands intValue];
     int maxHands = [self.numPlayers intValue] * 2;
     if (nh < maxHands) {
-        DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
-        DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];
+        __block DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
+        __block DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];
         [self.hands addObject:p];
         [self.hands addObject:pd];
         int val = [self.numHands intValue];
         self.numHands = [NSNumber numberWithInt:val+2];
+        
+        [p saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [p saveOwnObjID];
+            }
+            else {
+                NSLog(@"Something happened in trying to save hand from adding a player.");
+            }
+        }];
+        
+        [pd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [pd saveOwnObjID];
+            }
+            else {
+                NSLog(@"Something happened in trying to save hand from adding a player.");
+            }
+        }];
     }
     
 }
@@ -113,6 +150,7 @@ NSString *suffix = @"_disp";
     NSLog(@"Hands: ");
     for (int i = 0; i < [self.hands count]; i++) {
         [self.hands[i] printCards:dict];
+        [self.hands[i] printID];
     }
 }
 

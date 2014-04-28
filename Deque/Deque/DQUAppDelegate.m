@@ -69,15 +69,15 @@
     }
     
     // -----------------------------------------------------------------------------------------
-    // create a game. save it to the background.
-    self.gameID = @"first";
-//    self.currGame = [[DQUGame alloc] initWithGameName:@"first" OwnerName:@"m" numPlayers:2];
-//
-//    [self.currGame saveInBackground];
+    // Game testing and debugging stuff.
+    self.gameID = @"testing here";
+    
+//    self.currGame = [[DQUGame alloc] initWithDeckandGameName:self.gameID OwnerName:@"x" numPlayers:4];
     
     // -----------------------------------------------------------------------------------------
     // manipulations within the game, to test DQUDataServer
     DQUGame *game = [data retrieveGameWithID:self.gameID];
+    [game printGame:self.allCards];
     
     return YES;
 }
