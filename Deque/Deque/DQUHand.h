@@ -43,6 +43,8 @@
 
 - (void)shuffle;
 
+- (BOOL) isDisplayHand;
+
 // name of the class
 + (NSString *)parseClassName;
 

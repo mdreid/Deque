@@ -12,8 +12,8 @@
 
 //#define DECK_SZ 52;
 
+NSString *suffix = @"_disp";
 @implementation DQUHand
-
 @dynamic cards;
 @dynamic handID;
 @dynamic objID;
@@ -41,6 +41,10 @@
 
 -(NSString *)getHandID {
     return self.handID;
+}
+
+- (BOOL) isDisplayHand {
+    return ([self.handID rangeOfString:suffix].location == NSNotFound);
 }
 
 -(void)printCards:(NSMutableDictionary *)allCards {
