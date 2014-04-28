@@ -91,6 +91,12 @@
     
     [query whereKey:@"gameID" equalTo:gameID];
     
+    @property (nonatomic) NSMutableArray *hands;
+    @property DQUHand *deck;
+    @property DQUHand *discard;
+    @property NSNumber *numHands;
+    @property (retain) NSString *objID;
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSUInteger count = objects.count;
@@ -102,9 +108,11 @@
             // actually found something. just assume there can only be one.
             PFObject *object = objects[0];
             NSString *ownerName = [object objectForKey:@"ownerID"];
-            int numPlayers = 4;
+            NSNumber *numPlayers = [object objectForKey:@"numPlayers"];
             
-            game = [[DQUGame alloc] initWithGameName:gameID OwnerName:ownerName numPlayers:numPlayers];
+            game = [[DQUGame alloc] initWithGameName:gameID numPlayers:[numPlayers intValue]];
+            game.ownerID = ownerName;
+            game.numHands = [object objectForKey:@"numHands"];
             
             // need to grab the hands, the deck, and discard.
             PFObject *objDeck = [object objectForKey:@"deck"];

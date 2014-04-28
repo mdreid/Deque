@@ -10,7 +10,6 @@
 #import <Parse/PFObject+Subclass.h>
 #import <Parse/Parse.h>
 
-int maxHands;
 int numCards = 52; // number of cards in deck
 NSString *suffix = @"_disp";
 
@@ -75,6 +74,7 @@ NSString *suffix = @"_disp";
 // add a player to the game (both display hand and personal hand)
 - (void) addPlayer:(NSString *)playerName {
     int nh = [self.numHands intValue];
+    int maxHands = [self.numPlayers intValue] * 2;
     if (nh < maxHands) {
         DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
         DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];

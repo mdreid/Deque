@@ -65,6 +65,14 @@
     [self.cards removeObjectAtIndex:i];
 }
 
+-(int)drawCard
+{
+    int retInd = [self.cards[0] intValue];
+    [self.cards removeObjectAtIndex:0];
+    
+    return retInd;
+}
+
 -(int)grabAndRemoveCardAtIndex:(int)i
 {
     int retInd = [self.cards[i] intValue];

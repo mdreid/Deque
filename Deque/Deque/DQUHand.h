@@ -33,6 +33,8 @@
 // add a card to the hand.
 - (void) addCard:(int)i;
 
+- (int) drawCard;
+
 // remove a card in the hand.
 - (void) removeCardAtIndex:(int)i;
 
