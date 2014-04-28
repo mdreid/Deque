@@ -20,7 +20,7 @@
 - (DQUHand *) retrieveHandWithID:(NSString *)objID;
 
 // update hand on the server.
-- (void) sendHand:(DQUHand *)hand forGameID:(NSString *)gameID;
+- (void) sendHand:(DQUHand *)hand;
 
 // retrieve game from the server.
 - (DQUGame *) retrieveGameWithID:(NSString *)gameID forGame:(DQUGame *)theGame;

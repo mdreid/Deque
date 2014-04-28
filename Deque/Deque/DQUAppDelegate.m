@@ -81,10 +81,21 @@
     
 //    self.currGame = [[DQUGame alloc] initWithDeckandGameName:self.gameID OwnerName:@"x" numPlayers:4];
     
+    
+    
     // -----------------------------------------------------------------------------------------
     // manipulations within the game, to test DQUDataServer
     
-//    self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
+    self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
+    
+    int handInd = [self.currGame findHandIndex:@"x"];
+    
+    [self.currGame drawFromDeck:@"x"];
+    [self.currGame drawFromDeck:@"x"];
+    
+    [data sendHand:self.currGame.hands[handInd]];
+    [data sendHand:self.currGame.deck];
+    
 //    [self.currGame printGame:self.allCards];
     
     return YES;
