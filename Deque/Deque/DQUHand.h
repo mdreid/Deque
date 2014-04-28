@@ -10,7 +10,7 @@
 #import "DQUCard.h"
 
 @interface DQUHand : PFObject<PFSubclassing> {
-
+    NSString *suffix;
 }
 
 // items in this array should be of DQUCard

@@ -103,21 +103,16 @@
                 return;
             }
             
-//            @property (nonatomic) NSMutableArray *hands;
-//            @property DQUHand *deck;
-//            @property DQUHand *discard;
-            
             // actually found something. just assume there can only be one.
             PFObject *object = objects[0];
             NSString *ownerName = [object objectForKey:@"ownerID"];
             
-            game = [[DQUGame alloc] init];
+            game = [[DQUGame alloc] initWithoutInfo];
             game.gameID = [NSString stringWithString:gameID];
             game.ownerID = [NSString stringWithString:ownerName];
             game.numPlayers = [object objectForKey:@"numPlayers"];
             game.numHands = [object objectForKey:@"numHands"];
             game.objID = [NSString stringWithString:object.objectId];
-            game.hands = [[NSMutableArray alloc] init];
             
             // need to grab the hands, the deck, and discard.
             PFObject *objDeck = [object objectForKey:@"deck"];

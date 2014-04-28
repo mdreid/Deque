@@ -15,7 +15,7 @@
 + (NSString *)parseClassName;
 
 // make generic game instance
-- (id) init;
+- (id) initWithoutInfo;
 
 // make game instance with corresponding game name, owner name, and number of players and deck
 - (id) initWithDeckandGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n;
