@@ -9,7 +9,7 @@
 #import "DQU_TableViewController.h"
 #import "DQUAppDelegate.h"
 #import "DQUHand.h"
-#import <QuartzCore/QuartzCore.h>;
+#import <QuartzCore/QuartzCore.h>
 
 @interface DQU_TableViewController () {
      DQUAppDelegate *appDel;
@@ -72,20 +72,23 @@
     button.tintColor = [UIColor darkGrayColor];*/
 
     self.deck.center = CGPointMake(513, 150);
-    [_deck addTarget:self action:@selector(showActionSheet:) forControlEvents:UIControlEventTouchUpInside];
+    [_deck addTarget:self action:@selector(showActionSheetDeck:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_deck];
     
+    self.trash.center = CGPointMake(513, 200);
+    [_trash addTarget:self action:@selector(showActionSheetTrash:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_trash];
     
     
 }
 
-- (void)showActionSheet:(id)sender
+- (void)showActionSheetDeck:(id)sender
 {
-    NSString *actionSheetTitle = @"Action Sheet Demo"; //Action Sheet Title
-    NSString *destructiveTitle = @"Destructive Button"; //Action Sheet Button Titles
+    NSString *actionSheetTitle = @"DECK"; //Action Sheet Title
+    NSString *destructiveTitle = @"New Deck"; //Action Sheet Button Titles
     NSString *other1 = @"Draw Card";
     NSString *other2 = @"Shuffle";
-    NSString *other3 = @"Other Button 3";
+    NSString *other3 = @"Deal";
     NSString *cancelTitle = @"Cancel Button";
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
@@ -99,11 +102,50 @@
     
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)actionSheetDeck:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     //Get the name of the current pressed button
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     
-    if  ([buttonTitle isEqualToString:@"Destructive Button"]) {
+    if  ([buttonTitle isEqualToString:@"New Deck"]) {
+        NSLog(@"Destructive pressed --> Delete Something");
+    }
+    if ([buttonTitle isEqualToString:@"Draw Card"]) {
+        NSLog(@"Other 1 pressed");
+    }
+    if ([buttonTitle isEqualToString:@"Shuffle"]) {
+        NSLog(@"Other 2 pressed");
+    }
+    if ([buttonTitle isEqualToString:@"Deal"]) {
+        NSLog(@"Other 3 pressed");
+    }
+    if ([buttonTitle isEqualToString:@"Cancel Button"]) {
+        NSLog(@"Cancel pressed --> Cancel ActionSheet");
+    }
+    
+}
+
+- (void)showActionSheetTrash:(id)sender
+{
+    NSString *actionSheetTitle = @"TRASH"; //Action Sheet Title
+    NSString *destructiveTitle = @"Empty"; //Action Sheet Button Titles
+    NSString *cancelTitle = @"Cancel Button";
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:actionSheetTitle
+                                  delegate:self
+                                  cancelButtonTitle:cancelTitle
+                                  destructiveButtonTitle:destructiveTitle
+                                  otherButtonTitles: nil];
+    
+    [actionSheet showInView:self.view];
+    
+}
+
+- (void)actionSheetTrash:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //Get the name of the current pressed button
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if  ([buttonTitle isEqualToString:@"Empty"]) {
         NSLog(@"Destructive pressed --> Delete Something");
     }
     if ([buttonTitle isEqualToString:@"Draw Card"]) {
@@ -120,6 +162,10 @@
     }
     
 }
+
+
+
+
 
 - (void) drawDisplayCard: (UIScrollView *)scrollView withHand:(DQUHand *)aHand withID:(int)playerID {
     

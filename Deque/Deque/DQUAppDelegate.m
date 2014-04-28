@@ -17,6 +17,7 @@
 
 @synthesize allCards;
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // -----------------------------------------------------------------------------------------
@@ -36,11 +37,11 @@
     // parse is set up at this point. can now handle work.
     
     // dispatch queue?
-    dispatch_queue_t myQueue = dispatch_queue_create("main", NULL);
+/*    dispatch_queue_t myQueue = dispatch_queue_create("main", NULL);
     
     // setting up the data server.
     __block DQUDataServer * data = [[DQUDataServer alloc] init];
-    __block DQUGame *game;
+    __block DQUGame *game; */
 //    [data retrieveHandWithID:@"myhand" forGameID:@""];
     
     // -----------------------------------------------------------------------------------------
@@ -69,6 +70,11 @@
         }
     }
     
+    DQUHand *deck = [[DQUHand alloc] initWithHandID:@"deck"];
+    for (int i = 0; i < 52; i++) {
+        [deck addCard:i];
+    }
+    
     // -----------------------------------------------------------------------------------------
     // Game testing and debugging stuff.
     self.gameID = @"testing here";
@@ -77,11 +83,10 @@
     
     // -----------------------------------------------------------------------------------------
     // manipulations within the game, to test DQUDataServer
-<<<<<<< HEAD
   //  DQUGame *game = [data retrieveGameWithID:self.gameID];
   //  [game printGame:self.allCards];
-=======
-    
+
+ /*
     dispatch_async(myQueue, ^{
         game = [data retrieveGameWithID:self.gameID];
         if (!game) return;
@@ -90,7 +95,7 @@
 //            [game printGame:self.allCards];
         });
     });
->>>>>>> c5321611a604ea08ecd9656ac8b63cb81e5fa1be
+*/
     
     return YES;
 }
