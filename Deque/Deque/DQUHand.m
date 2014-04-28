@@ -12,7 +12,6 @@
 
 //#define DECK_SZ 52;
 
-NSString *suffix = @"_disp";
 @implementation DQUHand
 @dynamic cards;
 @dynamic handID;
@@ -25,6 +24,8 @@ NSString *suffix = @"_disp";
 // cards is simply going to be an array of indices.
 -(id)initWithHandID:(NSString*) handName {
     self = [super init];
+    
+     suffix = @"_disp";
     
     if (self) {
         self.cards = [[NSMutableArray alloc] init];

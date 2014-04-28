@@ -39,7 +39,7 @@
     
     
     // setting up the data server.
-    DQUDataServer * data = [[DQUDataServer alloc] init];
+//    DQUDataServer * data = [[DQUDataServer alloc] init];
 //    [data retrieveHandWithID:@"myhand" forGameID:@""];
     
     // -----------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@
     
     self.allCards = [[NSMutableDictionary alloc] init];
     char suits[] = {'S', 'C', 'D', 'H'};
-    NSArray *ranks = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4",
+    NSArray *ranks = [NSArray arrayWithObjects:@"A", @"2", @"3", @"4",
                       @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q",
                       @"K", nil];
     int ind = 0;
@@ -76,8 +76,8 @@
     
     // -----------------------------------------------------------------------------------------
     // manipulations within the game, to test DQUDataServer
-    DQUGame *game = [data retrieveGameWithID:self.gameID];
-    [game printGame:self.allCards];
+  //  DQUGame *game = [data retrieveGameWithID:self.gameID];
+  //  [game printGame:self.allCards];
     
     return YES;
 }
