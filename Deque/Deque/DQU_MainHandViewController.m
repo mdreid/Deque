@@ -165,7 +165,6 @@
     NSString *destructiveTitle = @"Discard"; //Action Sheet Button Titles
     
     NSMutableArray *names = [appDel.currGame findHandIDs:@"mdr"];
-    int playerCount = [appDel.currGame.numPlayers intValue];
     
     NSMutableArray *optionNames = [[NSMutableArray alloc] init];
     

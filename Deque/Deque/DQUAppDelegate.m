@@ -69,22 +69,35 @@
         }
     }
     
-
+    // set the dictionary.
+    [data setDictionary:self.allCards];
     
     // Dummy game
-    /*
-    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
-    [game addPlayer:@"lw3"];
-    [game addPlayer:@"xiw"];
-    [game dealCards:3];
-    */
-    [data setDictionary:self.allCards];
     self.gameID = @"test1";
     
-//    self.currGame = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
-//    [self.currGame addPlayer:@"lw3"];
-//    [self.currGame addPlayer:@"xiw"];
-////    [self.currGame dealCards:3];
+    /* this section creates a new game from scratch.
+    self.currGame = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
+    [self.currGame addPlayer:@"lw3"];
+    [self.currGame addPlayer:@"xiw"];
+    
+    [data updatePlayersForGameID:self.gameID forHands:self.currGame.hands];
+     */
+    
+    // retrieve an existing game. ...need to figure out why deal cards isn't working.
+    self.currGame = [data retrieveGameWithID:self.gameID];
+//    [self.currGame dealCards:3];
+//    [self.currGame printGame:self.allCards];
+    
+    /*
+    // TODO update all hands in a game in one call.
+    [data sendHand:self.currGame.deck];
+    [data sendHand:self.currGame.hands[0]];
+    [data sendHand:self.currGame.hands[2]];
+    [data sendHand:self.currGame.hands[4]];
+     */
+    
+    // TODO make owner handID a property
+    
 //    
 //    [self.currGame drawFromDeck:@"mdr"];
 //    [self.currGame drawFromDeck:@"mdr"];
@@ -95,53 +108,12 @@
 //    [data sendHand:self.currGame.deck];
 //    [data sendHand:self.currGame.hands[0]];
     
-    // TODO update all hands in a game in one call.
-    // TODO make owner handID a property
-    
     
     NewGameViewController *viewController = [[NewGameViewController alloc]init];
 //    self.window.rootViewController = viewController;
     NSString *gn = viewController.gameName;
     NSString *on = viewController.ownerName;
     NSNumber *n = viewController.numPlayers;
-    
-    // TODO: add a function which will save this new array to the game itself.
-    
-//    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:gn OwnerName:on numPlayers:[n intValue]];
-    
-    // -----------------------------------------------------------------------------------------
-    // Game testing and debugging stuff.
-//    self.gameID = @"testing here";
-    
-//    self.currGame = [[DQUGame alloc] initWithDeckandGameName:self.gameID OwnerName:@"x" numPlayers:4];
-    
-    
-    
-    // -----------------------------------------------------------------------------------------
-    // manipulations within the game, to test DQUDataServer
-    
-    self.currGame = [data retrieveGameWithID:self.gameID];
-    [self.currGame printGame:self.allCards];
-    
-    // testing sending
-//    int handInd = [self.currGame findHandIndex:@"x"];
-//    
-//    [self.currGame drawFromDeck:@"x"];
-//    [self.currGame drawFromDeck:@"x"];
-//    
-//    [data sendHand:self.currGame.deck];
-//    [data sendHand:self.currGame.hands[handInd]];
-    
-//    [self.currGame printGame:self.allCards];
-    
-    // testing retrieving
-//    int handInd = [self.currGame findHandIndex:@"x"];
-//    DQUHand *find = self.currGame.hands[handInd];
-//    DQUHand *updated = [data retrieveHandWithID:find.objID];
-//    
-//    self.currGame.hands[handInd] = updated;
-//    
-//    [self.currGame.hands[handInd] printCards:self.allCards];
     
     return YES;
 }

@@ -43,7 +43,7 @@
 }
 
 - (BOOL) isDisplayHand {
-    return ([self.handID rangeOfString:suffix].location == NSNotFound);
+    return ([self.handID rangeOfString:suffix].location != NSNotFound);
 }
 
 -(void)printCards:(NSMutableDictionary *)allCards {

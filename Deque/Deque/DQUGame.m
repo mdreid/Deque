@@ -58,8 +58,6 @@ NSString *suffix = @"_disp";
     self = [super init];
     
     if (self) {
-        __block DQUGame *useSelf = self;
-        
         self.gameID = gn;
         self.ownerID = on;
         self.numPlayers = [NSNumber numberWithInt:n];
@@ -100,6 +98,8 @@ NSString *suffix = @"_disp";
         for (DQUHand *h in self.hands) {
             [h saveOwnObjID];
         }
+        
+        self.objID = self.objectId;
     }
 
     return self;
@@ -175,8 +175,11 @@ NSString *suffix = @"_disp";
 
 // deal num per hands cards
 - (void) dealCards:(int)numPerHand {
-    for (int i = 0; i < [self.hands count]; i++) {
-        if (![self.hands[i] isDisplayHand]) {
+    NSUInteger count = [self.hands count];
+    
+    for (int i = 0; i < count; i++) {
+        BOOL isDisplay = [self.hands[i] isDisplayHand];
+        if (!isDisplay) {
             for (int j = 0; j < numPerHand; j++) {
                 [self drawFromDeck:[self.hands[i] getHandID]];
             }

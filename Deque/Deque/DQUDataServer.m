@@ -115,6 +115,22 @@
 
 }
 
+- (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands
+{
+    PFQuery *query = [DQUGame query];
+    
+    // this will be the game we ultimately return which will be completely filled in.
+    [query whereKey:@"gameID" equalTo:gameID];
+    
+    NSArray *array = [query findObjects];
+    PFObject *found = array[0];
+    
+    found[@"hands"] = [NSArray arrayWithArray:hands];
+    
+    [found save];
+
+}
+
 // sends a game to the database
 - (void) sendGame:(DQUGame *)game;
 {

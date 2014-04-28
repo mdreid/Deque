@@ -28,6 +28,10 @@
 // retrieve game from the server.
 - (DQUGame *) retrieveGameWithID:(NSString *)gameID;
 
+// update the hands array on the database.
+- (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands;
+
+
 - (void) sendGame:(DQUGame *) game;
 
 
