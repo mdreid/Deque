@@ -92,7 +92,7 @@ NSString *suffix = @"_disp";
         self.numHands = [NSNumber numberWithInt:2];
         
         // save
-        [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+ /*       [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 [useSelf.deck saveOwnObjID];
 //                [useSelf.deck printID];
@@ -109,7 +109,7 @@ NSString *suffix = @"_disp";
                 NSLog(@"error in callback for save.");
             }
         }];
-        
+        */
     }
     return self;
 }
