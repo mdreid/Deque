@@ -11,6 +11,11 @@
 
 @implementation DQUDataServer
 
+- (void) setDictionary:(NSMutableDictionary *)dict
+{
+    allCards = dict;
+}
+
 // Retrieves DQUHand specified by handID in game gameID from database
 - (DQUHand *) retrieveHandWithID:(NSString *)objID {
     DQUHand *theHand = nil;
@@ -25,6 +30,8 @@
     theHand.cards = [[hand objectForKey:@"cards"] mutableCopy];
     theHand.objID = [NSString stringWithString:objID];
     
+    NSLog(@"found this hand");
+    
     return theHand;
 }
 
@@ -33,11 +40,15 @@
 {
     PFQuery *query = [DQUHand query];
     
+    NSLog(@"now printing from hand: %@", hand.handID);
+    [hand printCards:allCards];
+        
     [query whereKey:@"objectId" equalTo:hand.objID];
     NSArray *array = [query findObjects];
     PFObject *found = array[0];
     
-    found[@"Cards"] = [NSArray arrayWithArray:hand.cards];
+    NSLog(@"found's id: %@", found.objectId);
+    found[@"cards"] = [NSArray arrayWithArray:hand.cards];
     
     [found save];
 
