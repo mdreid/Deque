@@ -29,6 +29,9 @@
 // draw from deck
 - (void) drawFromDeck: (NSString *) handID;
 
+// finds the hand index of this hand with the handID
+- (int) findHandIndex:(NSString *)handID;
+
 // deal numPerHand cards to each player
 - (void) dealCards: (int) numPerHand;
 

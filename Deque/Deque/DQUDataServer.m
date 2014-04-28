@@ -13,74 +13,34 @@
 
 // Retrieves DQUHand specified by handID in game gameID from database
 - (DQUHand *) retrieveHandWithID:(NSString *)objID {
-    __block DQUHand *theHand = nil;
-    PFQuery *query = [DQUGame query];
+    DQUHand *theHand = nil;
+    PFQuery *query = [DQUHand query];
     NSLog(@"the hand ID we're looking for is: %@", objID);
-//    
-//    [query whereKey:@"gameID" equalTo:gameID];
-//    
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            NSLog(@"successfully retrieved %lu objects.", (unsigned long) [objects count]);
-//            PFObject *object = objects[0];
-//            
-//            // this will be an array of pfObjects.
-//            NSArray *hands = [object objectForKey:@"hands"];
-//            
-//            for (PFObject* h in hands) {
-//                // need to find this hand
-//                PFQuery *queryCard = [DQUHand query];
-//                [queryCard getObjectWithId:h.objectId];
-//                
-//                
-//                NSString *temp = [h objectForKey:@"handID"];
-//                if (temp == handID) {
-//                    theHand = [[DQUHand alloc] initWithHandID:temp];
-//                    theHand.cards = [[theHand objectForKey:@"cards"] mutableCopy];
-//                    break;
-//                }
-//            }
-//        }
-//        else {
-//            NSLog(@"OHSHIT ERROR.");
-//            [DQUDataServer printDebugInfo:error];
-//        }
-//    }];
-//    
-//    return theHand;
     
+    [query whereKey:@"objectId" equalTo:objID];
+    NSArray *array = [query findObjects];
+    PFObject *hand = array[0];
     
+    theHand = [[DQUHand alloc] initWithHandID:[hand objectForKey:@"handID"]];
+    theHand.cards = [[hand objectForKey:@"cards"] mutableCopy];
+    theHand.objID = [NSString stringWithString:objID];
     
-    // code to store something on database, and grab it back from db
-    //    DQUHand *deck = [[DQUHand alloc] init];
-    //    [deck saveInBackground];
-    //
-    //    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
-    //    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-    //        if (!error) {
-    //            // The find succeeded.
-    //            NSLog(@"Successfully retrieved %lu scores.", (unsigned long)objects.count);
-    //            // Do something with the found objects
-    ////            for (PFObject *object in objects) {
-    ////                DQUHand *h = (DQUHand *)object;
-    ////                [h printHand];
-    ////                NSLog(@"%@", object.objectId);
-    ////            }
-    //        } else {
-    //            // Log details of the failure
-    //            NSLog(@"Error: %@ %@", error, [error userInfo]);
-    //        }
-    //    }];
-    
-
-    
-    return [[DQUHand alloc] init];
+    return theHand;
 }
 
 // sends a hand to database to update it
-- (void) sendHand:(DQUHand *)hand forGameID:(NSString *)gameID
+- (void) sendHand:(DQUHand *)hand
 {
+    PFQuery *query = [DQUHand query];
     
+    [query whereKey:@"objectId" equalTo:hand.objID];
+    NSArray *array = [query findObjects];
+    PFObject *found = array[0];
+    
+    found[@"Cards"] = [NSArray arrayWithArray:hand.cards];
+    
+    [found save];
+
 }
 
 - (DQUGame *) retrieveGameWithID:(NSString *)gameID forGame:(DQUGame *)theGame
