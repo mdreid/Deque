@@ -38,9 +38,6 @@
     
     // dispatch queue?
  
-    // setting up the data server.
-    DQUDataServer * data = [[DQUDataServer alloc] init];
-
 //    [data retrieveHandWithID:@"myhand" forGameID:@""];
     
     // -----------------------------------------------------------------------------------------
@@ -70,7 +67,7 @@
     }
     
     // set the dictionary.
-    [data setDictionary:self.allCards];
+    [DQUDataServer setDictionary:self.allCards];
     
     // Dummy game
     self.gameID = @"test1";
@@ -80,23 +77,26 @@
     [self.currGame addPlayer:@"lw3"];
     [self.currGame addPlayer:@"xiw"];
     
-    [data updatePlayersForGameID:self.gameID forHands:self.currGame.hands];
+    [DQUDataServer updatePlayersForGameID:self.gameID forHands:self.currGame.hands];
      */
     
     // retrieve an existing game. ...need to figure out why deal cards isn't working.
-    self.currGame = [data retrieveGameWithID:self.gameID];
+    self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
+    // set the current user for this instance.
+    [self.currGame setUser:@"xiw"];
+    
 //    [self.currGame dealCards:3];
 //    [self.currGame printGame:self.allCards];
     
     /*
     // TODO update all hands in a game in one call.
-    [data sendHand:self.currGame.deck];
-    [data sendHand:self.currGame.hands[0]];
-    [data sendHand:self.currGame.hands[2]];
-    [data sendHand:self.currGame.hands[4]];
-     */
+    [DQUDataServer updateAllHandsForGame:self.currGame];
     
-    // TODO make owner handID a property
+    [DQUDataServer sendHand:self.currGame.deck];
+    [DQUDataServer sendHand:self.currGame.hands[0]];
+    [DQUDataServer sendHand:self.currGame.hands[2]];
+    [DQUDataServer sendHand:self.currGame.hands[4]];
+    */
     
 //    
 //    [self.currGame drawFromDeck:@"mdr"];
@@ -105,8 +105,8 @@
 //    [self.currGame drawFromDeck:@"mdr"];
 //    [self.currGame drawFromDeck:@"mdr"];
 //    
-//    [data sendHand:self.currGame.deck];
-//    [data sendHand:self.currGame.hands[0]];
+//    [DQUDataServer sendHand:self.currGame.deck];
+//    [DQUDataServer sendHand:self.currGame.hands[0]];
     
     
     NewGameViewController *viewController = [[NewGameViewController alloc]init];

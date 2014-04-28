@@ -94,6 +94,7 @@ NSString *suffix = @"_disp";
         [self save];
         [self.deck saveOwnObjID];
         [self.discard saveOwnObjID];
+        [self.table saveOwnObjID];
         
         for (DQUHand *h in self.hands) {
             [h saveOwnObjID];
@@ -103,6 +104,16 @@ NSString *suffix = @"_disp";
     }
 
     return self;
+}
+
+- (void) setUser: (NSString *)name
+{
+    userID = [NSString stringWithString:name];
+}
+
+- (NSString *) getUser
+{
+    return userID;
 }
 
 // add a player to the game (both display hand and personal hand)
@@ -198,14 +209,15 @@ NSString *suffix = @"_disp";
     [self giveCard:from:to:index];
 }
 
-- (NSMutableArray *) findHandIDs:(NSString *)src
+- (NSMutableArray *) findHandIDs
 {
     NSMutableArray *names = [[NSMutableArray alloc] init];
     NSUInteger playerCount = [self.hands count];
     
     for (int i = 0; i < playerCount; i += 2) {
         DQUHand *curr = self.hands[i];
-        if (curr.handID != src) {
+        NSString *handyo = curr.handID;
+        if (![userID isEqualToString:handyo]) {
             [names addObject:curr.handID];
         }
     }

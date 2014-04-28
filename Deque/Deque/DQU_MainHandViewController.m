@@ -14,6 +14,8 @@
     DQUAppDelegate *appDel;
 }
 
+- (void)showActionSheet:(id)sender;
+
 /*
 @property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
 @property(nonatomic, weak) IBOutlet UIBarButtonItem *deckButton; */
@@ -60,55 +62,20 @@
 
     
     
-    
     self.cardValues = [@[] mutableCopy];
     
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    PFQuery *query = [PFQuery queryWithClassName:@"DQUHand"];
+    NSString *ID = [appDel.currGame getUser];
+    int handInd = [appDel.currGame findHandIndex:ID];
     
-//    [query whereKey:@"Name" equalTo:@"User"];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            // The find succeeded.
-//            NSLog(@"Successfully retrieved %lu scores.",(unsigned long) objects.count);
-//            // Do something with the found objects
-//            for (PFObject *object in objects) {
-//                NSLog(@"%@", object.objectId);
-//                self.handID = [NSString stringWithString:object.objectId];
-//                for (NSString *strTemp in object[@"Cards"]) {
-//                    NSLog(@"card: %@", strTemp);
-//                    [cardValues addObject: strTemp];
-//                }
-//            }
-//            [self.collectionView reloadData];
-//        } else {
-//            // Log details of the failure
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        }
-//    }];
+//    DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
+//    [aHand addCard:1];
+//    [aHand addCard:3];
+//    [aHand addCard:5];
+//    [aHand addCard:7];
     
-    // query for decks.
-    query = [PFQuery queryWithClassName:@"Hands"];
-    
-    [query whereKey:@"Name" equalTo:@"Deck"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // the find succeeded.
-            for (PFObject *object in objects) {
-                self.deckID = [NSString stringWithString:object.objectId];
-            }
-        }
-    }];
-    
-    
-    DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
-    [aHand addCard:1];
-    [aHand addCard:3];
-    [aHand addCard:5];
-    [aHand addCard:7];
-    
-    [self drawDisplayHandCard:_myHandScroll withHand:aHand];
+    [self drawDisplayHandCard:_myHandScroll withHand:appDel.currGame.hands[handInd]];
     
     
 }
@@ -117,7 +84,6 @@
     
     CGFloat paperwidth = 80 * 5 / 7;
     NSUInteger numberOfPapers = [aHand getCardCount];
-    
     CGFloat tablePaperWidth = 80 * 5 / 7;
     
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 568, 100)];
@@ -125,13 +91,24 @@
     scrollView.showsHorizontalScrollIndicator = NO;
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
+        UIButton *btn = [[UIButton alloc] init];
+        btn.frame = CGRectMake(tablePaperWidth * i, 0, paperwidth, scrollView.bounds.size.height);
+        btn.bounds = CGRectMake(tablePaperWidth * i, 0, paperwidth, scrollView.bounds.size.height);
+        [btn.layer setBorderColor: [[UIColor blackColor] CGColor]];
+        [btn.layer setBorderWidth: 0.8];
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tablePaperWidth * i, 0, paperwidth, scrollView.bounds.size.height)];
-        
+        // grab the card to show.
         int cardID = [aHand.cards[i] intValue];
-        
-        
         DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
+        
+        UIImage *image = [UIImage imageNamed:aCard.picName];
+        [btn setImage:image forState:UIControlStateNormal];
+        [btn setImage:image forState:UIControlStateHighlighted];
+        btn.tag = i;
+        [btn addTarget:self action:@selector(showActionSheet:) forControlEvents:UIControlEventTouchUpInside];
+        
+        /*
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tablePaperWidth * i, 0, paperwidth, scrollView.bounds.size.height)];
         imageView.image = [UIImage imageNamed:aCard.picName];
         [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
         [imageView.layer setBorderWidth: 1.0];
@@ -139,8 +116,9 @@
         UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
         [singleTap setNumberOfTapsRequired:1];
         [imageView addGestureRecognizer:singleTap];
+         */
         
-        [scrollView addSubview:imageView];
+        [scrollView addSubview:btn];
         
     }
     
@@ -152,56 +130,64 @@
     
 }
 
+//- (void)didTapCard:(UIButton *)btn
+//{
+//    NSLog(@"tapped card index %ld", (long)btn.tag);
+//    [self showActionSheetCard:];
+//}
 
 -(void)singleTapping:(UIGestureRecognizer *)recognizer
 {
-    [self showActionSheetCard];
+//    [self showActionSheetCard];
 }
 
-
-- (void)showActionSheetCard
+- (void)showActionSheet:(id)sender
 {
     NSString *actionSheetTitle = @"CARD"; //Action Sheet Title
     NSString *destructiveTitle = @"Discard"; //Action Sheet Button Titles
     
-    NSMutableArray *names = [appDel.currGame findHandIDs:@"mdr"];
+    NSMutableArray *names = [appDel.currGame findHandIDs];
     
     NSMutableArray *optionNames = [[NSMutableArray alloc] init];
-    
     for (NSString *n in names) {
         [optionNames addObject:[NSString stringWithFormat:@"Give to %@", n]];
     }
     
     NSString *toggle = @"Toggle";
-
-    NSString *cancelTitle = @"Cancel Button";
+    NSString *cancelTitle = @"Cancel";
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:actionSheetTitle
                                   delegate:self
-                                  cancelButtonTitle:cancelTitle
+                                  cancelButtonTitle:nil
                                   destructiveButtonTitle:destructiveTitle
                                   otherButtonTitles:nil];
     
+    [actionSheet addButtonWithTitle:toggle];
     for (NSString *title in optionNames) {
         [actionSheet addButtonWithTitle:title];
     }
-    
-    [actionSheet addButtonWithTitle:toggle];
+    [actionSheet addButtonWithTitle:cancelTitle];
+    actionSheet.cancelButtonIndex = [optionNames count] + 1;
     
     [actionSheet showInView:self.view];
     
 }
 
-- (void)actionSheetCard:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+// TODO: why isn't this being called??
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     //Get the name of the current pressed button
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     
+    // after any action, must do an update to the database.
+    NSLog(@"I clicked a button...");
+    
     if  ([buttonTitle isEqualToString:@"Discard"]) {
+//        NSLog(@"going to discard card at index: %d", actionSheet.ind);
         NSLog(@"Destructive pressed --> Delete Something");
     }
-    if ([buttonTitle isEqualToString:@"Give to Player"]) {
-        NSLog(@"Other 1 pressed");
+    if ([buttonTitle rangeOfString:@"Give to"].location != NSNotFound) {
+        
     }
     if ([buttonTitle isEqualToString:@"Toggle"]) {
         NSLog(@"Other 2 pressed");
@@ -313,10 +299,6 @@
 //                                  otherButtonTitles:@"Give to...", nil];
 }
 
-- (void)showActionSheet:(id)sender
-{
-    
-}
 //- (UIEdgeInsets)collectionView:
 //(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 //{

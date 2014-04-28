@@ -11,13 +11,20 @@
 
 @implementation DQUDataServer
 
-- (void) setDictionary:(NSMutableDictionary *)dict
+static NSMutableDictionary *allCards = nil;
+
++ (NSMutableDictionary *) allCards
+{
+    return allCards;
+}
+
++ (void) setDictionary:(NSMutableDictionary *)dict
 {
     allCards = dict;
 }
 
 // Retrieves DQUHand specified by handID in game gameID from database
-- (DQUHand *) retrieveHandWithID:(NSString *)objID {
++ (DQUHand *) retrieveHandWithID:(NSString *)objID {
     DQUHand *theHand = nil;
     PFQuery *query = [DQUHand query];
     NSLog(@"the hand ID we're looking for is: %@", objID);
@@ -36,7 +43,7 @@
 }
 
 // sends a hand to database to update it
-- (void) sendHand:(DQUHand *)hand
++ (void) sendHand:(DQUHand *)hand
 {
     PFQuery *query = [DQUHand query];
     
@@ -52,7 +59,7 @@
 
 }
 
-- (DQUGame *) retrieveGameWithID:(NSString *)gameID
++ (DQUGame *) retrieveGameWithID:(NSString *)gameID
 {
     PFQuery *query = [DQUGame query];
     
@@ -81,6 +88,7 @@
     // need to grab the hands, the deck, and discard.
     PFObject *objDeck = [object objectForKey:@"deck"];
     PFObject *objDiscard = [object objectForKey:@"discard"];
+    PFObject *objTable = [object objectForKey:@"table"];
     NSArray *currHands = [object objectForKey:@"hands"];
     
     PFQuery *handsQuery = [DQUHand query];
@@ -100,6 +108,14 @@
     game.discard.cards = [[obj objectForKey:@"cards"] mutableCopy];
     game.discard.objID = [NSString stringWithString:obj.objectId];
     
+    [handsQuery whereKey:@"objectId" equalTo:objTable.objectId];
+    hand = [handsQuery findObjects];
+    obj = hand[0];
+    
+    game.table = [[DQUHand alloc] initWithHandID:[obj objectForKey:@"handID"]];
+    game.table.cards = [[obj objectForKey:@"cards"] mutableCopy];
+    game.table.objID = [NSString stringWithString:obj.objectId];
+    
     for (PFObject *h in currHands) {
         [handsQuery whereKey:@"objectId" equalTo:h.objectId];
         hand = [handsQuery findObjects];
@@ -115,7 +131,7 @@
 
 }
 
-- (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands
++ (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands
 {
     PFQuery *query = [DQUGame query];
     
@@ -131,8 +147,22 @@
 
 }
 
+// will update everything - deck, discard, table, and hands.
++ (void) updateAllHandsForGame:(DQUGame *)game
+{
+    // deck, discard, table.
+    [DQUDataServer sendHand:game.deck];
+    [DQUDataServer sendHand:game.discard];
+    [DQUDataServer sendHand:game.table];
+    
+    // all hands.
+    for (DQUHand *h in game.hands) {
+        [DQUDataServer sendHand:h];
+    }
+}
+
 // sends a game to the database
-- (void) sendGame:(DQUGame *)game;
++ (void) sendGame:(DQUGame *)game;
 {
     
 }

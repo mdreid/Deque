@@ -9,7 +9,9 @@
 #import <Parse/Parse.h>
 #import "DQUHand.h"
 
-@interface DQUGame : PFObject<PFSubclassing>
+@interface DQUGame : PFObject<PFSubclassing> {
+    NSString *userID;
+}
 
 // name of the class
 + (NSString *)parseClassName;
@@ -19,6 +21,11 @@
 
 // make game instance with corresponding game name, owner name, and number of players and deck
 - (id) initWithDeckandGameName: (NSString *) gn OwnerName: (NSString *) on numPlayers: (int) n;
+
+// sets the user for this instance of game (for the phone).
+- (void) setUser: (NSString *)name;
+
+- (NSString *) getUser;
 
 // add player
 - (void) addPlayer: (NSString *) playerName;
@@ -42,7 +49,7 @@
 - (void) takeCard:(NSString *)from :(NSString *)to :(int)index;
 
 // returns an array of all the other hand IDs except for your own (src = your own hand ID)
-- (NSMutableArray *) findHandIDs:(NSString *)src;
+- (NSMutableArray *) findHandIDs;
 
 // items in this array should be of type DQUHand
 @property (nonatomic) NSMutableArray *hands;
