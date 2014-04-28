@@ -7,8 +7,11 @@
 //
 
 #import "DQU_TableViewController.h"
+#import "DQUAppDelegate.h"
 
-@interface DQU_TableViewController ()
+@interface DQU_TableViewController () {
+    DQUAppDelegate *appDel;
+}
 
 @end
 
@@ -27,6 +30,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
+    
 
     _p1Scrollview =  [[UIScrollView alloc] initWithFrame:CGRectMake(0, 100, 114, 80)];
     
@@ -134,7 +140,7 @@
     [_deck addTarget:self action:@selector(showActionSheet:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_deck];
     
-    
+    // check and see for the game variable that it retrieved if it's correct.
     
 }
 
@@ -153,7 +159,7 @@
                                   cancelButtonTitle:cancelTitle
                                   destructiveButtonTitle:destructiveTitle
                                   otherButtonTitles:other1, other2, other3, nil];
-    
+        
     [actionSheet showInView:self.view];
     
 }

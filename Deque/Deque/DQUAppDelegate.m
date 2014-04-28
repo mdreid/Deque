@@ -36,11 +36,10 @@
     // parse is set up at this point. can now handle work.
     
     // dispatch queue?
-    dispatch_queue_t myQueue = dispatch_queue_create("main", NULL);
+//    dispatch_queue_t myQueue = dispatch_queue_create("main", NULL);
     
     // setting up the data server.
     __block DQUDataServer * data = [[DQUDataServer alloc] init];
-    __block DQUGame *game;
 //    [data retrieveHandWithID:@"myhand" forGameID:@""];
     
     // -----------------------------------------------------------------------------------------
@@ -78,14 +77,9 @@
     // -----------------------------------------------------------------------------------------
     // manipulations within the game, to test DQUDataServer
     
-    dispatch_async(myQueue, ^{
-        game = [data retrieveGameWithID:self.gameID];
-        if (!game) return;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-//            [game printGame:self.allCards];
-        });
-    });
+    self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
+    [self.currGame printGame:self.allCards];
+
     
     return YES;
 }

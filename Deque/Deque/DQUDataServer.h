@@ -17,13 +17,13 @@
 // the methods
 
 // retrieve hand from the server.
-- (DQUHand *) retrieveHandWithID:(NSString *)handID forGameID:(NSString *)gameID;
+- (DQUHand *) retrieveHandWithID:(NSString *)objID;
 
 // update hand on the server.
 - (void) sendHand:(DQUHand *)hand forGameID:(NSString *)gameID;
 
 // retrieve game from the server.
-- (DQUGame *) retrieveGameWithID:(NSString *)gameID;
+- (DQUGame *) retrieveGameWithID:(NSString *)gameID forGame:(DQUGame *)theGame;
 
 - (void) sendGame:(DQUGame *) game;
 
