@@ -101,26 +101,100 @@
         }
     }];
     
-    _myHandScroll =  [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 568, 300)];
     
-    _myHandScroll.showsHorizontalScrollIndicator = NO;
+    DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
+    [aHand addCard:1];
+    [aHand addCard:3];
+    [aHand addCard:5];
+    [aHand addCard:7];
     
-    CGFloat paperwidth = 250;
-    NSUInteger numberOfPapers = 15;
+    [self drawDisplayHandCard:_myHandScroll withHand:aHand];
+    
+    
+}
+
+- (void) drawDisplayHandCard: (UIScrollView *)scrollView withHand:(DQUHand *) aHand {
+    
+    CGFloat paperwidth = 80 * 5 / 7;
+    NSUInteger numberOfPapers = [aHand getCardCount];
+    
+    CGFloat tablePaperWidth = 80 * 5 / 7;
+    
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 568, 100)];
+    
+    scrollView.showsHorizontalScrollIndicator = NO;
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, _myHandScroll.bounds.size.height)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tablePaperWidth * i, 0, paperwidth, scrollView.bounds.size.height)];
         
-        imageView.image = [UIImage imageNamed:@"1_spades.png"];
-        [_myHandScroll addSubview:imageView];
+        int cardID = [aHand.cards[i] intValue];
+        
+        
+        DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
+        imageView.image = [UIImage imageNamed:aCard.picName];
+        [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
+        [imageView.layer setBorderWidth: 1.0];
+        [imageView setUserInteractionEnabled:YES];
+        UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
+        [singleTap setNumberOfTapsRequired:1];
+        [imageView addGestureRecognizer:singleTap];
+        
+        [scrollView addSubview:imageView];
         
     }
     
-    CGSize contentSize = CGSizeMake(paperwidth * numberOfPapers,_myHandScroll.bounds.size.height);
-    _myHandScroll.contentSize = contentSize;
+    CGSize contentSizeTable = CGSizeMake(tablePaperWidth * numberOfPapers, scrollView.bounds.size.height);
+    scrollView.contentSize = contentSizeTable;
     
-    [self.view addSubview:_myHandScroll];
+    [self.view addSubview:scrollView];
+    
+    
+}
+
+
+-(void)singleTapping:(UIGestureRecognizer *)recognizer
+{
+    [self showActionSheetCard];
+}
+
+
+- (void)showActionSheetCard
+{
+    NSString *actionSheetTitle = @"CARD"; //Action Sheet Title
+    NSString *destructiveTitle = @"Discard"; //Action Sheet Button Titles
+    NSString *other1 = @"Give to Player";
+    NSString *other2 = @"Toggle";
+
+    NSString *cancelTitle = @"Cancel Button";
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:actionSheetTitle
+                                  delegate:self
+                                  cancelButtonTitle:cancelTitle
+                                  destructiveButtonTitle:destructiveTitle
+                                  otherButtonTitles:other1, other2,  nil];
+    
+    [actionSheet showInView:self.view];
+    
+}
+
+- (void)actionSheetCard:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //Get the name of the current pressed button
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    if  ([buttonTitle isEqualToString:@"Discard"]) {
+        NSLog(@"Destructive pressed --> Delete Something");
+    }
+    if ([buttonTitle isEqualToString:@"Give to Player"]) {
+        NSLog(@"Other 1 pressed");
+    }
+    if ([buttonTitle isEqualToString:@"Toggle"]) {
+        NSLog(@"Other 2 pressed");
+    }
+    if ([buttonTitle isEqualToString:@"Cancel Button"]) {
+        NSLog(@"Cancel pressed --> Cancel ActionSheet");
+    }
     
 }
 

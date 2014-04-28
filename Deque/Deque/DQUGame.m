@@ -92,6 +92,26 @@ NSString *suffix = @"_disp";
         self.numHands = [NSNumber numberWithInt:2];
         
         // save
+
+ /*       [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [useSelf.deck saveOwnObjID];
+//                [useSelf.deck printID];
+                [useSelf.discard saveOwnObjID];
+//                [useSelf.discard printID];
+                
+                for (DQUHand *h in useSelf.hands) {
+                    [h saveOwnObjID];
+//                    [h printID];
+                }
+                
+            }
+            else {
+                NSLog(@"error in callback for save.");
+            }
+        }];
+        */
+
 //        [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 //            if (!error) {
 //                [useSelf.deck saveOwnObjID];
@@ -110,6 +130,7 @@ NSString *suffix = @"_disp";
 //            }
 //        }];
         
+
     }
     return self;
 }
