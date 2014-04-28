@@ -35,11 +35,14 @@
 // deal numPerHand cards to each player
 - (void) dealCards: (int) numPerHand;
 
-// gives card from src to dst
+// gives card from src to dst. index stands for index within the array.
 - (void) giveCard:(NSString *)src :(NSString *)dst :(int)index;
     
 // takes card from from gives to to
 - (void) takeCard:(NSString *)from :(NSString *)to :(int)index;
+
+// returns an array of all the other hand IDs except for your own (src = your own hand ID)
+- (NSMutableArray *) findHandIDs:(NSString *)src;
 
 // items in this array should be of type DQUHand
 @property (nonatomic) NSMutableArray *hands;

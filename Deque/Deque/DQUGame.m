@@ -236,4 +236,19 @@ NSString *suffix = @"_disp";
     [self giveCard:from:to:index];
 }
 
+- (NSMutableArray *) findHandIDs:(NSString *)src
+{
+    NSMutableArray *names = [[NSMutableArray alloc] init];
+    int handsCount = [self.numHands intValue];
+    
+    for (int i = 0; i < handsCount; i++) {
+        DQUHand *curr = self.hands[i * 2];
+        if (curr.handID != src) {
+            [names addObject:curr.handID];
+        }
+    }
+        
+    return names;
+}
+
 @end
