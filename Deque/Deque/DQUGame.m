@@ -93,45 +93,15 @@ NSString *suffix = @"_disp";
         
         // save
 
- /*       [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [useSelf.deck saveOwnObjID];
-//                [useSelf.deck printID];
-                [useSelf.discard saveOwnObjID];
-//                [useSelf.discard printID];
-                
-                for (DQUHand *h in useSelf.hands) {
-                    [h saveOwnObjID];
-//                    [h printID];
-                }
-                
-            }
-            else {
-                NSLog(@"error in callback for save.");
-            }
-        }];
-        */
-
-//        [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//            if (!error) {
-//                [useSelf.deck saveOwnObjID];
-////                [useSelf.deck printID];
-//                [useSelf.discard saveOwnObjID];
-////                [useSelf.discard printID];
-//                
-//                for (DQUHand *h in useSelf.hands) {
-//                    [h saveOwnObjID];
-////                    [h printID];
-//                }
-//                
-//            }
-//            else {
-//                NSLog(@"error in callback for save.");
-//            }
-//        }];
+        [self save];
+        [self.deck saveOwnObjID];
+        [self.discard saveOwnObjID];
         
-
+        for (DQUHand *h in self.hands) {
+            [h saveOwnObjID];
+        }
     }
+
     return self;
 }
 
@@ -140,30 +110,18 @@ NSString *suffix = @"_disp";
     int nh = [self.numHands intValue];
     int maxHands = [self.numPlayers intValue] * 2;
     if (nh < maxHands) {
-        __block DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
-        __block DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];
+        DQUHand *p = [[DQUHand alloc] initWithHandID:[playerName copy]];
+        DQUHand *pd = [[DQUHand alloc] initWithHandID:[playerName stringByAppendingString:suffix]];
         [self.hands addObject:p];
         [self.hands addObject:pd];
         int val = [self.numHands intValue];
         self.numHands = [NSNumber numberWithInt:val+2];
         
-        [p saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [p saveOwnObjID];
-            }
-            else {
-                NSLog(@"Something happened in trying to save hand from adding a player.");
-            }
-        }];
-        
-        [pd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                [pd saveOwnObjID];
-            }
-            else {
-                NSLog(@"Something happened in trying to save hand from adding a player.");
-            }
-        }];
+        [p save];
+        [p saveOwnObjID];
+
+        [pd save];
+        [pd saveOwnObjID];
     }
     
 }
@@ -247,7 +205,7 @@ NSString *suffix = @"_disp";
             [names addObject:curr.handID];
         }
     }
-        
+    
     return names;
 }
 

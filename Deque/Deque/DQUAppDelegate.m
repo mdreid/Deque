@@ -70,16 +70,28 @@
     }
     
     [data setDictionary:self.allCards];
+    self.gameID = @"test1";
     
-//    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
-//    [game addPlayer:@"lw3"];
-//    [game addPlayer:@"xiw"];
-//    [game dealCards:3];
+//    self.currGame = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
+//    [self.currGame addPlayer:@"lw3"];
+//    [self.currGame addPlayer:@"xiw"];
+////    [self.currGame dealCards:3];
+//    
+//    [self.currGame drawFromDeck:@"mdr"];
+//    [self.currGame drawFromDeck:@"mdr"];
+//    [self.currGame drawFromDeck:@"mdr"];
+//    [self.currGame drawFromDeck:@"mdr"];
+//    [self.currGame drawFromDeck:@"mdr"];
+//    
+//    [data sendHand:self.currGame.deck];
+//    [data sendHand:self.currGame.hands[0]];
+    
+    // TODO update all hands in a game in one call.
     
     
     // -----------------------------------------------------------------------------------------
     // Game testing and debugging stuff.
-    self.gameID = @"testing here";
+//    self.gameID = @"testing here";
     
 //    self.currGame = [[DQUGame alloc] initWithDeckandGameName:self.gameID OwnerName:@"x" numPlayers:4];
     
@@ -89,7 +101,6 @@
     // manipulations within the game, to test DQUDataServer
     
     self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
-    
     
     // testing sending
 //    int handInd = [self.currGame findHandIndex:@"x"];

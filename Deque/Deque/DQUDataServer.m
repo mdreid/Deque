@@ -41,13 +41,11 @@
     PFQuery *query = [DQUHand query];
     
     NSLog(@"now printing from hand: %@", hand.handID);
-    [hand printCards:allCards];
-        
+    
     [query whereKey:@"objectId" equalTo:hand.objID];
     NSArray *array = [query findObjects];
     PFObject *found = array[0];
     
-    NSLog(@"found's id: %@", found.objectId);
     found[@"cards"] = [NSArray arrayWithArray:hand.cards];
     
     [found save];
