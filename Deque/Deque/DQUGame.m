@@ -27,27 +27,33 @@ NSString *suffix = @"_disp";
     return @"DQUGame";
 }
 
-- (id) initWithGameName: (NSString *) gn numPlayers: (int) n {
+// Basic instance of the class
+- (id) init {
     
     self = [super init];
     
     if (self) {
-        // set game name
-        self.gameID = gn;
-    
-        // set number of players
-        self.numPlayers = [NSNumber numberWithInt:n];
+        self.gameID = nil;
+        self.deck = nil;
+        self.discard = nil;
+        self.ownerID = nil;
+        self.numPlayers = nil;
+        self.numHands = nil;
+        self.objID = nil;
         
-        // initialize hands
+        // make hands array
         NSMutableArray* array = [[NSMutableArray alloc] init];
         self.hands = array;
-    
+        
     }
     return self;
 }
 
-- (id) initWithDeckandGameName:(NSString *)gn OwnerName:(NSString *)on numPlayers:(int)n {
 
+// Client-side-->DB
+// This is the real initialization (ya'll others are just copying #oftenimitatedneverduplicated)
+- (id) initWithDeckandGameName:(NSString *)gn OwnerName:(NSString *)on numPlayers:(int)n {
+    
     self = [super init];
     
     if (self) {
@@ -67,6 +73,19 @@ NSString *suffix = @"_disp";
         DQUHand *ds = [[DQUHand alloc] initWithHandID:@"discard"];
         self.discard = ds;
         
+        // make hands array
+        NSMutableArray* array = [[NSMutableArray alloc] init];
+        self.hands = array;
+        
+        // make owner's own hands
+        DQUHand *o = [[DQUHand alloc] initWithHandID:[on copy]];
+        DQUHand *od = [[DQUHand alloc] initWithHandID:[on stringByAppendingString:suffix]];
+        [self.hands addObject:o];
+        [self.hands addObject:od];
+        self.numHands = [NSNumber numberWithInt:2];
+        
+        // save
+        [self saveInBackground];
     }
     return self;
 }
@@ -83,7 +102,7 @@ NSString *suffix = @"_disp";
         int val = [self.numHands intValue];
         self.numHands = [NSNumber numberWithInt:val+2];
     }
-
+    
 }
 
 // print game according to dictionary dict
@@ -95,6 +114,40 @@ NSString *suffix = @"_disp";
     for (int i = 0; i < [self.hands count]; i++) {
         [self.hands[i] printCards:dict];
     }
+}
+
+// draws card from deck and adds it to hand specified by handID
+- (void) drawFromDeck:(NSString *)handID {
+    if ([self isEmpty:@"deck"]) {
+        NSLog(@"No cards left in deck!");
+    }
+    int c = [self.deck grabAndRemoveCardAtIndex:0];
+    int h = [self findHandIndex:handID];
+    DQUHand *tmp = self.hands[h];
+    [tmp addCard:c];
+}
+
+- (int) findHandIndex:(NSString *)handID {
+    for (int i = 0; i < [self.hands count]; i++) {
+        DQUHand *h = self.hands[i];
+        if ([h.handID isEqualToString:handID]) {
+            return i;
+        }
+    }
+    return -1; // hand not found
+}
+
+// returns whether hand specified by handID is empty
+- (BOOL) isEmpty:(NSString *)handID {
+    if ([handID isEqualToString:@"deck"]) {
+        return [self.deck getCardCount] == 0;
+    }
+    if ([handID isEqualToString:@"discard"]) {
+        return [self.discard getCardCount] == 0;
+    }
+    
+    int c = [self findHandIndex:handID];
+    return [self.hands[c] getCardCount] == 0;
 }
 
 @end
