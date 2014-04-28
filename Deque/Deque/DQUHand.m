@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Xixia Wang. All rights reserved.
 //
 
-#import "DQUCard.h"
 #import "DQUHand.h"
 #import <Parse/PFObject+Subclass.h>
 

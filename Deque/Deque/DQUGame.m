@@ -8,7 +8,6 @@
 
 #import "DQUGame.h"
 #import <Parse/PFObject+Subclass.h>
-#import <Parse/Parse.h>
 
 int numCards = 52; // number of cards in deck
 NSString *suffix = @"_disp";
@@ -28,7 +27,7 @@ NSString *suffix = @"_disp";
 }
 
 // Basic instance of the class
-- (id) init {
+- (id) initWithoutInfo {
     
     self = [super init];
     

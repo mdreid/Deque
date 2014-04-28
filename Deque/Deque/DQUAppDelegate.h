@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
-#import "DQUHand.h"
-#import "DQUCard.h"
 #import "DQUGame.h"
 #import "DQUDataServer.h"
 

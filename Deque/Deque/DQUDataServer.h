@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DQUHand.h"
 #import "DQUGame.h"
 
 @interface DQUDataServer : NSObject
