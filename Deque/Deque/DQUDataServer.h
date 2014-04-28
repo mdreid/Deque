@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "DQUGame.h"
 
-@interface DQUDataServer : NSObject
-
+@interface DQUDataServer : NSObject {
+    NSMutableDictionary *allCards;
+}
 
 // the properties
 
 // the methods
+
+- (void) setDictionary:(NSMutableDictionary *)dict;
 
 // retrieve hand from the server.
 - (DQUHand *) retrieveHandWithID:(NSString *)objID;

@@ -69,13 +69,7 @@
         }
     }
     
-    NewGameViewController *viewController = [[NewGameViewController alloc]init];
-    self.window.rootViewController = viewController;
-    NSString *gn = viewController.gameName;
-    NSString *on = viewController.ownerName;
-    NSNumber *n = viewController.numPlayers;
-    
-    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:gn OwnerName:on numPlayers:[n intValue]];
+
     
     // Dummy game
     /*
@@ -84,6 +78,21 @@
     [game addPlayer:@"xiw"];
     [game dealCards:3];
     */
+    [data setDictionary:self.allCards];
+    
+//    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
+//    [game addPlayer:@"lw3"];
+//    [game addPlayer:@"xiw"];
+//    [game dealCards:3];
+    
+    
+    NewGameViewController *viewController = [[NewGameViewController alloc]init];
+    self.window.rootViewController = viewController;
+    NSString *gn = viewController.gameName;
+    NSString *on = viewController.ownerName;
+    NSNumber *n = viewController.numPlayers;
+    
+    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:gn OwnerName:on numPlayers:[n intValue]];
     
     // -----------------------------------------------------------------------------------------
     // Game testing and debugging stuff.
@@ -98,15 +107,26 @@
     
     self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
     
-    int handInd = [self.currGame findHandIndex:@"x"];
     
-    [self.currGame drawFromDeck:@"x"];
-    [self.currGame drawFromDeck:@"x"];
-    
-    [data sendHand:self.currGame.hands[handInd]];
-    [data sendHand:self.currGame.deck];
+    // testing sending
+//    int handInd = [self.currGame findHandIndex:@"x"];
+//    
+//    [self.currGame drawFromDeck:@"x"];
+//    [self.currGame drawFromDeck:@"x"];
+//    
+//    [data sendHand:self.currGame.deck];
+//    [data sendHand:self.currGame.hands[handInd]];
     
 //    [self.currGame printGame:self.allCards];
+    
+    // testing retrieving
+//    int handInd = [self.currGame findHandIndex:@"x"];
+//    DQUHand *find = self.currGame.hands[handInd];
+//    DQUHand *updated = [data retrieveHandWithID:find.objID];
+//    
+//    self.currGame.hands[handInd] = updated;
+//    
+//    [self.currGame.hands[handInd] printCards:self.allCards];
     
     return YES;
 }

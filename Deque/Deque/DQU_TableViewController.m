@@ -34,39 +34,20 @@
     // Do any additional setup after loading the view.
     
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
-    
 
-    appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
     
     DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
     [aHand addCard:1];
     [aHand addCard:3];
     [aHand addCard:5];
     [aHand addCard:7];
+    
     [self drawDisplayCard:_p1Scrollview withHand:aHand withID:1];
-    
-    CGFloat paperwidth = 80 * 5 / 7;
-    NSUInteger numberOfPapers = 15;
-    
-    CGFloat tablePaperWidth = 80 * 5 / 7;
-    
-    _tableScrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 220, 458, 80)];
-    
-    _tableScrollview.showsHorizontalScrollIndicator = NO;
-    
-    for (NSUInteger i = 0; i < numberOfPapers; i++) {
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tablePaperWidth * i, 0, paperwidth, _tableScrollview.bounds.size.height)];
-        
-        imageView.image = [UIImage imageNamed:@"2_spades.png"];
-        [_tableScrollview addSubview:imageView];
-        
-    }
-    
-    CGSize contentSizeTable = CGSizeMake(tablePaperWidth * numberOfPapers, _tableScrollview.bounds.size.height);
-    _tableScrollview.contentSize = contentSizeTable;
-    
-    [self.view addSubview:_tableScrollview];
+    [self drawDisplayCard:_p2Scrollview withHand:aHand withID:2];
+    [self drawDisplayCard:_p3Scrollview withHand:aHand withID:3];
+    [self drawDisplayCard:_p4Scrollview withHand:aHand withID:4];
+    [self drawDisplayTableCard:_tableScrollview withHand:aHand];
+
     
    /* UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(20.0f, 186.0f, 280.0f, 88.0f);
@@ -204,6 +185,39 @@
     
 }
 
+
+- (void) drawDisplayTableCard: (UIScrollView *)scrollView withHand:(DQUHand *)tableHand {
+    
+    CGFloat paperwidth = 80 * 5 / 7;
+    NSUInteger numberOfPapers = [tableHand getCardCount];
+    
+    CGFloat tablePaperWidth = 80 * 5 / 7;
+    
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 220, 458, 80)];
+    
+    scrollView.showsHorizontalScrollIndicator = NO;
+    
+    for (NSUInteger i = 0; i < numberOfPapers; i++) {
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tablePaperWidth * i, 0, paperwidth, scrollView.bounds.size.height)];
+        
+        int cardID = [tableHand.cards[i] intValue];
+
+        DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
+        imageView.image = [UIImage imageNamed:aCard.picName];
+        [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
+        [imageView.layer setBorderWidth: 1.0];
+        [scrollView addSubview:imageView];
+        
+    }
+    
+    CGSize contentSizeTable = CGSizeMake(tablePaperWidth * numberOfPapers, scrollView.bounds.size.height);
+    scrollView.contentSize = contentSizeTable;
+    
+    [self.view addSubview:scrollView];
+    
+    
+}
 
 - (void)didReceiveMemoryWarning
 {

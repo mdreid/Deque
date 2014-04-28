@@ -92,6 +92,26 @@ NSString *suffix = @"_disp";
         self.numHands = [NSNumber numberWithInt:2];
         
         // save
+
+ /*       [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [useSelf.deck saveOwnObjID];
+//                [useSelf.deck printID];
+                [useSelf.discard saveOwnObjID];
+//                [useSelf.discard printID];
+                
+                for (DQUHand *h in useSelf.hands) {
+                    [h saveOwnObjID];
+//                    [h printID];
+                }
+                
+            }
+            else {
+                NSLog(@"error in callback for save.");
+            }
+        }];
+        */
+
 //        [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 //            if (!error) {
 //                [useSelf.deck saveOwnObjID];
@@ -110,6 +130,7 @@ NSString *suffix = @"_disp";
 //            }
 //        }];
         
+
     }
     return self;
 }
@@ -213,6 +234,21 @@ NSString *suffix = @"_disp";
 
 - (void) takeCard:(NSString *)from :(NSString *)to :(int)index {
     [self giveCard:from:to:index];
+}
+
+- (NSMutableArray *) findHandIDs:(NSString *)src
+{
+    NSMutableArray *names = [[NSMutableArray alloc] init];
+    int handsCount = [self.numHands intValue];
+    
+    for (int i = 0; i < handsCount; i++) {
+        DQUHand *curr = self.hands[i * 2];
+        if (curr.handID != src) {
+            [names addObject:curr.handID];
+        }
+    }
+        
+    return names;
 }
 
 @end
