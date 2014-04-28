@@ -70,10 +70,11 @@
         }
     }
     
-    DQUHand *deck = [[DQUHand alloc] initWithHandID:@"deck"];
-    for (int i = 0; i < 52; i++) {
-        [deck addCard:i];
-    }
+    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
+    [game addPlayer:@"lw3"];
+    [game addPlayer:@"xiw"];
+    [game dealCards:3];
+    
     
     // -----------------------------------------------------------------------------------------
     // Game testing and debugging stuff.
