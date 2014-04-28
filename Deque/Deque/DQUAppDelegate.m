@@ -96,15 +96,18 @@
 //    [data sendHand:self.currGame.hands[0]];
     
     // TODO update all hands in a game in one call.
+    // TODO make owner handID a property
     
     
     NewGameViewController *viewController = [[NewGameViewController alloc]init];
-    self.window.rootViewController = viewController;
+//    self.window.rootViewController = viewController;
     NSString *gn = viewController.gameName;
     NSString *on = viewController.ownerName;
     NSNumber *n = viewController.numPlayers;
     
-    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:gn OwnerName:on numPlayers:[n intValue]];
+    // TODO: add a function which will save this new array to the game itself.
+    
+//    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:gn OwnerName:on numPlayers:[n intValue]];
     
     // -----------------------------------------------------------------------------------------
     // Game testing and debugging stuff.
@@ -117,7 +120,8 @@
     // -----------------------------------------------------------------------------------------
     // manipulations within the game, to test DQUDataServer
     
-    self.currGame = [data retrieveGameWithID:self.gameID forGame:self.currGame];
+    self.currGame = [data retrieveGameWithID:self.gameID];
+    [self.currGame printGame:self.allCards];
     
     // testing sending
 //    int handInd = [self.currGame findHandIndex:@"x"];

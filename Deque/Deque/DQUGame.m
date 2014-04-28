@@ -136,6 +136,7 @@ NSString *suffix = @"_disp";
         [self.hands[i] printCards:dict];
         [self.hands[i] printID];
     }
+    NSLog(@"Number of hands: %lui", (unsigned long)[self.hands count]);
 }
 
 // draws card from deck and adds it to hand specified by handID
@@ -197,10 +198,10 @@ NSString *suffix = @"_disp";
 - (NSMutableArray *) findHandIDs:(NSString *)src
 {
     NSMutableArray *names = [[NSMutableArray alloc] init];
-    int handsCount = [self.numHands intValue];
+    NSUInteger playerCount = [self.hands count];
     
-    for (int i = 0; i < handsCount; i++) {
-        DQUHand *curr = self.hands[i * 2];
+    for (int i = 0; i < playerCount; i += 2) {
+        DQUHand *curr = self.hands[i];
         if (curr.handID != src) {
             [names addObject:curr.handID];
         }

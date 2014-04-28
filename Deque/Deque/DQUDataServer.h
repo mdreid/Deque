@@ -26,7 +26,7 @@
 - (void) sendHand:(DQUHand *)hand;
 
 // retrieve game from the server.
-- (DQUGame *) retrieveGameWithID:(NSString *)gameID forGame:(DQUGame *)theGame;
+- (DQUGame *) retrieveGameWithID:(NSString *)gameID;
 
 - (void) sendGame:(DQUGame *) game;
 

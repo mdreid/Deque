@@ -52,10 +52,9 @@
 
 }
 
-- (DQUGame *) retrieveGameWithID:(NSString *)gameID forGame:(DQUGame *)theGame
+- (DQUGame *) retrieveGameWithID:(NSString *)gameID
 {
     PFQuery *query = [DQUGame query];
-    NSLog(@"the game ID we're looking for is: %@", gameID);
     
     // this will be the game we ultimately return which will be completely filled in.
     DQUGame *game = nil;
@@ -92,7 +91,6 @@
     game.deck = [[DQUHand alloc] initWithHandID:[obj objectForKey:@"handID"]];
     game.deck.cards = [[obj objectForKey:@"cards"] mutableCopy];
     game.deck.objID = [NSString stringWithString:obj.objectId];
-    NSLog(@"grabbed deck.");
     
     [handsQuery whereKey:@"objectId" equalTo:objDiscard.objectId];
     hand = [handsQuery findObjects];
@@ -101,7 +99,6 @@
     game.discard = [[DQUHand alloc] initWithHandID:[obj objectForKey:@"handID"]];
     game.discard.cards = [[obj objectForKey:@"cards"] mutableCopy];
     game.discard.objID = [NSString stringWithString:obj.objectId];
-    NSLog(@"grabbed discard.");
     
     for (PFObject *h in currHands) {
         [handsQuery whereKey:@"objectId" equalTo:h.objectId];
@@ -112,7 +109,6 @@
         curr.cards = [[obj objectForKey:@"cards"] mutableCopy];
         curr.objID = [NSString stringWithString:obj.objectId];
         [game.hands addObject:curr];
-        NSLog(@"grabbed hand");
     }
     
     return game;

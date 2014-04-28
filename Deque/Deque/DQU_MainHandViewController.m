@@ -163,8 +163,17 @@
 {
     NSString *actionSheetTitle = @"CARD"; //Action Sheet Title
     NSString *destructiveTitle = @"Discard"; //Action Sheet Button Titles
-    NSString *other1 = @"Give to Player";
-    NSString *other2 = @"Toggle";
+    
+    NSMutableArray *names = [appDel.currGame findHandIDs:@"mdr"];
+    int playerCount = [appDel.currGame.numPlayers intValue];
+    
+    NSMutableArray *optionNames = [[NSMutableArray alloc] init];
+    
+    for (NSString *n in names) {
+        [optionNames addObject:[NSString stringWithFormat:@"Give to %@", n]];
+    }
+    
+    NSString *toggle = @"Toggle";
 
     NSString *cancelTitle = @"Cancel Button";
     
@@ -173,7 +182,13 @@
                                   delegate:self
                                   cancelButtonTitle:cancelTitle
                                   destructiveButtonTitle:destructiveTitle
-                                  otherButtonTitles:other1, other2,  nil];
+                                  otherButtonTitles:nil];
+    
+    for (NSString *title in optionNames) {
+        [actionSheet addButtonWithTitle:title];
+    }
+    
+    [actionSheet addButtonWithTitle:toggle];
     
     [actionSheet showInView:self.view];
     
