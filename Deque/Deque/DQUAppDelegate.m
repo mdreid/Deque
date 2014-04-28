@@ -69,6 +69,15 @@
         }
     }
     
+
+    
+    // Dummy game
+    /*
+    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
+    [game addPlayer:@"lw3"];
+    [game addPlayer:@"xiw"];
+    [game dealCards:3];
+    */
     [data setDictionary:self.allCards];
     self.gameID = @"test1";
     
@@ -88,6 +97,14 @@
     
     // TODO update all hands in a game in one call.
     
+    
+    NewGameViewController *viewController = [[NewGameViewController alloc]init];
+    self.window.rootViewController = viewController;
+    NSString *gn = viewController.gameName;
+    NSString *on = viewController.ownerName;
+    NSNumber *n = viewController.numPlayers;
+    
+    DQUGame *game = [[DQUGame alloc] initWithDeckandGameName:gn OwnerName:on numPlayers:[n intValue]];
     
     // -----------------------------------------------------------------------------------------
     // Game testing and debugging stuff.
