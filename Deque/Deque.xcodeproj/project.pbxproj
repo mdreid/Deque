@@ -88,7 +88,6 @@
 		4EB0391118E8FA3F0084D175 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391018E8FA3F0084D175 /* Security.framework */; };
 		4EB0391318E8FA440084D175 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391218E8FA440084D175 /* StoreKit.framework */; };
 		4EB0391518E8FA4B0084D175 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391418E8FA4B0084D175 /* SystemConfiguration.framework */; };
-		4EC8D8F1190EE73A0020EBE1 /* DQUModActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8D8F0190EE73A0020EBE1 /* DQUModActionSheet.m */; };
 		4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4E75518E9C9E4007946C7 /* DQUGame.m */; };
 		4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */; };
 		4EDBAD7418F2187C0016AAF2 /* DQU_HandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */; };
@@ -199,8 +198,6 @@
 		4EC0556D18F3478900CBA2B1 /* DQUCard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DQUCard.mm; sourceTree = "<group>"; };
 		4EC0557018F3478900CBA2B1 /* DQUHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUHand.h; sourceTree = "<group>"; };
 		4EC0557118F3478900CBA2B1 /* DQUHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUHand.m; sourceTree = "<group>"; };
-		4EC8D8EF190EE73A0020EBE1 /* DQUModActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUModActionSheet.h; sourceTree = "<group>"; };
-		4EC8D8F0190EE73A0020EBE1 /* DQUModActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUModActionSheet.m; sourceTree = "<group>"; };
 		4ED4E75418E9C9E4007946C7 /* DQUGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUGame.h; sourceTree = "<group>"; };
 		4ED4E75518E9C9E4007946C7 /* DQUGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUGame.m; sourceTree = "<group>"; };
 		4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -377,8 +374,6 @@
 				4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */,
 				4EB038E518E8F83D0084D175 /* Images.xcassets */,
 				4EB038DA18E8F83B0084D175 /* Supporting Files */,
-				4EC8D8EF190EE73A0020EBE1 /* DQUModActionSheet.h */,
-				4EC8D8F0190EE73A0020EBE1 /* DQUModActionSheet.m */,
 			);
 			path = Deque;
 			sourceTree = "<group>";
@@ -577,7 +572,6 @@
 				4E22100518FB66190020ED2F /* DQU_CardCell.m in Sources */,
 				4E737E0918F4DFF8009BD8D5 /* DQUCard.mm in Sources */,
 				4E189F2F190C7513002878AD /* DQU_TableViewController.m in Sources */,
-				4EC8D8F1190EE73A0020EBE1 /* DQUModActionSheet.m in Sources */,
 				4E22100218FB57EC0020ED2F /* DQU_MainHandViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
