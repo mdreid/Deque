@@ -9,7 +9,7 @@
 #import "DQU_MainHandViewController.h"
 #import "DQUAppDelegate.h"
 
-@interface DQU_MainHandViewController () <UIActionSheetDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface DQU_MainHandViewController () <UIActionSheetDelegate>
 {
      DQUAppDelegate *appDel;
      NSInteger cardSelected;
@@ -111,11 +111,6 @@
      
 }
 
--(void)singleTapping:(UIGestureRecognizer *)recognizer
-{
-     //    [self showActionSheetCard];
-}
-
 - (void)showActionSheet:(id)sender
 {
      NSString *actionSheetTitle = @"CARD"; //Action Sheet Title
@@ -148,6 +143,8 @@
      [actionSheet addButtonWithTitle:cancelTitle];
      actionSheet.cancelButtonIndex = [optionNames count] + 1;
      
+     // TODO: why is the second to last part bold? ...figure out a way to fix this.
+     
      [actionSheet showInView:self.view];
      
 }
@@ -164,19 +161,35 @@
      if  ([buttonTitle isEqualToString:@"Discard"]) {
           // at this point, it is out of the hand.
           removedCard = [appDel.currGame.hands[myHandInd] grabAndRemoveCardAtIndex:(int)cardSelected];
-          [appDel.currGame.discard addCard:(int)cardSelected];
+          [appDel.currGame.discard addCard:removedCard];
           
-          
-          NSLog(@"Destructive pressed --> Delete Something");
+          [DQUDataServer sendHand:appDel.currGame.discard];
+          [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
      }
      if ([buttonTitle rangeOfString:@"Give to"].location != NSNotFound) {
+          NSArray *array = [buttonTitle componentsSeparatedByString:@"Give to "];
           
+          // will only be the 'first' item of the array, since only one user.
+          NSInteger otherHandInd = [appDel.currGame findHandIndex:array[1]];
+          
+          // the transfer.
+          removedCard = [appDel.currGame.hands[myHandInd] grabAndRemoveCardAtIndex:(int) cardSelected];
+          [appDel.currGame.hands[(int)otherHandInd] addCard:removedCard];
+          
+          [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
+          [DQUDataServer sendHand:appDel.currGame.hands[otherHandInd]];
      }
      if ([buttonTitle isEqualToString:@"Toggle"]) {
-          NSLog(@"Other 2 pressed");
+          // either move to display hand
+          // TODO: make an option to switch to display hand.
+          removedCard = [appDel.currGame.hands[myHandInd] grabAndRemoveCardAtIndex:(int)cardSelected];
+          [appDel.currGame.hands[myHandInd + 1] addCard:removedCard];
+          
+          [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
+          [DQUDataServer sendHand:appDel.currGame.hands[myHandInd + 1]];
      }
      if ([buttonTitle isEqualToString:@"Cancel Button"]) {
-          NSLog(@"Cancel pressed --> Cancel ActionSheet");
+          // cancel is pressed. nothing should happen.
      }
      
      // update the hand on the database.
