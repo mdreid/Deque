@@ -35,8 +35,21 @@
     
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
 
+
     
     DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
+    [aHand addCard:1];
+    [aHand addCard:3];
+    [aHand addCard:5];
+    [aHand addCard:7];
+    [aHand addCard:1];
+    [aHand addCard:3];
+    [aHand addCard:5];
+    [aHand addCard:7];
+    [aHand addCard:1];
+    [aHand addCard:3];
+    [aHand addCard:5];
+    [aHand addCard:7];
     [aHand addCard:1];
     [aHand addCard:3];
     [aHand addCard:5];
@@ -46,6 +59,7 @@
     [self drawDisplayCard:_p2Scrollview withHand:aHand withID:2];
     [self drawDisplayCard:_p3Scrollview withHand:aHand withID:3];
     [self drawDisplayCard:_p4Scrollview withHand:aHand withID:4];
+    
     [self drawDisplayTableCard:_tableScrollview withHand:aHand];
 
     
@@ -63,6 +77,22 @@
     [_trash addTarget:self action:@selector(showActionSheetTrash:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_trash];
     
+    _p1view.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _p1view.layer.borderWidth = 0.5f;
+    _p2view.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _p2view.layer.borderWidth = 0.5f;
+    _p3view.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _p3view.layer.borderWidth = 0.5f;
+    _p4view.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _p4view.layer.borderWidth = 0.5f;
+    _publicTableView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _publicTableView.layer.borderWidth = 0.5f;
+    
+    
+    CGSize firstSize = CGSizeMake(50.0,50.0);
+    _p1Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(30, 32.5, 50, 50)];
+    _p1Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Pikachu.png"] convertToSize:firstSize];
+    [self.view addSubview: _p1Avatar];
 }
 
 - (void)showActionSheetDeck:(id)sender
@@ -124,6 +154,14 @@
     
 }
 
+- (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return destImage;
+}
+
 - (void)actionSheetTrash:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     //Get the name of the current pressed button
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
@@ -152,27 +190,36 @@
 
 - (void) drawDisplayCard: (UIScrollView *)scrollView withHand:(DQUHand *)aHand withID:(int)playerID {
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0 + 115 * (playerID - 1), 100, 114, 80)];
+    int numberOfPapers = [aHand getCardCount];
+    
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0 + 114.75 * (playerID - 1), 95, 114, 60)];
     scrollView.showsHorizontalScrollIndicator = NO;
     
-    CGFloat paperwidth = 80 * 5 / 7;
-    int numberOfPapers = [aHand getCardCount];
+    CGFloat paperwidth = 60 * 6 / 7;
+    
     NSLog(@"%d", numberOfPapers);
     NSLog(@"hi come herE?");
     for (int i = 0; i < numberOfPapers; i++) {
-        NSLog(@"hi");
+        // NSLog(@"hi");
+        CGSize firstSize = CGSizeMake(60 * 6 / 7,60.0);
         
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(paperwidth * i, 0, paperwidth, scrollView.bounds.size.height)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((paperwidth + 5) * i, 0, paperwidth, scrollView.bounds.size.height)];
         
         int cardID = [aHand.cards[i] intValue];
         NSLog(@"%d is cardid", cardID);
         DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
-        imageView.image = [UIImage imageNamed:aCard.picName];
-        [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
-        [imageView.layer setBorderWidth: 1.0];
+       // imageView.image = [UIImage imageNamed:aCard.picName];
+        imageView.image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
+
+        [imageView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+        [imageView.layer setBorderWidth: 0.5];
         
         [scrollView addSubview:imageView];
+        
+        /*    CGSize firstSize = CGSizeMake(50.0,50.0);
+         _p1Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(30, 32.5, 50, 50)];
+         _p1Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Pikachu.png"] convertToSize:firstSize];
+         [self.view addSubview: _p1Avatar]; */
         
     }
     
@@ -186,27 +233,30 @@
 }
 
 
+
+
 - (void) drawDisplayTableCard: (UIScrollView *)scrollView withHand:(DQUHand *)tableHand {
     
-    CGFloat paperwidth = 80 * 5 / 7;
+    CGFloat paperwidth = 80 * 6 / 7;
     NSUInteger numberOfPapers = [tableHand getCardCount];
     
-    CGFloat tablePaperWidth = 80 * 5 / 7;
+    CGFloat tablePaperWidth = 80 * 6 / 7;
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 220, 458, 80)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(1, 220, 456, 80)];
     
     scrollView.showsHorizontalScrollIndicator = NO;
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(tablePaperWidth * i, 0, paperwidth, scrollView.bounds.size.height)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((tablePaperWidth + 5) * i, 0, paperwidth, scrollView.bounds.size.height)];
         
         int cardID = [tableHand.cards[i] intValue];
 
         DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
         imageView.image = [UIImage imageNamed:aCard.picName];
-        [imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
-        [imageView.layer setBorderWidth: 1.0];
+        [imageView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+        [imageView.layer setBorderWidth: 0.5];
+        
         [scrollView addSubview:imageView];
         
     }

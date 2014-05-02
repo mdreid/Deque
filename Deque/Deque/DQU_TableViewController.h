@@ -10,7 +10,21 @@
 
 @interface DQU_TableViewController : UIViewController <UIActionSheetDelegate>
 
+@property (strong, nonatomic) IBOutlet UIView *p1view;
+@property (strong, nonatomic) IBOutlet UIView *p2view;
+@property (strong, nonatomic) IBOutlet UIView *p3view;
+
+@property (strong, nonatomic) IBOutlet UIView *p4view;
+
+@property (strong, nonatomic) IBOutlet UIImageView *p1Avatar;
+
+@property (strong, nonatomic) IBOutlet UIImageView *p2Avatar;
+@property (strong, nonatomic) IBOutlet UIImageView *p3Avatar;
+
+@property (strong, nonatomic) IBOutlet UIView *publicTableView;
+
 @property (strong, nonatomic) IBOutlet UIScrollView *p1Scrollview;
+@property (strong, nonatomic) IBOutlet UIImageView *p4Avatar;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *p2Scrollview;
 @property (strong, nonatomic) IBOutlet UIScrollView *p3Scrollview;

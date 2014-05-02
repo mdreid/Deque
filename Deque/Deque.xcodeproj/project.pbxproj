@@ -59,6 +59,10 @@
 		3CB82D00190E22A200B1070E /* Q_D.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB82CCC190E22A200B1070E /* Q_D.png */; };
 		3CB82D01190E22A200B1070E /* Q_H.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB82CCD190E22A200B1070E /* Q_H.png */; };
 		3CB82D02190E22A200B1070E /* Q_S.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB82CCE190E22A200B1070E /* Q_S.png */; };
+		3CD144961913680F0049CCC8 /* Bulbasaur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144921913680F0049CCC8 /* Bulbasaur.png */; };
+		3CD144971913680F0049CCC8 /* Gigglypuff.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144931913680F0049CCC8 /* Gigglypuff.png */; };
+		3CD144981913680F0049CCC8 /* Pikachu.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144941913680F0049CCC8 /* Pikachu.png */; };
+		3CD144991913680F0049CCC8 /* Squirtle.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144951913680F0049CCC8 /* Squirtle.png */; };
 		4E189F2F190C7513002878AD /* DQU_TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E189F2D190C7513002878AD /* DQU_TableViewController.m */; };
 		4E189F30190C7513002878AD /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E189F2E190C7513002878AD /* star.png */; };
 		4E22100218FB57EC0020ED2F /* DQU_MainHandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E22100118FB57EC0020ED2F /* DQU_MainHandViewController.m */; };
@@ -160,6 +164,10 @@
 		3CB82CCC190E22A200B1070E /* Q_D.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Q_D.png; sourceTree = "<group>"; };
 		3CB82CCD190E22A200B1070E /* Q_H.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Q_H.png; sourceTree = "<group>"; };
 		3CB82CCE190E22A200B1070E /* Q_S.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Q_S.png; sourceTree = "<group>"; };
+		3CD144921913680F0049CCC8 /* Bulbasaur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bulbasaur.png; sourceTree = "<group>"; };
+		3CD144931913680F0049CCC8 /* Gigglypuff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gigglypuff.png; sourceTree = "<group>"; };
+		3CD144941913680F0049CCC8 /* Pikachu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pikachu.png; sourceTree = "<group>"; };
+		3CD144951913680F0049CCC8 /* Squirtle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Squirtle.png; sourceTree = "<group>"; };
 		4E189F2C190C7513002878AD /* DQU_TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_TableViewController.h; sourceTree = "<group>"; };
 		4E189F2D190C7513002878AD /* DQU_TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_TableViewController.m; sourceTree = "<group>"; };
 		4E189F2E190C7513002878AD /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -309,6 +317,10 @@
 		4EB038C718E8F83A0084D175 = {
 			isa = PBXGroup;
 			children = (
+				3CD144921913680F0049CCC8 /* Bulbasaur.png */,
+				3CD144931913680F0049CCC8 /* Gigglypuff.png */,
+				3CD144941913680F0049CCC8 /* Pikachu.png */,
+				3CD144951913680F0049CCC8 /* Squirtle.png */,
 				4EB038D918E8F83B0084D175 /* Deque */,
 				4EB038F218E8F8410084D175 /* DequeTests */,
 				4EB038D218E8F83B0084D175 /* Frameworks */,
@@ -499,9 +511,11 @@
 				3CB82CF8190E22A200B1070E /* J_D.png in Resources */,
 				3CB82D00190E22A200B1070E /* Q_D.png in Resources */,
 				3CB82CFA190E22A200B1070E /* J_S.png in Resources */,
+				3CD144991913680F0049CCC8 /* Squirtle.png in Resources */,
 				3CB82CD9190E22A200B1070E /* 3_H.png in Resources */,
 				3CB82CFC190E22A200B1070E /* K_D.png in Resources */,
 				3CB82CFD190E22A200B1070E /* K_H.png in Resources */,
+				3CD144961913680F0049CCC8 /* Bulbasaur.png in Resources */,
 				3CB82CF2190E22A200B1070E /* 9_S.png in Resources */,
 				3CB82CEF190E22A200B1070E /* 9_C.png in Resources */,
 				3CB82CEA190E22A200B1070E /* 7_S.png in Resources */,
@@ -509,6 +523,7 @@
 				3CB82CDF190E22A200B1070E /* 5_C.png in Resources */,
 				3CB82CFB190E22A200B1070E /* K_C.png in Resources */,
 				3CB82CFF190E22A200B1070E /* Q_C.png in Resources */,
+				3CD144981913680F0049CCC8 /* Pikachu.png in Resources */,
 				3CB82CD5190E22A200B1070E /* 2_H.png in Resources */,
 				4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */,
 				4E189F30190C7513002878AD /* star.png in Resources */,
@@ -523,6 +538,7 @@
 				3CB82D02190E22A200B1070E /* Q_S.png in Resources */,
 				3CB82CD6190E22A200B1070E /* 2_S.png in Resources */,
 				6AB7B18D190E502600E0270E /* NewGameViewController.xib in Resources */,
+				3CD144971913680F0049CCC8 /* Gigglypuff.png in Resources */,
 				3CB82CFE190E22A200B1070E /* K_S.png in Resources */,
 				3CB82CD1190E22A200B1070E /* 10_H.png in Resources */,
 				3CB82CE3190E22A200B1070E /* 6_C.png in Resources */,
