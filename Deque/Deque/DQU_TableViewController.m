@@ -283,7 +283,6 @@
         
     }
     
-    //NSLog(@"poop");
     CGSize contentSize = CGSizeMake(paperwidth * numberOfPapers, scrollView.bounds.size.height);
     scrollView.contentSize = contentSize;
     
