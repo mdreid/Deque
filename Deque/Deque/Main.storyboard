@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kCc-KC-1rD">
-
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -81,10 +79,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Join Existing Game" id="l1U-qC-tDl"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <connections>
+                        <segue destination="adY-FH-05S" kind="modal" id="9Il-M0-m3t"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdr-07-9yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-344" y="270"/>
+            <point key="canvasLocation" x="-304" y="442"/>
         </scene>
         <!--New Game View Controller-->
         <scene sceneID="dxt-Rj-45W">
@@ -320,7 +321,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cD9-CB-YiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-275" y="-63"/>
->>>>>>> c42f2a8b38cd528b9dc033be3c044e48116aa3d6
         </scene>
         <!--Main Hand View Controller-->
         <scene sceneID="hj6-2E-es5">
@@ -392,6 +392,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ud7-E4-WPx"/>
+        <segue reference="GHI-LJ-1kz"/>
     </inferredMetricsTieBreakers>
 </document>

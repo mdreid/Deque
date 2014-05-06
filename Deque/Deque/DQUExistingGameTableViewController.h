@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface DQUExistingGameTableViewController : UITableViewController
+
+@property (nonatomic) NSMutableArray *gameOwnerStrings;
 
 @end
