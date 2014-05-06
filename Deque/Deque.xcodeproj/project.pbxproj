@@ -59,6 +59,14 @@
 		3CB82D00190E22A200B1070E /* Q_D.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB82CCC190E22A200B1070E /* Q_D.png */; };
 		3CB82D01190E22A200B1070E /* Q_H.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB82CCD190E22A200B1070E /* Q_H.png */; };
 		3CB82D02190E22A200B1070E /* Q_S.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB82CCE190E22A200B1070E /* Q_S.png */; };
+		3CD144961913680F0049CCC8 /* Bulbasaur.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144921913680F0049CCC8 /* Bulbasaur.png */; };
+		3CD144971913680F0049CCC8 /* Gigglypuff.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144931913680F0049CCC8 /* Gigglypuff.png */; };
+		3CD144981913680F0049CCC8 /* Pikachu.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144941913680F0049CCC8 /* Pikachu.png */; };
+		3CD144991913680F0049CCC8 /* Squirtle.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CD144951913680F0049CCC8 /* Squirtle.png */; };
+		3CD1449E191369930049CCC8 /* tiny_bulba.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3CD1449A191369930049CCC8 /* tiny_bulba.PNG */; };
+		3CD1449F191369930049CCC8 /* tiny_char.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3CD1449B191369930049CCC8 /* tiny_char.PNG */; };
+		3CD144A0191369930049CCC8 /* tiny_pika.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3CD1449C191369930049CCC8 /* tiny_pika.PNG */; };
+		3CD144A1191369930049CCC8 /* tiny_squirt.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 3CD1449D191369930049CCC8 /* tiny_squirt.PNG */; };
 		4E189F2F190C7513002878AD /* DQU_TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E189F2D190C7513002878AD /* DQU_TableViewController.m */; };
 		4E189F30190C7513002878AD /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E189F2E190C7513002878AD /* star.png */; };
 		4E22100218FB57EC0020ED2F /* DQU_MainHandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E22100118FB57EC0020ED2F /* DQU_MainHandViewController.m */; };
@@ -88,7 +96,6 @@
 		4EB0391118E8FA3F0084D175 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391018E8FA3F0084D175 /* Security.framework */; };
 		4EB0391318E8FA440084D175 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391218E8FA440084D175 /* StoreKit.framework */; };
 		4EB0391518E8FA4B0084D175 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB0391418E8FA4B0084D175 /* SystemConfiguration.framework */; };
-		4EC8D8F1190EE73A0020EBE1 /* DQUModActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8D8F0190EE73A0020EBE1 /* DQUModActionSheet.m */; };
 		4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4E75518E9C9E4007946C7 /* DQUGame.m */; };
 		4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */; };
 		4EDBAD7418F2187C0016AAF2 /* DQU_HandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */; };
@@ -160,6 +167,14 @@
 		3CB82CCC190E22A200B1070E /* Q_D.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Q_D.png; sourceTree = "<group>"; };
 		3CB82CCD190E22A200B1070E /* Q_H.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Q_H.png; sourceTree = "<group>"; };
 		3CB82CCE190E22A200B1070E /* Q_S.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Q_S.png; sourceTree = "<group>"; };
+		3CD144921913680F0049CCC8 /* Bulbasaur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bulbasaur.png; sourceTree = "<group>"; };
+		3CD144931913680F0049CCC8 /* Gigglypuff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gigglypuff.png; sourceTree = "<group>"; };
+		3CD144941913680F0049CCC8 /* Pikachu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pikachu.png; sourceTree = "<group>"; };
+		3CD144951913680F0049CCC8 /* Squirtle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Squirtle.png; sourceTree = "<group>"; };
+		3CD1449A191369930049CCC8 /* tiny_bulba.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiny_bulba.PNG; sourceTree = "<group>"; };
+		3CD1449B191369930049CCC8 /* tiny_char.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiny_char.PNG; sourceTree = "<group>"; };
+		3CD1449C191369930049CCC8 /* tiny_pika.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiny_pika.PNG; sourceTree = "<group>"; };
+		3CD1449D191369930049CCC8 /* tiny_squirt.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiny_squirt.PNG; sourceTree = "<group>"; };
 		4E189F2C190C7513002878AD /* DQU_TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_TableViewController.h; sourceTree = "<group>"; };
 		4E189F2D190C7513002878AD /* DQU_TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_TableViewController.m; sourceTree = "<group>"; };
 		4E189F2E190C7513002878AD /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -199,8 +214,6 @@
 		4EC0556D18F3478900CBA2B1 /* DQUCard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DQUCard.mm; sourceTree = "<group>"; };
 		4EC0557018F3478900CBA2B1 /* DQUHand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUHand.h; sourceTree = "<group>"; };
 		4EC0557118F3478900CBA2B1 /* DQUHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUHand.m; sourceTree = "<group>"; };
-		4EC8D8EF190EE73A0020EBE1 /* DQUModActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUModActionSheet.h; sourceTree = "<group>"; };
-		4EC8D8F0190EE73A0020EBE1 /* DQUModActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUModActionSheet.m; sourceTree = "<group>"; };
 		4ED4E75418E9C9E4007946C7 /* DQUGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUGame.h; sourceTree = "<group>"; };
 		4ED4E75518E9C9E4007946C7 /* DQUGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUGame.m; sourceTree = "<group>"; };
 		4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -310,6 +323,14 @@
 		4EB038C718E8F83A0084D175 = {
 			isa = PBXGroup;
 			children = (
+				3CD1449A191369930049CCC8 /* tiny_bulba.PNG */,
+				3CD1449B191369930049CCC8 /* tiny_char.PNG */,
+				3CD1449C191369930049CCC8 /* tiny_pika.PNG */,
+				3CD1449D191369930049CCC8 /* tiny_squirt.PNG */,
+				3CD144921913680F0049CCC8 /* Bulbasaur.png */,
+				3CD144931913680F0049CCC8 /* Gigglypuff.png */,
+				3CD144941913680F0049CCC8 /* Pikachu.png */,
+				3CD144951913680F0049CCC8 /* Squirtle.png */,
 				4EB038D918E8F83B0084D175 /* Deque */,
 				4EB038F218E8F8410084D175 /* DequeTests */,
 				4EB038D218E8F83B0084D175 /* Frameworks */,
@@ -379,8 +400,6 @@
 				4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */,
 				4EB038E518E8F83D0084D175 /* Images.xcassets */,
 				4EB038DA18E8F83B0084D175 /* Supporting Files */,
-				4EC8D8EF190EE73A0020EBE1 /* DQUModActionSheet.h */,
-				4EC8D8F0190EE73A0020EBE1 /* DQUModActionSheet.m */,
 			);
 			path = Deque;
 			sourceTree = "<group>";
@@ -501,9 +520,11 @@
 				3CB82CF8190E22A200B1070E /* J_D.png in Resources */,
 				3CB82D00190E22A200B1070E /* Q_D.png in Resources */,
 				3CB82CFA190E22A200B1070E /* J_S.png in Resources */,
+				3CD144991913680F0049CCC8 /* Squirtle.png in Resources */,
 				3CB82CD9190E22A200B1070E /* 3_H.png in Resources */,
 				3CB82CFC190E22A200B1070E /* K_D.png in Resources */,
 				3CB82CFD190E22A200B1070E /* K_H.png in Resources */,
+				3CD144961913680F0049CCC8 /* Bulbasaur.png in Resources */,
 				3CB82CF2190E22A200B1070E /* 9_S.png in Resources */,
 				3CB82CEF190E22A200B1070E /* 9_C.png in Resources */,
 				3CB82CEA190E22A200B1070E /* 7_S.png in Resources */,
@@ -511,10 +532,13 @@
 				3CB82CDF190E22A200B1070E /* 5_C.png in Resources */,
 				3CB82CFB190E22A200B1070E /* K_C.png in Resources */,
 				3CB82CFF190E22A200B1070E /* Q_C.png in Resources */,
+				3CD1449E191369930049CCC8 /* tiny_bulba.PNG in Resources */,
+				3CD144981913680F0049CCC8 /* Pikachu.png in Resources */,
 				3CB82CD5190E22A200B1070E /* 2_H.png in Resources */,
 				4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */,
 				4E189F30190C7513002878AD /* star.png in Resources */,
 				3CB82CDD190E22A200B1070E /* 4_H.png in Resources */,
+				3CD144A1191369930049CCC8 /* tiny_squirt.PNG in Resources */,
 				3CB82CD4190E22A200B1070E /* 2_D.png in Resources */,
 				3CB82CEE190E22A200B1070E /* 8_S.png in Resources */,
 				3CB82CF0190E22A200B1070E /* 9_D.png in Resources */,
@@ -524,15 +548,18 @@
 				3CB82CCF190E22A200B1070E /* 10_C.png in Resources */,
 				3CB82D02190E22A200B1070E /* Q_S.png in Resources */,
 				3CB82CD6190E22A200B1070E /* 2_S.png in Resources */,
+				3CD144971913680F0049CCC8 /* Gigglypuff.png in Resources */,
 				3CB82CFE190E22A200B1070E /* K_S.png in Resources */,
 				3CB82CD1190E22A200B1070E /* 10_H.png in Resources */,
 				3CB82CE3190E22A200B1070E /* 6_C.png in Resources */,
+				3CD144A0191369930049CCC8 /* tiny_pika.PNG in Resources */,
 				3CB82CE0190E22A200B1070E /* 5_D.png in Resources */,
 				3CB82CE4190E22A200B1070E /* 6_D.png in Resources */,
 				3CB82CF4190E22A200B1070E /* A_D.png in Resources */,
 				3CB82CEB190E22A200B1070E /* 8_C.png in Resources */,
 				3CB82CE9190E22A200B1070E /* 7_H.png in Resources */,
 				3CB82CDC190E22A200B1070E /* 4_D.png in Resources */,
+				3CD1449F191369930049CCC8 /* tiny_char.PNG in Resources */,
 				3CB82CE8190E22A200B1070E /* 7_D.png in Resources */,
 				3CB82CD7190E22A200B1070E /* 3_C.png in Resources */,
 				3CB82CE6190E22A200B1070E /* 6_S.png in Resources */,
@@ -578,7 +605,6 @@
 				4E22100518FB66190020ED2F /* DQU_CardCell.m in Sources */,
 				4E737E0918F4DFF8009BD8D5 /* DQUCard.mm in Sources */,
 				4E189F2F190C7513002878AD /* DQU_TableViewController.m in Sources */,
-				4EC8D8F1190EE73A0020EBE1 /* DQUModActionSheet.m in Sources */,
 				6A86AAE119127BC400D930BB /* DQUNewGameViewController.m in Sources */,
 				4E22100218FB57EC0020ED2F /* DQU_MainHandViewController.m in Sources */,
 			);

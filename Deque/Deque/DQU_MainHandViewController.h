@@ -18,6 +18,7 @@
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *myHandScroll;
 
+@property (strong, nonatomic) IBOutlet UIButton *myButton;
 
 
 // maintain a "current" hand for the app.

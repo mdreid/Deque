@@ -37,7 +37,7 @@
 
 
     
-    
+    /*
     DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
     [aHand addCard:1];
     [aHand addCard:3];
@@ -56,14 +56,14 @@
     [aHand addCard:5];
     [aHand addCard:7];
     
-     /*
+<<<<<<< HEAD
     [self drawDisplayCard:_p1Scrollview withHand:aHand withID:1];
     [self drawDisplayCard:_p2Scrollview withHand:aHand withID:2];
     [self drawDisplayCard:_p3Scrollview withHand:aHand withID:3];
     [self drawDisplayCard:_p4Scrollview withHand:aHand withID:4];
     [self drawDisplayTableCard:_tableScrollview withHand:aHand];
      */
-
+=======
     UIScrollView *p1Scroll;
     UIScrollView *p2Scroll;
     UIScrollView *p3Scroll;
@@ -78,6 +78,7 @@
     
     [self drawDisplayTableCard:tableScroll withHand:aHand];
     [self drawIcons];
+>>>>>>> c42f2a8b38cd528b9dc033be3c044e48116aa3d6
     
    /* UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(20.0f, 186.0f, 280.0f, 88.0f);
@@ -316,7 +317,7 @@
          imageView.image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
         [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
         [imageView.layer setBorderWidth: 0.5];
-         
+        
         [scrollView addSubview:imageView];
         
     }
