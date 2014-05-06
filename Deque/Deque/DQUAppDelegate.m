@@ -85,6 +85,10 @@
     // set the current user for this instance.
     [self.currGame setUser:@"xiw"];
     
+    // grab all games on the server (testing)
+    NSArray *games = [DQUDataServer retrieveAllGames];
+    NSLog(@"%@ with owner %@", games[0][0], games[0][1]);
+    
 //    [self.currGame dealCards:3];
 //    [self.currGame printGame:self.allCards];
     

@@ -161,11 +161,25 @@ static NSMutableDictionary *allCards = nil;
     }
 }
 
-// sends a game to the database
-+ (void) sendGame:(DQUGame *)game;
++ (NSArray *) retrieveAllGames
 {
+    NSMutableArray *games= [[NSMutableArray alloc] init];
+    PFQuery *query = [DQUGame query];
     
+    // grabs all of the games in DQUGame.
+    NSArray* objects = [query findObjects];
+
+    for (PFObject *obj in objects) {
+        NSString *gameID = [NSString stringWithString:[obj objectForKey:@"gameID"]];
+        NSString *ownerID = [NSString stringWithString:[obj objectForKey:@"ownerID"]];
+        NSArray *info = @[gameID, ownerID];
+        
+        [games addObject:info];
+    }
+    
+    return [NSArray arrayWithArray:games];
 }
+
 
 // Prints additional information for debugging
 + (void) printDebugInfo:(NSError *)e {

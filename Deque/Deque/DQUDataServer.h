@@ -36,7 +36,8 @@
 // will update everything - deck, discard, table, and hands.
 + (void) updateAllHandsForGame:(DQUGame *)game;
 
-+ (void) sendGame:(DQUGame *) game;
+// grabs all the games available on the database thus far.
++ (NSArray *) retrieveAllGames;
 
 
 @end
