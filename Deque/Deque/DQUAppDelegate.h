@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import "DQUGame.h"
 #import "DQUDataServer.h"
-#import "NewGameViewController.h"
+#import "DQUNewGameViewController.h"
 
 @interface DQUAppDelegate : UIResponder <UIApplicationDelegate>
 {

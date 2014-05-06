@@ -36,6 +36,7 @@
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
 
     
+    /*
     DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
     [aHand addCard:1];
     [aHand addCard:3];
@@ -47,7 +48,7 @@
     [self drawDisplayCard:_p3Scrollview withHand:aHand withID:3];
     [self drawDisplayCard:_p4Scrollview withHand:aHand withID:4];
     [self drawDisplayTableCard:_tableScrollview withHand:aHand];
-
+     */
     
    /* UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(20.0f, 186.0f, 280.0f, 88.0f);

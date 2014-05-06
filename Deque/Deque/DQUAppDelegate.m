@@ -70,7 +70,7 @@
     [DQUDataServer setDictionary:self.allCards];
     
     // Dummy game
-    self.gameID = @"test1";
+    //self.gameID = @"test1";
     
     /* this section creates a new game from scratch.
     self.currGame = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
@@ -81,9 +81,9 @@
      */
     
     // retrieve an existing game. ...need to figure out why deal cards isn't working.
-    self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
+    //self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
     // set the current user for this instance.
-    [self.currGame setUser:@"xiw"];
+    //[self.currGame setUser:@"xiw"];
     
 //    [self.currGame dealCards:3];
 //    [self.currGame printGame:self.allCards];
@@ -109,11 +109,15 @@
 //    [DQUDataServer sendHand:self.currGame.hands[0]];
     
     
-    NewGameViewController *viewController = [[NewGameViewController alloc]init];
-//    self.window.rootViewController = viewController;
-    NSString *gn = viewController.gameName;
-    NSString *on = viewController.ownerName;
-    NSNumber *n = viewController.numPlayers;
+    //NewGameViewController *viewController = [[NewGameViewController alloc]init];
+    //self.window.rootViewController = viewController;
+    //NSString *gn = viewController.gameName;
+    //NSString *on = viewController.ownerName;
+    //NSNumber *n = viewController.numPlayers;
+    
+    
+    
+    
     
     return YES;
 }
