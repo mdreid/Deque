@@ -55,13 +55,20 @@
     [aHand addCard:5];
     [aHand addCard:7];
     
-    [self drawDisplayCard:_p1Scrollview withHand:aHand withID:1];
-    [self drawDisplayCard:_p2Scrollview withHand:aHand withID:2];
-    [self drawDisplayCard:_p3Scrollview withHand:aHand withID:3];
-    [self drawDisplayCard:_p4Scrollview withHand:aHand withID:4];
+    UIScrollView *p1Scroll;
+    UIScrollView *p2Scroll;
+    UIScrollView *p3Scroll;
+    UIScrollView *p4Scroll;
     
-    [self drawDisplayTableCard:_tableScrollview withHand:aHand];
-
+    [self drawDisplayCard:p1Scroll withHand:aHand withID:1];
+    [self drawDisplayCard:p2Scroll withHand:aHand withID:2];
+    [self drawDisplayCard:p3Scroll withHand:aHand withID:3];
+    [self drawDisplayCard:p4Scroll withHand:aHand withID:4];
+    
+    UIScrollView *tableScroll;
+    
+    [self drawDisplayTableCard:tableScroll withHand:aHand];
+    [self drawIcons];
     
    /* UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(20.0f, 186.0f, 280.0f, 88.0f);
@@ -69,30 +76,75 @@
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.tintColor = [UIColor darkGrayColor];*/
 
-    self.deck.center = CGPointMake(513, 150);
+    self.deck.center = CGPointMake(530, 150);
     [_deck addTarget:self action:@selector(showActionSheetDeck:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_deck];
     
-    self.trash.center = CGPointMake(513, 200);
+    self.trash.center = CGPointMake(530, 200);
     [_trash addTarget:self action:@selector(showActionSheetTrash:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_trash];
     
-    _p1view.layer.borderColor = [UIColor lightGrayColor].CGColor;
+ /*   _p1view.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _p1view.layer.borderWidth = 0.5f;
     _p2view.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _p2view.layer.borderWidth = 0.5f;
     _p3view.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _p3view.layer.borderWidth = 0.5f;
     _p4view.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _p4view.layer.borderWidth = 0.5f;
-    _publicTableView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _publicTableView.layer.borderWidth = 0.5f;
+    _p4view.layer.borderWidth = 0.5f; */
+  /*  _publicTableView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _publicTableView.layer.borderWidth = 0.5f; */
     
+   // CGSize firstSize = CGSizeMake(150.0,150.0);
+
     
-    CGSize firstSize = CGSizeMake(50.0,50.0);
-    _p1Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(30, 32.5, 50, 50)];
-    _p1Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Pikachu.png"] convertToSize:firstSize];
-    [self.view addSubview: _p1Avatar];
+
+    [self drawPlayerLabels];
+
+
+}
+
+- (void)drawPlayerLabels {
+    
+    UILabel *p1Label = [[UILabel alloc]initWithFrame:CGRectMake(0, 190, 123, 23)];
+    [p1Label  setBackgroundColor:[UIColor clearColor]];
+    p1Label.font = [UIFont fontWithName:@"Helvetica" size:(12.0)];
+    p1Label.textAlignment = NSTextAlignmentCenter;
+    [p1Label  setText:@"P1"];
+    [[self view] addSubview:p1Label];
+    
+    UILabel *p2Label = [[UILabel alloc]initWithFrame:CGRectMake(123, 190, 123, 23)];
+    [p2Label  setBackgroundColor:[UIColor clearColor]];
+    p2Label.font = [UIFont fontWithName:@"Helvetica" size:(12.0)];
+    p2Label.textAlignment = NSTextAlignmentCenter;
+    [p2Label  setText:@"LOL"];
+    [[self view] addSubview:p2Label];
+
+}
+
+- (void)drawIcons {
+    CGSize firstSize = CGSizeMake(110.0,110.0);
+    UIImageView *p1Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, 123,123)];
+    p1Avatar.contentMode = UIViewContentModeCenter;
+  //  p1Avatar.image = [UIImage imageNamed:@"Pikachu.png"];
+    UIImageView *p2Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(123, 15, 123,123)];
+    p2Avatar.contentMode = UIViewContentModeCenter;
+    //p2Avatar.image = [UIImage imageNamed:@"Squirtle.png"];
+    UIImageView *p3Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(2*123, 15, 123,123)];
+    p3Avatar.contentMode = UIViewContentModeCenter;
+   // p3Avatar.image = [UIImage imageNamed:@"Gigglypuff.png"];
+    UIImageView *p4Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(3*123, 15 , 123,123)];
+    p4Avatar.contentMode = UIViewContentModeCenter;
+    //p4Avatar.image = [UIImage imageNamed:@"Bulbasaur.png"];
+    p1Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Pikachu.png"] convertToSize:firstSize];
+    p2Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Squirtle.png"] convertToSize:firstSize];
+    p3Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Gigglypuff.png"] convertToSize:firstSize];
+    p4Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Bulbasaur.png"] convertToSize:firstSize];
+    [self.view addSubview: p1Avatar];
+    [self.view addSubview: p2Avatar];
+    [self.view addSubview: p3Avatar];
+    [self.view addSubview: p4Avatar];
+    
 }
 
 - (void)showActionSheetDeck:(id)sender
@@ -192,16 +244,15 @@
     
     int numberOfPapers = [aHand getCardCount];
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0 + 114.75 * (playerID - 1), 95, 114, 60)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(2 + 123 * (playerID - 1), 135, 123 - 4, 53)];
     scrollView.showsHorizontalScrollIndicator = NO;
     
-    CGFloat paperwidth = 60 * 6 / 7;
+    CGFloat paperwidth = 53 * 6 / 7;
     
-    NSLog(@"%d", numberOfPapers);
-    NSLog(@"hi come herE?");
+
     for (int i = 0; i < numberOfPapers; i++) {
         // NSLog(@"hi");
-        CGSize firstSize = CGSizeMake(60 * 6 / 7,60.0);
+        CGSize firstSize = CGSizeMake(53 * 6 / 7,53.0);
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((paperwidth + 5) * i, 0, paperwidth, scrollView.bounds.size.height)];
         
@@ -211,7 +262,7 @@
        // imageView.image = [UIImage imageNamed:aCard.picName];
         imageView.image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
 
-        [imageView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+        [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
         [imageView.layer setBorderWidth: 0.5];
         
         [scrollView addSubview:imageView];
@@ -223,7 +274,7 @@
         
     }
     
-    NSLog(@"poop");
+    //NSLog(@"poop");
     CGSize contentSize = CGSizeMake(paperwidth * numberOfPapers, scrollView.bounds.size.height);
     scrollView.contentSize = contentSize;
     
@@ -237,24 +288,24 @@
 
 - (void) drawDisplayTableCard: (UIScrollView *)scrollView withHand:(DQUHand *)tableHand {
     
-    CGFloat paperwidth = 80 * 6 / 7;
+    CGFloat paperwidth = 97 * 6 / 7;
     NSUInteger numberOfPapers = [tableHand getCardCount];
     
-    CGFloat tablePaperWidth = 80 * 6 / 7;
+    CGFloat tablePaperWidth = 97 * 6 / 7;
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(1, 220, 456, 80)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 218, 492, 97)];
     
     scrollView.showsHorizontalScrollIndicator = NO;
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
-        
+        CGSize firstSize = CGSizeMake(97 * 6 / 7,97.0);
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((tablePaperWidth + 5) * i, 0, paperwidth, scrollView.bounds.size.height)];
         
         int cardID = [tableHand.cards[i] intValue];
 
         DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
-        imageView.image = [UIImage imageNamed:aCard.picName];
-        [imageView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+         imageView.image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
+        [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
         [imageView.layer setBorderWidth: 0.5];
         
         [scrollView addSubview:imageView];

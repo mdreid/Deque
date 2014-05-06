@@ -49,6 +49,8 @@
      return self;
 }
 
+
+
 - (NSMutableArray *)cardValues
 {
      if (cardValues) {
@@ -68,7 +70,7 @@
      myHandInd = [appDel.currGame findHandIndex:ID];
      
      // initialize the scroll view.
-     _myHandScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 568, 100)];
+     _myHandScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, 568, 200)];
      _myHandScroll.showsHorizontalScrollIndicator = NO;
      
      [self.view addSubview:_myHandScroll];
@@ -78,25 +80,29 @@
 
 - (void) drawDisplayHandCard:(DQUHand *) aHand {
      
-     CGFloat paperwidth = 80 * 5 / 7;
+     CGFloat paperwidth = 200 * 6 / 7;
      NSUInteger numberOfPapers = [aHand getCardCount];
      NSLog(@"number of cards: %ld", (long) numberOfPapers);
-     CGFloat tablePaperWidth = 80 * 5 / 7;
+     CGFloat tablePaperWidth = 200 * 6 / 7;
      
      [_myHandScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
      
      for (NSUInteger i = 0; i < numberOfPapers; i++) {
           UIButton *btn = [[UIButton alloc] init];
-          btn.frame = CGRectMake(tablePaperWidth * i, 0, paperwidth, _myHandScroll.bounds.size.height);
-          btn.bounds = CGRectMake(tablePaperWidth * i, 0, paperwidth, _myHandScroll.bounds.size.height);
-          [btn.layer setBorderColor: [[UIColor blackColor] CGColor]];
-          [btn.layer setBorderWidth: 0.8];
+          btn.frame = CGRectMake((tablePaperWidth + 5)  * i, 0, paperwidth, _myHandScroll.bounds.size.height);
+          btn.bounds = CGRectMake((tablePaperWidth + 5) * i, 0, paperwidth, _myHandScroll.bounds.size.height);
+     /*     [btn.layer setBorderColor: [[UIColor blackColor] CGColor]];
+          [btn.layer setBorderWidth: 0.8]; */
+          
+          [btn.layer setBorderColor: [[UIColor grayColor] CGColor]];
+          [btn.layer setBorderWidth: 0.5];
           
           // grab the card to show.
           int cardID = [aHand.cards[i] intValue];
           DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
+          CGSize firstSize = CGSizeMake(200 * 6 / 7, 200.0);
           
-          UIImage *image = [UIImage imageNamed:aCard.picName];
+          UIImage *image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
           [btn setImage:image forState:UIControlStateNormal];
           [btn setImage:image forState:UIControlStateHighlighted];
           btn.tag = i;
@@ -109,6 +115,14 @@
      CGSize contentSizeTable = CGSizeMake(tablePaperWidth * numberOfPapers, _myHandScroll.bounds.size.height);
      _myHandScroll.contentSize = contentSizeTable;
      
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
+     UIGraphicsBeginImageContext(size);
+     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+     UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
+     UIGraphicsEndImageContext();
+     return destImage;
 }
 
 - (void)showActionSheet:(id)sender
