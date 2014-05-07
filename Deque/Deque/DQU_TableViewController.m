@@ -71,7 +71,7 @@
 //        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
 //    }
     
-    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:100.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
     
     NSLog(@"at this point0");
     NSString *ID = [appDel.currGame getUser];
