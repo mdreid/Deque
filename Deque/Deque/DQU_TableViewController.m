@@ -23,7 +23,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -33,7 +33,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -45,8 +44,6 @@
     else {
         isOwner = NO;
     }
-    
-    [appDel.currGame printGame:appDel.allCards];
     
     [self createColors];
     
@@ -71,24 +68,7 @@
 //        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
 //    }
     
-    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
-    
-    NSLog(@"at this point0");
-    NSString *ID = [appDel.currGame getUser];
-    NSLog(@"My Hand ID: %@", ID);
-    myHandInd = [appDel.currGame findHandIndex:ID];
-    NSArray *otherInds = [NSArray arrayWithArray:[appDel.currGame findHandInds]];
-    numHands = [appDel.currGame.numHands intValue];
-    
-    [userInds addObject:[NSNumber numberWithInteger:myHandInd]];
-    
-//    [appDel.currGame.hands[myHandInd] printCards:appDel.allCards];
-//    [appDel.currGame.hands[myHandInd + 1] printCards:appDel.allCards];
-    
-    for (NSNumber *num in otherInds) {
-        [userInds addObject:num];
-    }
-    NSLog(@"We still in business");
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
     
     [self drawEverything];
     
@@ -129,7 +109,6 @@
 
 - (void) callRepeatedly:(id)sender
 {
-    NSLog(@"repeating...");
     appDel.currGame = [DQUDataServer retrieveGameWithID:appDel.currGame.gameID];
     [self viewDidLoad];
 }
@@ -138,15 +117,28 @@
 {
     [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
+    NSString *ID = [appDel.currGame getUser];
+    myHandInd = [appDel.currGame findHandIndex:ID];
+    NSArray *otherInds = [NSArray arrayWithArray:[appDel.currGame findHandInds]];
+    numHands = [appDel.currGame.numHands intValue];
+    
+    NSLog(@"NUMBER OF HANDS IS: %ld", (long)numHands);
+    
+    [userInds addObject:[NSNumber numberWithInteger:myHandInd]];
+    
+    //    [appDel.currGame.hands[myHandInd] printCards:appDel.allCards];
+    //    [appDel.currGame.hands[myHandInd + 1] printCards:appDel.allCards];
+    
+    for (NSNumber *num in otherInds) {
+        [userInds addObject:num];
+    }
+    
     for (int i = 1; i <= numHands; i++) {
         int handInd = [userInds[i - 1] intValue];
-        
-        NSLog(@"hand index is: %d", handInd);
         
         UIScrollView *sv = [self drawDisplayCardwithHand:appDel.currGame.hands[handInd + 1] withID:i];
         [scrollViews addObject:sv];
     }
-    NSLog(@"Did you make it here");
     
     tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
     
@@ -450,8 +442,6 @@
 {
     int numberOfPapers = [aHand getCardCount];
     float padding = 4.0;
-    
-    NSLog(@"DISPLAYING CARD WITH INDEX: %d", playerID);
     
     // the max width each view can be.
     // TODO: think about padding?
