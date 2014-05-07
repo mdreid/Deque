@@ -51,6 +51,10 @@
 // returns an array of all the other hand IDs except for your own (src = your own hand ID)
 - (NSMutableArray *) findHandIDs;
 
+// returns an array of all the other hand indices (just hand, not display hands) except for own.
+- (NSMutableArray *) findHandInds;
+
+
 // items in this array should be of type DQUHand
 @property (nonatomic) NSMutableArray *hands;
 @property (nonatomic) NSString *gameID;

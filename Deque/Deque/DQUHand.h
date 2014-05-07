@@ -51,6 +51,8 @@
 
 - (BOOL) isDisplayHand;
 
+- (NSString *) getPureHandID;
+
 // name of the class
 + (NSString *)parseClassName;
 

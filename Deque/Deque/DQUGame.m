@@ -225,4 +225,20 @@ NSString *suffix = @"_disp";
     return names;
 }
 
+- (NSMutableArray *) findHandInds
+{
+    NSMutableArray *inds = [[NSMutableArray alloc] init];
+    NSUInteger playerCount = [self.hands count];
+    
+    for (int i = 0; i < playerCount; i += 2) {
+        DQUHand *curr = self.hands[i];
+        NSString *handyo = curr.handID;
+        if (![userID isEqualToString:handyo]) {
+            [inds addObject:[NSNumber numberWithInt:i]];
+        }
+    }
+    
+    return inds;
+}
+
 @end

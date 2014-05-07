@@ -138,10 +138,14 @@ static NSMutableDictionary *allCards = nil;
     // this will be the game we ultimately return which will be completely filled in.
     [query whereKey:@"gameID" equalTo:gameID];
     
+    // should always be an even number of hands...
+    NSNumber *numHands = [NSNumber numberWithInt:((int)[hands count] / 2)];
+    
     NSArray *array = [query findObjects];
     PFObject *found = array[0];
     
     found[@"hands"] = [NSArray arrayWithArray:hands];
+    found[@"numHands"] = numHands;
     
     [found save];
 
@@ -161,6 +165,7 @@ static NSMutableDictionary *allCards = nil;
     }
 }
 
+// returns an array of arrays. elements in order: gameID, ownerID, whether or not it's full.
 + (NSArray *) retrieveAllGames
 {
     NSMutableArray *games= [[NSMutableArray alloc] init];
@@ -172,7 +177,18 @@ static NSMutableDictionary *allCards = nil;
     for (PFObject *obj in objects) {
         NSString *gameID = [NSString stringWithString:[obj objectForKey:@"gameID"]];
         NSString *ownerID = [NSString stringWithString:[obj objectForKey:@"ownerID"]];
-        NSArray *info = @[gameID, ownerID];
+        
+        NSNumber *numHands = [obj objectForKey:@"numHands"];
+        NSNumber *numPlayers = [obj objectForKey:@"numPlayers"];
+        
+        int hands = [numHands intValue];
+        int players = [numPlayers intValue];
+        
+        BOOL isFull = NO;
+        if (hands == players)
+            isFull = YES;
+        
+        NSArray *info = @[gameID, ownerID, [NSNumber numberWithBool:isFull]];
         
         [games addObject:info];
     }

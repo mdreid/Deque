@@ -9,17 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "DQU_CardCell.h"
-
-
+#import "DQUAppDelegate.h"
 
 @interface DQU_MainHandViewController : UIViewController
 {
-
+    DQUAppDelegate *appDel;
+    NSInteger cardSelected;
+    NSInteger myHandInd;
 }
+
 @property (strong, nonatomic) IBOutlet UIScrollView *myHandScroll;
-
 @property (strong, nonatomic) IBOutlet UIButton *myButton;
-
 
 // maintain a "current" hand for the app.
 @property (strong, nonatomic) NSMutableArray *cardValues;

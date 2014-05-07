@@ -47,6 +47,7 @@
 }
 
 -(void)printCards:(NSMutableDictionary *)allCards {
+    NSLog(@"%@'s hand.", self.handID);
     int count = [self getCardCount];
     for (int i = 0; i < count; i++) {
         int ind = [self.cards[i] intValue];
@@ -109,6 +110,14 @@
 - (void)printID
 {
     NSLog(@"%@ has object ID: %@", self.handID, self.objID);
+}
+
+- (NSString *) getPureHandID
+{
+    NSArray *array = [self.handID componentsSeparatedByString:@"_disp"];
+    
+    // will only be the 'first' item of the array, since only one user.
+    return array[0];
 }
 
 // give card from own hand and place it in Hand other

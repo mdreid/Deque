@@ -17,7 +17,6 @@
 
 @synthesize allCards;
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // -----------------------------------------------------------------------------------------
@@ -66,11 +65,24 @@
         }
     }
     
+    self.barColor = [UIColor colorWithRed:((float)40)/255
+                               green:((float)64)/255
+                                blue:((float)102)/255
+                               alpha:1.0];
+    
     // set the dictionary.
     [DQUDataServer setDictionary:self.allCards];
     
     // Dummy game
-    //self.gameID = @"test1";
+    self.gameID = @"test1";
+    
+    // retrieve an existing game.
+    self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
+    // set the current user for this instance.
+    [self.currGame setUser:@"xiw"];
+    
+    // [DQUDataServer retrieveAllGames];
+    
     
     /* this section creates a new game from scratch.
     self.currGame = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];
@@ -80,37 +92,12 @@
     [DQUDataServer updatePlayersForGameID:self.gameID forHands:self.currGame.hands];
      */
     
-    // retrieve an existing game. ...need to figure out why deal cards isn't working.
-    //self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
-    // set the current user for this instance.
-    //[self.currGame setUser:@"xiw"];
-    
     // grab all games on the server (testing)
-    NSArray *games = [DQUDataServer retrieveAllGames];
-    NSLog(@"%@ with owner %@", games[0][0], games[0][1]);
+//    NSArray *games = [DQUDataServer retrieveAllGames];
+//    NSLog(@"%@ with owner %@", games[0][0], games[0][1]);
     
 //    [self.currGame dealCards:3];
 //    [self.currGame printGame:self.allCards];
-    
-    /*
-    // TODO update all hands in a game in one call.
-    [DQUDataServer updateAllHandsForGame:self.currGame];
-    
-    [DQUDataServer sendHand:self.currGame.deck];
-    [DQUDataServer sendHand:self.currGame.hands[0]];
-    [DQUDataServer sendHand:self.currGame.hands[2]];
-    [DQUDataServer sendHand:self.currGame.hands[4]];
-    */
-    
-//    
-//    [self.currGame drawFromDeck:@"mdr"];
-//    [self.currGame drawFromDeck:@"mdr"];
-//    [self.currGame drawFromDeck:@"mdr"];
-//    [self.currGame drawFromDeck:@"mdr"];
-//    [self.currGame drawFromDeck:@"mdr"];
-//    
-//    [DQUDataServer sendHand:self.currGame.deck];
-//    [DQUDataServer sendHand:self.currGame.hands[0]];
     
     
     //NewGameViewController *viewController = [[NewGameViewController alloc]init];
@@ -119,9 +106,17 @@
     //NSString *on = viewController.ownerName;
     //NSNumber *n = viewController.numPlayers;
     
+    // this is specifically for turning the status bar dark
+    #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
     
-    
-    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+    {
+        UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 568, 20)];
+        // this is a dark blue. should potentially change the theme to revolve around this...
+        view.backgroundColor = self.barColor;
+        [self.window.rootViewController.view addSubview:view];
+    }
+
     
     return YES;
 }

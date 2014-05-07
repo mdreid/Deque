@@ -7,15 +7,17 @@
 //
 
 #import "DQU_TableViewController.h"
-#import "DQUAppDelegate.h"
+#import "DQU_MainHandViewController.h"
 #import "DQUHand.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DQU_TableViewController () {
-     DQUAppDelegate *appDel;
+
 }
 
 @end
+
+// ------------------------------------------------------------------
 
 @implementation DQU_TableViewController
 
@@ -33,51 +35,63 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // set up the current user information for this view.
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [self createColors];
+    
+    userInds = [[NSMutableArray alloc] init];
+    scrollViews = [[NSMutableArray alloc] init];
+    avatars = [[NSMutableArray alloc] init];
+    
+    cardWidthHeightRatio = 5.0 / 7;
+    
+    // load in the images and shuffle.
+    [avatars addObject:@"Bulbasaur.png"];
+    [avatars addObject:@"Gigglypuff.png"];
+    [avatars addObject:@"Pikachu.png"];
+    [avatars addObject:@"Squirtle.png"];
+    
+    // shuffle this list. ...should really put this in a function. ><
+    NSUInteger count = [avatars count];
+    for (NSUInteger i = 0; i < count; ++i) {
+        // Select a random element between i and end of array to swap with.
+        NSInteger nElements = count - i;
+        NSInteger n = arc4random_uniform((int)nElements) + i;
+        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
+    
+    
 
+    NSString *ID = [appDel.currGame getUser];
+    myHandInd = [appDel.currGame findHandIndex:ID];
+    NSArray *otherInds = [NSArray arrayWithArray:[appDel.currGame findHandInds]];
+    numHands = [appDel.currGame.numHands intValue];
+    
+    [userInds addObject:[NSNumber numberWithInteger:myHandInd]];
+    
+//    [appDel.currGame.hands[myHandInd] printCards:appDel.allCards];
+//    [appDel.currGame.hands[myHandInd + 1] printCards:appDel.allCards];
+    
+    for (NSNumber *num in otherInds) {
+        [userInds addObject:num];
+    }
+    
+    for (int i = 1; i <= numHands; i++) {
+        int handInd = [userInds[i - 1] intValue];
+        
+        UIScrollView *sv = [self drawDisplayCardwithHand:appDel.currGame.hands[handInd + 1] withID:i];
+        [scrollViews addObject:sv];
+    }
 
     
+    tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
     
-    DQUHand *aHand = [[DQUHand alloc] initWithHandID:@"hi"];
-    [aHand addCard:1];
-    [aHand addCard:3];
-    [aHand addCard:5];
-    [aHand addCard:7];
-    [aHand addCard:1];
-    [aHand addCard:3];
-    [aHand addCard:5];
-    [aHand addCard:7];
-    [aHand addCard:1];
-    [aHand addCard:3];
-    [aHand addCard:5];
-    [aHand addCard:7];
-    [aHand addCard:1];
-    [aHand addCard:3];
-    [aHand addCard:5];
-    [aHand addCard:7];
+    sideView = [self drawSideView];
     
-     /*
-    [self drawDisplayCard:_p1Scrollview withHand:aHand withID:1];
-    [self drawDisplayCard:_p2Scrollview withHand:aHand withID:2];
-    [self drawDisplayCard:_p3Scrollview withHand:aHand withID:3];
-    [self drawDisplayCard:_p4Scrollview withHand:aHand withID:4];
-    [self drawDisplayTableCard:_tableScrollview withHand:aHand];
-     */
-
-    UIScrollView *p1Scroll;
-    UIScrollView *p2Scroll;
-    UIScrollView *p3Scroll;
-    UIScrollView *p4Scroll;
     
-    [self drawDisplayCard:p1Scroll withHand:aHand withID:1];
-    [self drawDisplayCard:p2Scroll withHand:aHand withID:2];
-    [self drawDisplayCard:p3Scroll withHand:aHand withID:3];
-    [self drawDisplayCard:p4Scroll withHand:aHand withID:4];
     
-    UIScrollView *tableScroll;
-    
-    [self drawDisplayTableCard:tableScroll withHand:aHand];
-    [self drawIcons];
+    // TODO: draw side view!!!!
     
    /* UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(20.0f, 186.0f, 280.0f, 88.0f);
@@ -85,6 +99,7 @@
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.tintColor = [UIColor darkGrayColor];*/
 
+    /*
     self.deck.center = CGPointMake(530, 150);
     [_deck addTarget:self action:@selector(showActionSheetDeck:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_deck];
@@ -92,6 +107,7 @@
     self.trash.center = CGPointMake(530, 200);
     [_trash addTarget:self action:@selector(showActionSheetTrash:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_trash];
+    */
     
  /*   _p1view.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _p1view.layer.borderWidth = 0.5f;
@@ -108,52 +124,62 @@
 
     
 
-    [self drawPlayerLabels];
-
-
-}
-
-- (void)drawPlayerLabels {
-    
-    UILabel *p1Label = [[UILabel alloc]initWithFrame:CGRectMake(0, 190, 123, 23)];
-    [p1Label  setBackgroundColor:[UIColor clearColor]];
-    p1Label.font = [UIFont fontWithName:@"Helvetica" size:(12.0)];
-    p1Label.textAlignment = NSTextAlignmentCenter;
-    [p1Label  setText:@"P1"];
-    [[self view] addSubview:p1Label];
-    
-    UILabel *p2Label = [[UILabel alloc]initWithFrame:CGRectMake(123, 190, 123, 23)];
-    [p2Label  setBackgroundColor:[UIColor clearColor]];
-    p2Label.font = [UIFont fontWithName:@"Helvetica" size:(12.0)];
-    p2Label.textAlignment = NSTextAlignmentCenter;
-    [p2Label  setText:@"LOL"];
-    [[self view] addSubview:p2Label];
+    // [self drawPlayerLabels];
 
 }
 
-- (void)drawIcons {
-    CGSize firstSize = CGSizeMake(110.0,110.0);
-    UIImageView *p1Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, 123,123)];
-    p1Avatar.contentMode = UIViewContentModeCenter;
-  //  p1Avatar.image = [UIImage imageNamed:@"Pikachu.png"];
-    UIImageView *p2Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(123, 15, 123,123)];
-    p2Avatar.contentMode = UIViewContentModeCenter;
-    //p2Avatar.image = [UIImage imageNamed:@"Squirtle.png"];
-    UIImageView *p3Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(2*123, 15, 123,123)];
-    p3Avatar.contentMode = UIViewContentModeCenter;
-   // p3Avatar.image = [UIImage imageNamed:@"Gigglypuff.png"];
-    UIImageView *p4Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(3*123, 15 , 123,123)];
-    p4Avatar.contentMode = UIViewContentModeCenter;
-    //p4Avatar.image = [UIImage imageNamed:@"Bulbasaur.png"];
-    p1Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Pikachu.png"] convertToSize:firstSize];
-    p2Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Squirtle.png"] convertToSize:firstSize];
-    p3Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Gigglypuff.png"] convertToSize:firstSize];
-    p4Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Bulbasaur.png"] convertToSize:firstSize];
-    [self.view addSubview: p1Avatar];
-    [self.view addSubview: p2Avatar];
-    [self.view addSubview: p3Avatar];
-    [self.view addSubview: p4Avatar];
+// -----------------------------------------------------------------
+// should just consider making a separate class related to colors.
+
+- (void)createColors
+{
+    availColors = [[NSMutableArray alloc] init];
     
+    // cool blue.
+    [availColors addObject:[UIColor colorWithRed:((float)46)/255
+                                           green:((float)185)/255
+                                            blue:((float)244)/255
+                                           alpha:1.0]];
+    [availColors addObject:[UIColor colorWithRed:((float)247)/255
+                                           green:((float)98)/255
+                                            blue:((float)87)/255
+                                           alpha:1.0]];
+    [availColors addObject:[UIColor colorWithRed:((float)163)/255
+                                           green:((float)219)/255
+                                            blue:((float)220)/255
+                                           alpha:1.0]];
+    [availColors addObject:[UIColor colorWithRed:((float)255)/255
+                                           green:((float)161)/255
+                                            blue:((float)161)/255
+                                           alpha:1.0]];
+    [availColors addObject:[UIColor colorWithRed:((float)99)/255
+                                           green:((float)174)/255
+                                            blue:((float)66)/255
+                                           alpha:1.0]];
+    
+}
+
+// change this to make the colors better.
+- (UIColor *)lighterColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MIN(r + 0.2, 1.0)
+                               green:MIN(g + 0.2, 1.0)
+                                blue:MIN(b + 0.2, 1.0)
+                               alpha:a];
+    return nil;
+}
+
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
+                               green:MAX(g - 0.2, 0.0)
+                                blue:MAX(b - 0.2, 0.0)
+                               alpha:a];
+    return nil;
 }
 
 - (void)showActionSheetDeck:(id)sender
@@ -245,66 +271,157 @@
     
 }
 
+// --------------------------------------------------------------------
+// button actions here.
 
-
-
-
-- (void) drawDisplayCard: (UIScrollView *)scrollView withHand:(DQUHand *)aHand withID:(int)playerID {
+- (void)handBtnPressed:(id)sender
+{
+    // DQU_MainHandViewController *handVC = [[DQU_MainHandViewController alloc] init];
+    // [self presentViewController:handVC animated:YES completion:nil];
     
+    DQU_MainHandViewController *handVC = (DQU_MainHandViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"mainHandView"];
+    [self presentViewController:handVC animated:YES completion:nil];
+}
+
+// --------------------------------------------------------------------
+// most of the drawing happens here.
+
+- (UIView *) drawSideView
+{
+    CGRect viewRect = CGRectMake(primaryWidth, [heightStart floatValue], sideWidth, [heightTableSide floatValue]);
+    UIView *side = [[UIView alloc] initWithFrame:viewRect];
+    side.backgroundColor = appDel.barColor;
+    
+    int iconSize = sideWidth * 0.8;
+    float sidePadding = (sideWidth - iconSize) / 2.0;
+    float heightPadding = 10.0;
+    
+    // draw the hand button.
+    UIButton *handBtn = [[UIButton alloc] init];
+    handBtn.frame = CGRectMake(sidePadding, heightPadding, (float)iconSize, (float)iconSize);
+    handBtn.bounds = CGRectMake(sidePadding, heightPadding, (float)iconSize, (float)iconSize);
+    
+    CGSize resizeIcon = CGSizeMake((float)iconSize, (float)iconSize);
+    UIImage *handImg = [self imageWithImage: [UIImage imageNamed:@"hand_icon.png"] convertToSize: resizeIcon];
+    
+    [handBtn setImage:handImg forState:UIControlStateNormal];
+    [handBtn setImage:handImg forState:UIControlStateHighlighted];
+    [handBtn addTarget:self action:@selector(handBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [side addSubview:handBtn];
+
+    
+    
+    
+    [self.view addSubview:side];
+    
+    return side;
+}
+
+- (UIScrollView *) drawDisplayCardwithHand:(DQUHand *)aHand withID:(int)playerID
+{
     int numberOfPapers = [aHand getCardCount];
+    float padding = 4.0;
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(2 + 123 * (playerID - 1), 135, 123 - 4, 53)];
+    // the max width each view can be.
+    // TODO: think about padding?
+    NSInteger widthFactor = [widthTableMain intValue] / numHands;
+    primaryWidth = widthFactor * numHands;
+    sideWidth = [widthTotal floatValue] - primaryWidth;
+    
+    // create the overall frame of one player.
+    CGRect viewRect = CGRectMake(widthFactor * (playerID - 1), [heightStart floatValue], widthFactor, [heightTableMain floatValue]);
+    UIView* myView = [[UIView alloc] initWithFrame:viewRect];
+    UIColor *lighter = [self lighterColorForColor:availColors[playerID]];
+    myView.backgroundColor = lighter;
+    
+    // creates the little strip on the bottom.
+    CGRect barRect = CGRectMake(widthFactor * (playerID - 1), [heightTableBarStart floatValue], widthFactor, [heightTableBar floatValue]);
+    UIView *barView = [[UIView alloc] initWithFrame:barRect];
+    barView.backgroundColor = availColors[playerID];
+    
+    // also create the label.
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, widthFactor, [heightTableBar floatValue])];
+    [nameLabel setBackgroundColor:[UIColor clearColor]];
+    nameLabel.font = [UIFont fontWithName:@"Helvetica" size:(12.0)];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    [nameLabel setText:[aHand getPureHandID]];
+    
+    [barView addSubview:nameLabel];
+    
+    // also throw in the avatar.
+    float avPadding = 3.0;
+    float widthFactorPadding = widthFactor - (2 * avPadding);
+    float avatarDim = MIN(widthFactorPadding, [heightAvatar floatValue]);
+    CGSize avResize = CGSizeMake(avatarDim, avatarDim);
+    float widthStart = (widthFactorPadding - avatarDim) / 2;
+    UIImageView *av = [[UIImageView alloc] initWithFrame:CGRectMake(widthStart, [yAvatarStartRelative floatValue], avatarDim, avatarDim)];
+    av.contentMode = UIViewContentModeCenter;
+    av.image = [self imageWithImage: [UIImage imageNamed:avatars[playerID]] convertToSize:avResize];
+    
+    [myView addSubview: av];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(widthFactor * (playerID - 1), [heightTableScrollStart floatValue], widthFactor, [heightTableScroll floatValue])];
+    
     scrollView.showsHorizontalScrollIndicator = NO;
     
-    CGFloat paperwidth = 53 * 6 / 7;
+    float cardHeight = [heightTableScroll floatValue];
+    CGFloat paperwidth = cardHeight * cardWidthHeightRatio;
     
-
+    // create the cards.
     for (int i = 0; i < numberOfPapers; i++) {
-        // NSLog(@"hi");
-        CGSize firstSize = CGSizeMake(53 * 6 / 7,53.0);
+        CGSize firstSize = CGSizeMake(cardHeight * cardWidthHeightRatio, cardHeight);
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((paperwidth + 5) * i, 0, paperwidth, scrollView.bounds.size.height)];
+        // TODO: come back to this.
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((paperwidth + padding) * i, 0, paperwidth, scrollView.bounds.size.height)];
         
         int cardID = [aHand.cards[i] intValue];
-        NSLog(@"%d is cardid", cardID);
         DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
-       // imageView.image = [UIImage imageNamed:aCard.picName];
-        imageView.image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
+        imageView.image = [self imageWithImage:[UIImage imageNamed:aCard.picName] convertToSize:firstSize];
 
         [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
         [imageView.layer setBorderWidth: 0.5];
         
         [scrollView addSubview:imageView];
-        
-        /*    CGSize firstSize = CGSizeMake(50.0,50.0);
-         _p1Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(30, 32.5, 50, 50)];
-         _p1Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Pikachu.png"] convertToSize:firstSize];
-         [self.view addSubview: _p1Avatar]; */
-        
+
     }
-    
-    CGSize contentSize = CGSizeMake(paperwidth * numberOfPapers, scrollView.bounds.size.height);
+
+
+    CGSize contentSize = CGSizeMake((paperwidth + padding) * numberOfPapers, scrollView.bounds.size.height);
     scrollView.contentSize = contentSize;
     
+    [self.view addSubview:myView];
+    [self.view addSubview:barView];
+
     [self.view addSubview:scrollView];
     
-    
+    return scrollView;
 }
 
-- (void) drawDisplayTableCard: (UIScrollView *)scrollView withHand:(DQUHand *)tableHand {
+// this is to draw the scroll view for the cards on the table.
+- (UIScrollView *) drawDisplayTableCardWithHand:(DQUHand *)tableHand {
     
-    CGFloat paperwidth = 97 * 6 / 7;
-    NSUInteger numberOfPapers = [tableHand getCardCount];
+    int numberOfPapers = [tableHand getCardCount];
+    float paperWidth = [heightTableBotCards floatValue] * cardWidthHeightRatio;
+    float padding = 5.0;
     
-    CGFloat tablePaperWidth = 97 * 6 / 7;
+    // create the background for this.
+    // create the overall frame of one player.
+    CGRect viewRect = CGRectMake(0, [yTableBotStart floatValue], primaryWidth, [heightTableBot floatValue]);
+    UIView* myView = [[UIView alloc] initWithFrame:viewRect];
+    myView.backgroundColor = [UIColor colorWithRed:((float)255)/255
+                                             green:((float)240)/255
+                                              blue:((float)235)/255
+                                             alpha:1.0];
+
     
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 218, 492, 97)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, [yTableCardsStart floatValue], primaryWidth, [heightTableBot floatValue])];
     
     scrollView.showsHorizontalScrollIndicator = NO;
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
-        CGSize firstSize = CGSizeMake(97 * 6 / 7,97.0);
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((tablePaperWidth + 5) * i, 0, paperwidth, scrollView.bounds.size.height)];
+        CGSize firstSize = CGSizeMake(paperWidth, [heightTableBotCards floatValue]);
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((paperWidth + padding) * i, 0, paperWidth, scrollView.bounds.size.height)];
         
         int cardID = [tableHand.cards[i] intValue];
 
@@ -314,14 +431,15 @@
         [imageView.layer setBorderWidth: 0.5];
          
         [scrollView addSubview:imageView];
-        
     }
     
-    CGSize contentSizeTable = CGSizeMake(tablePaperWidth * numberOfPapers, scrollView.bounds.size.height);
+    CGSize contentSizeTable = CGSizeMake(paperWidth * numberOfPapers + (padding * numberOfPapers), scrollView.bounds.size.height);
     scrollView.contentSize = contentSizeTable;
     
+    [self.view addSubview:myView];
     [self.view addSubview:scrollView];
     
+    return scrollView;
     
 }
 
