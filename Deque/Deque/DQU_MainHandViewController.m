@@ -57,10 +57,13 @@
      
      refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector: @selector(callRepeatedlyHand:) userInfo: nil repeats:YES];
      
+     [self drawEverything];
+     
 }
 
 - (void) drawEverything
 {
+     [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
      myHandInd = [appDel.currGame findHandIndex:currentUser];
      
      // initialize the scroll view.
@@ -86,11 +89,6 @@
      refreshTimer = nil;
      
      [self performSegueWithIdentifier:@"ReturnToTable" sender:self];
-}
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-     
 }
 
 - (void) drawDisplayHandCard:(DQUHand *) aHand {
