@@ -192,7 +192,7 @@
           [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
           [DQUDataServer sendHand:appDel.currGame.hands[otherHandInd]];
      }
-     if ([buttonTitle isEqualToString:@"Toggle"]) {
+     if ([buttonTitle isEqualToString:@"Display"]) {
           // either move to display hand
           // TODO: make an option to switch to display hand.
           removedCard = [appDel.currGame.hands[myHandInd] grabAndRemoveCardAtIndex:(int)cardSelected];

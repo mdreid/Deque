@@ -71,7 +71,7 @@
 //        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
 //    }
     
-    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:100.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
     
     NSLog(@"at this point0");
     NSString *ID = [appDel.currGame getUser];
@@ -123,8 +123,6 @@
     
    // CGSize firstSize = CGSizeMake(150.0,150.0);
 
-    
-
     // [self drawPlayerLabels];
 
 }
@@ -133,7 +131,7 @@
 {
     NSLog(@"repeating...");
     appDel.currGame = [DQUDataServer retrieveGameWithID:appDel.currGame.gameID];
-    [self drawEverything];
+    [self viewDidLoad];
 }
 
 - (void)drawEverything
@@ -335,7 +333,7 @@
                 [alert addButtonWithTitle:@"Okay"];
                 [alert show];
                 
-                [self drawEverything];
+                [self viewDidLoad];
             }
             
         }
