@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jg5-fZ-7S4">
-                                <rect key="frame" x="20" y="126" width="280" height="30"/>
+                                <rect key="frame" x="20" y="403" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start New Game">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -27,7 +27,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="14A-4f-7bC">
-                                <rect key="frame" x="20" y="382" width="280" height="30"/>
+                                <rect key="frame" x="20" y="463" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Join Existing Game">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -36,15 +36,22 @@
                                     <segue destination="Jkn-Tx-NUj" kind="push" id="t9i-3p-HiO"/>
                                 </connections>
                             </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="32421.png" translatesAutoresizingMaskIntoConstraints="NO" id="myL-cu-PR5">
+                                <rect key="frame" x="28" y="111" width="244" height="234"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jg5-fZ-7S4" firstAttribute="leading" secondItem="IPc-mP-OsR" secondAttribute="leading" constant="20" id="3cu-A1-Xfl"/>
                             <constraint firstAttribute="trailing" secondItem="Jg5-fZ-7S4" secondAttribute="trailing" constant="20" id="4oS-Q5-cgq"/>
+                            <constraint firstAttribute="trailing" secondItem="myL-cu-PR5" secondAttribute="trailing" constant="48" id="FdK-v8-G3C"/>
+                            <constraint firstItem="myL-cu-PR5" firstAttribute="top" secondItem="Oab-8A-SyZ" secondAttribute="bottom" constant="47" id="NRC-eG-NeH"/>
+                            <constraint firstItem="myL-cu-PR5" firstAttribute="leading" secondItem="IPc-mP-OsR" secondAttribute="leading" constant="28" id="TJf-rg-UCk"/>
                             <constraint firstItem="14A-4f-7bC" firstAttribute="leading" secondItem="IPc-mP-OsR" secondAttribute="leading" constant="20" id="bgH-3A-76h"/>
-                            <constraint firstItem="mHN-iV-PBT" firstAttribute="top" secondItem="14A-4f-7bC" secondAttribute="bottom" constant="156" id="gmO-g9-gQx"/>
+                            <constraint firstItem="mHN-iV-PBT" firstAttribute="top" secondItem="14A-4f-7bC" secondAttribute="bottom" constant="75" id="gmO-g9-gQx"/>
                             <constraint firstAttribute="trailing" secondItem="14A-4f-7bC" secondAttribute="trailing" constant="20" id="kbb-47-d4R"/>
-                            <constraint firstItem="Jg5-fZ-7S4" firstAttribute="top" secondItem="Oab-8A-SyZ" secondAttribute="bottom" constant="62" id="oqI-so-crr"/>
+                            <constraint firstItem="Jg5-fZ-7S4" firstAttribute="top" secondItem="Oab-8A-SyZ" secondAttribute="bottom" constant="339" id="oqI-so-crr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Deque" id="j3c-9R-2ta"/>
@@ -54,16 +61,16 @@
             </objects>
             <point key="canvasLocation" x="-851" y="-337"/>
         </scene>
-        <!--Table View Controller - Join Existing Game-->
+        <!--Existing Game Table View Controller - Join Existing Game-->
         <scene sceneID="gCm-se-VsT">
             <objects>
-                <tableViewController id="Jkn-Tx-NUj" sceneMemberID="viewController">
+                <tableViewController id="Jkn-Tx-NUj" customClass="DQUExistingGameTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eKI-PU-MTj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hYE-VE-k9H">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="hYE-VE-k9H">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hYE-VE-k9H" id="1nu-PO-Sgk">
@@ -79,10 +86,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Join Existing Game" id="l1U-qC-tDl"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <connections>
+                        <segue destination="adY-FH-05S" kind="modal" identifier="Existing" id="9Il-M0-m3t"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kdr-07-9yf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-344" y="270"/>
+            <point key="canvasLocation" x="-304" y="442"/>
         </scene>
         <!--New Game View Controller-->
         <scene sceneID="dxt-Rj-45W">
@@ -120,7 +130,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fA-D9-u1z" userLabel="gn">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="At least 4 characters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fA-D9-u1z" userLabel="gn">
                                 <rect key="frame" x="20" y="148" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -129,7 +139,7 @@
                                     <outlet property="delegate" destination="bv3-Z8-87H" id="rDX-Lz-BYH"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L7h-HU-IEH" userLabel="on">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="At least 4 characters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L7h-HU-IEH" userLabel="on">
                                 <rect key="frame" x="20" y="242" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -138,7 +148,7 @@
                                     <outlet property="delegate" destination="bv3-Z8-87H" id="n61-xL-nBF"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-jw-Iq2" userLabel="n">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Between 2 and 4" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-jw-Iq2" userLabel="n">
                                 <rect key="frame" x="20" y="338" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -329,6 +339,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="32421.png" width="256" height="256"/>
         <image name="star.png" width="45" height="45"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -337,6 +348,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ud7-E4-WPx"/>
+        <segue reference="9Il-M0-m3t"/>
     </inferredMetricsTieBreakers>
 </document>

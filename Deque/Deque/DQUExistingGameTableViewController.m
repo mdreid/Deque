@@ -7,6 +7,8 @@
 //
 
 #import "DQUExistingGameTableViewController.h"
+#import "DQUDataServer.h"
+#import "DQUAppDelegate.h"
 
 @interface DQUExistingGameTableViewController ()
 
@@ -16,6 +18,7 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -25,7 +28,12 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [super viewDidLoad];
+    
+    [self setArr:[DQUDataServer retrieveAllGames]];
+    NSLog(@"DQUExistingGameTableViewController.m: Array size: %d", [_arr count]);
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -36,6 +44,7 @@
 
 - (void)didReceiveMemoryWarning
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -44,28 +53,47 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     // Return the number of rows in the section.
-    return 0;
+    return [[self arr] count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
+    NSString *gn = [NSString stringWithFormat:@"%@",_arr[indexPath.row][0]];
+    NSString *on = [NSString stringWithFormat:@"%@:",_arr[indexPath.row][1]];
+    NSString *combo = [NSString stringWithFormat:@"%@ %@", on, gn];
+    cell.textLabel.text = combo;
     
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    _chosenGameID = _arr[indexPath.row][0];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter username" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *alertTextField = [alert textFieldAtIndex:0];
+    alertTextField.keyboardType = UIKeyboardTypeDefault;
+    alertTextField.placeholder = @"Enter your username";
+    [alert show];
+    _userName = alertTextField.text;
+    
+    [self performSegueWithIdentifier:@"Existing" sender:self];
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -105,15 +133,49 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"Existing"]) {
+        DQUGame *game = [DQUDataServer retrieveGameWithID:[self chosenGameID]];
+        NSLog(@"In PerformSegueWithIdentifier:!! Woo!");
+        DQUAppDelegate *appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
+        //self.gameName = self.gn.text;
+        //self.ownerName = self.on.text;
+        //self.numPlayers = [NSNumber numberWithInt:[self.n.text intValue]];
+        appDel.currGame = game;
+        [appDel.currGame setUser:self.userName];
+    }
+    
 }
-*/
+
+- (NSUInteger) supportedInterfaceOrientations {
+    
+    return UIInterfaceOrientationMaskPortrait;
+    
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return NO;
+}
+
+-(BOOL)shouldAutorotate
+{
+    
+    return UIInterfaceOrientationMaskPortrait;
+    
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    
+    return UIInterfaceOrientationPortrait;
+    
+}
 
 @end

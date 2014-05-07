@@ -430,4 +430,30 @@
 }
 */
 
+/* Added code for preventing autorotation */
+- (NSUInteger) supportedInterfaceOrientations {
+    
+    return UIInterfaceOrientationMaskLandscape;
+    
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return NO;
+}
+
+-(BOOL)shouldAutorotate
+{
+    
+    return UIInterfaceOrientationMaskLandscape;
+    
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    
+    return UIInterfaceOrientationLandscapeLeft;
+    
+}
+
 @end
