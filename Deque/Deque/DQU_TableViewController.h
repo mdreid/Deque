@@ -22,6 +22,8 @@
     
     UIView *sideView;
     
+    NSTimer *refreshTimer;
+    
     float cardWidthHeightRatio;
     float primaryWidth;
     float sideWidth;

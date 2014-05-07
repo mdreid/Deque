@@ -37,8 +37,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     // set up the current user information for this view.
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
     if ([appDel.currGame.ownerID isEqualToString:[appDel.currGame getUser]]) {
@@ -65,20 +63,20 @@
     [avatars addObject:@"Squirtle.png"];
     
     // shuffle this list. ...should really put this in a function. ><
-    NSUInteger count = [avatars count];
-    for (NSUInteger i = 0; i < count; ++i) {
-        // Select a random element between i and end of array to swap with.
-        NSInteger nElements = count - i;
-        NSInteger n = arc4random_uniform((int)nElements) + i;
-        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
-    }
+//    NSUInteger count = [avatars count];
+//    for (NSUInteger i = 0; i < count; ++i) {
+//        // Select a random element between i and end of array to swap with.
+//        NSInteger nElements = count - i;
+//        NSInteger n = arc4random_uniform((int)nElements) + i;
+//        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
+//    }
     
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
     
     NSLog(@"at this point0");
     NSString *ID = [appDel.currGame getUser];
     NSLog(@"My Hand ID: %@", ID);
     myHandInd = [appDel.currGame findHandIndex:ID];
-    NSLog(@"My Hand INDEX: %d", myHandInd);
     NSArray *otherInds = [NSArray arrayWithArray:[appDel.currGame findHandInds]];
     numHands = [appDel.currGame.numHands intValue];
     
@@ -91,28 +89,8 @@
         [userInds addObject:num];
     }
     NSLog(@"We still in business");
-    NSLog(@"number of hands: %d", numHands);
-    for (int i = 1; i <= numHands; i++) {
-        int handInd = [userInds[i - 1] intValue];
-        
-        NSLog(@"hand index is: %d", handInd);
-        
-        UIScrollView *sv = [self drawDisplayCardwithHand:appDel.currGame.hands[handInd + 1] withID:i];
-        [scrollViews addObject:sv];
-    }
-    NSLog(@"Did you make it here");
     
-    tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
-    
-    sideView = [self drawSideView];
-    
-    // IMPORTANT: always draw this...
-    UIView *statusView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 568, 20)];
-    // this is a dark blue. should potentially change the theme to revolve around this...
-    statusView.backgroundColor = appDel.barColor;
-    [self.view addSubview:statusView];
-    
-    
+    [self drawEverything];
     
     // TODO: draw side view!!!!
     
@@ -149,6 +127,38 @@
 
     // [self drawPlayerLabels];
 
+}
+
+- (void) callRepeatedly:(id)sender
+{
+    NSLog(@"repeating...");
+    appDel.currGame = [DQUDataServer retrieveGameWithID:appDel.currGame.gameID];
+    [self drawEverything];
+}
+
+- (void)drawEverything
+{
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    for (int i = 1; i <= numHands; i++) {
+        int handInd = [userInds[i - 1] intValue];
+        
+        NSLog(@"hand index is: %d", handInd);
+        
+        UIScrollView *sv = [self drawDisplayCardwithHand:appDel.currGame.hands[handInd + 1] withID:i];
+        [scrollViews addObject:sv];
+    }
+    NSLog(@"Did you make it here");
+    
+    tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
+    
+    sideView = [self drawSideView];
+    
+    // IMPORTANT: always draw this...
+    UIView *statusView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 568, 20)];
+    // this is a dark blue. should potentially change the theme to revolve around this...
+    statusView.backgroundColor = appDel.barColor;
+    [self.view addSubview:statusView];
 }
 
 // -----------------------------------------------------------------
@@ -325,7 +335,7 @@
                 [alert addButtonWithTitle:@"Okay"];
                 [alert show];
                 
-                [self viewDidLoad];
+                [self drawEverything];
             }
             
         }
@@ -369,6 +379,9 @@
 {
     // DQU_MainHandViewController *handVC = [[DQU_MainHandViewController alloc] init];
     // [self presentViewController:handVC animated:YES completion:nil];
+    
+    [refreshTimer invalidate];
+    refreshTimer = nil;
     
     DQU_MainHandViewController *handVC = (DQU_MainHandViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"mainHandView"];
     [self presentViewController:handVC animated:YES completion:nil];

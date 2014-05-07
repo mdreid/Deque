@@ -80,7 +80,7 @@
     //self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
     // set the current user for this instance.
     
-    [self.currGame setUser:@"mdr"];
+    // [self.currGame setUser:@"mdr"];
     
     // [DQUDataServer retrieveAllGames];
     
