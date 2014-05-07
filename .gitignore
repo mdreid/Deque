@@ -1,3 +1,4 @@
 *.psd
+*.ipa
 *.xcuserstate
 ./Deque/Deque.xcodeproj/project.xcworkspace/xcuserdata/xixia.xcuserdatad/UserInterfaceState.xcuserstate
