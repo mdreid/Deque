@@ -25,6 +25,8 @@
     float cardWidthHeightRatio;
     float primaryWidth;
     float sideWidth;
+    
+    BOOL isOwner;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *deck;

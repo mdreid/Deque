@@ -300,8 +300,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="myButton:" destination="LcV-Bw-Iwt" eventType="touchUpInside" id="zXV-7K-xdt"/>
-                                    <segue destination="adY-FH-05S" kind="modal" id="GHI-LJ-1kz"/>
+                                    <segue destination="adY-FH-05S" kind="modal" id="qPy-ag-9Wu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -310,13 +309,12 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="myButton" destination="0Xb-dJ-GDh" id="thQ-Pu-0jM"/>
                         <outlet property="myHandScroll" destination="iz9-z1-YO4" id="rHh-UP-0KM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlY-qe-R2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="-134"/>
+            <point key="canvasLocation" x="452" y="-63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Avs-R2-hMw">
@@ -348,6 +346,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="GHI-LJ-1kz"/>
+        <segue reference="qPy-ag-9Wu"/>
     </inferredMetricsTieBreakers>
 </document>

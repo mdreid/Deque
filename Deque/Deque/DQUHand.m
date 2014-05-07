@@ -64,6 +64,13 @@
     [self.cards addObject:ind];
 }
 
+- (void) createDeck:(int) numCards
+{
+    for (int i = 0; i < numCards; i++) {
+        [self addCard:i];
+    }
+}
+
 -(void)removeCardAtIndex:(int)i
 {
     [self.cards removeObjectAtIndex:i];
@@ -118,6 +125,14 @@
     
     // will only be the 'first' item of the array, since only one user.
     return array[0];
+}
+
+- (void) emptyHand
+{
+    int numCards = [self getCardCount];
+    for (int i = 0; i < numCards; i++) {
+        [self.cards removeObjectAtIndex:0];
+    }
 }
 
 // give card from own hand and place it in Hand other

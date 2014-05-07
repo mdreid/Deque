@@ -35,8 +35,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     // set up the current user information for this view.
     appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
+    if ([appDel.currGame.ownerID isEqualToString:[appDel.currGame getUser]]) {
+        isOwner = YES;
+    }
+    else {
+        isOwner = NO;
+    }
     
     [self createColors];
     
@@ -88,6 +96,12 @@
     tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
     
     sideView = [self drawSideView];
+    
+    // IMPORTANT: always draw this...
+    UIView *statusView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 568, 20)];
+    // this is a dark blue. should potentially change the theme to revolve around this...
+    statusView.backgroundColor = appDel.barColor;
+    [self.view addSubview:statusView];
     
     
     
@@ -184,60 +198,150 @@
 
 - (void)showActionSheetDeck:(id)sender
 {
-    NSString *actionSheetTitle = @"DECK"; //Action Sheet Title
-    NSString *destructiveTitle = @"New Deck"; //Action Sheet Button Titles
-    NSString *other1 = @"Draw Card";
-    NSString *other2 = @"Shuffle";
-    NSString *other3 = @"Deal";
-    NSString *cancelTitle = @"Cancel Button";
+    NSString *actionSheetTitle = @"Deck"; //Action Sheet Title
+    NSString *cancelTitle = @"Cancel";
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:actionSheetTitle
                                   delegate:self
-                                  cancelButtonTitle:cancelTitle
-                                  destructiveButtonTitle:destructiveTitle
-                                  otherButtonTitles:other1, other2, other3, nil];
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:nil];
+    
+    // after drawing a card, should be switched to hand view.
+    NSString *draw = @"Draw Card";
+    [actionSheet addButtonWithTitle:draw];
+    
+    if (isOwner) {
+        NSString *shuffle = @"Shuffle Deck";
+        NSString *deal = @"Deal Cards";             // make sure everyone's hands are empty. redeal.
         
+        [actionSheet addButtonWithTitle:shuffle];
+        [actionSheet addButtonWithTitle:deal];
+    }
+    [actionSheet addButtonWithTitle:cancelTitle];
+    actionSheet.cancelButtonIndex = [actionSheet numberOfButtons] - 1;
+    
+    [actionSheet setTag: 0];
+    
     [actionSheet showInView:self.view];
-    
-}
-
-- (void)actionSheetDeck:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //Get the name of the current pressed button
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    
-    if  ([buttonTitle isEqualToString:@"New Deck"]) {
-        NSLog(@"Destructive pressed --> Delete Something");
-    }
-    if ([buttonTitle isEqualToString:@"Draw Card"]) {
-        NSLog(@"Other 1 pressed");
-    }
-    if ([buttonTitle isEqualToString:@"Shuffle"]) {
-        NSLog(@"Other 2 pressed");
-    }
-    if ([buttonTitle isEqualToString:@"Deal"]) {
-        NSLog(@"Other 3 pressed");
-    }
-    if ([buttonTitle isEqualToString:@"Cancel Button"]) {
-        NSLog(@"Cancel pressed --> Cancel ActionSheet");
-    }
     
 }
 
 - (void)showActionSheetTrash:(id)sender
 {
-    NSString *actionSheetTitle = @"TRASH"; //Action Sheet Title
-    NSString *destructiveTitle = @"Empty"; //Action Sheet Button Titles
-    NSString *cancelTitle = @"Cancel Button";
+    int numCards = [appDel.currGame.discard getCardCount];
+    NSString *actionSheetTitle = [NSString stringWithFormat:@"Trash: %d cards", numCards];
+    NSString *cancelTitle = @"Cancel";
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:actionSheetTitle
                                   delegate:self
-                                  cancelButtonTitle:cancelTitle
-                                  destructiveButtonTitle:destructiveTitle
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:nil
                                   otherButtonTitles: nil];
     
+    if (isOwner) {
+        NSString *putBack = @"Return to Deck";
+        
+        [actionSheet addButtonWithTitle:putBack];
+        
+    }
+    
+    [actionSheet addButtonWithTitle:cancelTitle];
+    actionSheet.cancelButtonIndex = [actionSheet numberOfButtons] - 1;
+    
+    [actionSheet setTag:1];
+    
     [actionSheet showInView:self.view];
+    
+}
+
+// tag 0 = deck. tag 1 = discard.
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //Get the name of the current pressed button
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    
+    switch ( actionSheet.tag )
+    {
+        case 0: /* deck */
+        {
+            if  ([buttonTitle isEqualToString:@"Draw Card"]) {
+                int drawCardInd = [appDel.currGame.deck drawCard];
+                [appDel.currGame.hands[myHandInd] addCard:drawCardInd];
+                
+                [DQUDataServer sendHand:appDel.currGame.deck];
+                [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
+                
+                // TODO: can probably make this alert more descriptive.
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Draw a card" message:@"You have successfully drawn a card!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+                // optional - add more buttons:
+                [alert addButtonWithTitle:@"Okay"];
+                [alert show];
+                
+            }
+            if ([buttonTitle isEqualToString:@"Shuffle Deck"]) {
+                [appDel.currGame.deck shuffle];
+                
+                [DQUDataServer sendHand:appDel.currGame.deck];
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Shuffle deck" message:@"You have successfully shuffled the deck!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+                // optional - add more buttons:
+                [alert addButtonWithTitle:@"Okay"];
+                [alert show];
+            }
+            if ([buttonTitle isEqualToString:@"Deal Cards"]) {
+                // need to reinitialize the deck, essentially.
+                [appDel.currGame.deck emptyHand];
+                // TODO: should modularize the deck.
+                [appDel.currGame.deck createDeck:52];
+                
+                // then clear out everyone's hands, including table and discard.
+                [appDel.currGame.table emptyHand];
+                [appDel.currGame.discard emptyHand];
+                for (int i = 0; i < numHands; i++) {
+                    [appDel.currGame.hands[i * 2] emptyHand];
+                    [appDel.currGame.hands[(i * 2) + 1] emptyHand];
+                }
+                
+                // shuffle then redeal.
+                [appDel.currGame.deck shuffle];
+                [appDel.currGame dealCards:4];
+                
+                // send everything back to database.
+                [DQUDataServer updateAllHandsForGame:appDel.currGame];
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Deal cards" message:@"You have successfully dealt all the players!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+                // optional - add more buttons:
+                [alert addButtonWithTitle:@"Okay"];
+                [alert show];
+                
+                [self viewDidLoad];
+            }
+            
+        }
+        case 1:
+        {
+            if ([buttonTitle isEqualToString:@"Return to Deck"]) {
+                // should this be shuffled first? why not...
+                
+                [appDel.currGame.discard shuffle];
+                int numCards = [appDel.currGame.discard getCardCount];
+                for (int i = 0; i < numCards; i++) {
+                    int removed = [appDel.currGame.discard grabAndRemoveCardAtIndex:0];
+                    [appDel.currGame.deck addCard:removed];
+                }
+                
+                [DQUDataServer sendHand:appDel.currGame.deck];
+                [DQUDataServer sendHand:appDel.currGame.discard];
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Return to Deck" message:@"You have successfully returned all the discarded cards back to the deck!" delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+                // optional - add more buttons:
+                [alert addButtonWithTitle:@"Okay"];
+                [alert show];
+            }
+        }
+    }
     
 }
 
@@ -247,28 +351,6 @@
     UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return destImage;
-}
-
-- (void)actionSheetTrash:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //Get the name of the current pressed button
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    
-    if  ([buttonTitle isEqualToString:@"Empty"]) {
-        NSLog(@"Destructive pressed --> Delete Something");
-    }
-    if ([buttonTitle isEqualToString:@"Draw Card"]) {
-        NSLog(@"Other 1 pressed");
-    }
-    if ([buttonTitle isEqualToString:@"Shuffle"]) {
-        NSLog(@"Other 2 pressed");
-    }
-    if ([buttonTitle isEqualToString:@"Other Button 3"]) {
-        NSLog(@"Other 3 pressed");
-    }
-    if ([buttonTitle isEqualToString:@"Cancel Button"]) {
-        NSLog(@"Cancel pressed --> Cancel ActionSheet");
-    }
-    
 }
 
 // --------------------------------------------------------------------
@@ -293,15 +375,17 @@
     side.backgroundColor = appDel.barColor;
     
     int iconSize = sideWidth * 0.8;
+    float iconSizeF = (float) iconSize;
     float sidePadding = (sideWidth - iconSize) / 2.0;
-    float heightPadding = 10.0;
+    float heightPadding = 20.0;
+    
+    CGSize resizeIcon = CGSizeMake((float)iconSize, (float)iconSize);
     
     // draw the hand button.
     UIButton *handBtn = [[UIButton alloc] init];
     handBtn.frame = CGRectMake(sidePadding, heightPadding, (float)iconSize, (float)iconSize);
     handBtn.bounds = CGRectMake(sidePadding, heightPadding, (float)iconSize, (float)iconSize);
     
-    CGSize resizeIcon = CGSizeMake((float)iconSize, (float)iconSize);
     UIImage *handImg = [self imageWithImage: [UIImage imageNamed:@"hand_icon.png"] convertToSize: resizeIcon];
     
     [handBtn setImage:handImg forState:UIControlStateNormal];
@@ -309,9 +393,33 @@
     [handBtn addTarget:self action:@selector(handBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     [side addSubview:handBtn];
+    
+    // draw the deck button.
+    UIButton *deckBtn = [[UIButton alloc] init];
+    deckBtn.frame = CGRectMake(sidePadding, (heightPadding * 2) + iconSizeF, iconSizeF, iconSizeF);
+    deckBtn.bounds = CGRectMake(sidePadding, (heightPadding * 2) + iconSizeF, iconSizeF, iconSizeF);
+    
+    UIImage *deckImg = [self imageWithImage: [UIImage imageNamed:@"cards_icon.png"] convertToSize: resizeIcon];
+    
+    [deckBtn setImage:deckImg forState:UIControlStateNormal];
+    [deckBtn setImage:deckImg forState:UIControlStateHighlighted];
+    [deckBtn addTarget:self action:@selector(showActionSheetDeck:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [side addSubview:deckBtn];
+    
+    // draw the trash button.
+    UIButton *trashBtn = [[UIButton alloc] init];
+    trashBtn.frame = CGRectMake(sidePadding, (heightPadding * 3) + (iconSizeF * 2), iconSizeF, iconSizeF);
+    trashBtn.bounds = CGRectMake(sidePadding, (heightPadding * 3) + (iconSizeF * 2), iconSizeF, iconSizeF);
+    
+    UIImage *trashImg = [self imageWithImage: [UIImage imageNamed:@"trash_icon.png"] convertToSize: resizeIcon];
+    
+    [trashBtn setImage:trashImg forState:UIControlStateNormal];
+    [trashBtn setImage:trashImg forState:UIControlStateHighlighted];
+    [trashBtn addTarget:self action:@selector(showActionSheetTrash:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [side addSubview:trashBtn];
 
-    
-    
     
     [self.view addSubview:side];
     

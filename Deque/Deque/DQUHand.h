@@ -53,6 +53,10 @@
 
 - (NSString *) getPureHandID;
 
+- (void) emptyHand;
+
+- (void) createDeck:(int) numCards;
+
 // name of the class
 + (NSString *)parseClassName;
 

@@ -96,7 +96,7 @@
           
      }
      
-     CGSize contentSizeTable = CGSizeMake(tablePaperWidth * numberOfPapers, _myHandScroll.bounds.size.height);
+     CGSize contentSizeTable = CGSizeMake((tablePaperWidth + 5) * numberOfPapers, _myHandScroll.bounds.size.height);
      _myHandScroll.contentSize = contentSizeTable;
      
 }
@@ -124,8 +124,9 @@
           [optionNames addObject:[NSString stringWithFormat:@"Give to %@", n]];
      }
      
-     NSString *toggle = @"Toggle";
+     NSString *toggle = @"Display";
      NSString *cancelTitle = @"Cancel";
+     NSString *table = @"Place on Table";
      
      UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                    initWithTitle:actionSheetTitle
@@ -138,8 +139,9 @@
      for (NSString *title in optionNames) {
           [actionSheet addButtonWithTitle:title];
      }
+     [actionSheet addButtonWithTitle:table];
      [actionSheet addButtonWithTitle:cancelTitle];
-     actionSheet.cancelButtonIndex = [optionNames count] + 1;
+     actionSheet.cancelButtonIndex = [optionNames count] + 3;
      
      // TODO: why is the second to last part bold? ...figure out a way to fix this.
      
@@ -147,7 +149,6 @@
      
 }
 
-// TODO: why isn't this being called??
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
      //Get the name of the current pressed button
      NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
@@ -162,6 +163,16 @@
           [appDel.currGame.discard addCard:removedCard];
           
           [DQUDataServer sendHand:appDel.currGame.discard];
+          [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
+     }
+     if ([buttonTitle isEqualToString:@"Place on Table"]) {
+          // place it on the table.
+          
+          NSLog(@"placing on table");
+          removedCard = [appDel.currGame.hands[myHandInd] grabAndRemoveCardAtIndex:(int)cardSelected];
+          [appDel.currGame.table addCard:removedCard];
+          
+          [DQUDataServer sendHand:appDel.currGame.table];
           [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
      }
      if ([buttonTitle rangeOfString:@"Give to"].location != NSNotFound) {
