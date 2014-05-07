@@ -31,9 +31,17 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     [super viewDidLoad];
     
-    [self setArr:[DQUDataServer retrieveAllGames]];
-    NSLog(@"DQUExistingGameTableViewController.m: Array size: %d", [_arr count]);
-    
+    NSArray *tmp = [DQUDataServer retrieveAllGames];
+    _gameArr = [[NSMutableArray alloc] init];
+    _nameArr = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [tmp count]; i++) {
+        // it's not full!
+        if (![tmp[i][2] boolValue]) {
+            [_gameArr addObject: tmp[i][0]];
+            [_nameArr addObject: tmp[i][1]];
+        }
+    }
+    NSLog(@"DQUExistingGameTableViewController.m: Array size: %d", [_gameArr count]);
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -62,7 +70,7 @@
 {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     // Return the number of rows in the section.
-    return [[self arr] count];
+    return [[self gameArr] count];
 }
 
 
@@ -72,8 +80,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    NSString *gn = [NSString stringWithFormat:@"%@",_arr[indexPath.row][0]];
-    NSString *on = [NSString stringWithFormat:@"%@:",_arr[indexPath.row][1]];
+    NSString *gn = [NSString stringWithFormat:@"%@",_gameArr[indexPath.row]];
+    NSString *on = [NSString stringWithFormat:@"%@:",_nameArr[indexPath.row]];
     NSString *combo = [NSString stringWithFormat:@"%@ %@", on, gn];
     cell.textLabel.text = combo;
     
@@ -82,16 +90,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    _chosenGameID = _arr[indexPath.row][0];
-
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter username" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField *alertTextField = [alert textFieldAtIndex:0];
-    alertTextField.keyboardType = UIKeyboardTypeDefault;
-    alertTextField.placeholder = @"Enter your username";
-    [alert show];
-    _userName = alertTextField.text;
-    
+    _chosenGameID = _gameArr[indexPath.row];
+    NSLog(@"Game ID: %@", _chosenGameID);
     [self performSegueWithIdentifier:@"Existing" sender:self];
 }
 
@@ -142,12 +142,13 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"Existing"]) {
         DQUGame *game = [DQUDataServer retrieveGameWithID:[self chosenGameID]];
+        [game addPlayer:_userName];
+        [DQUDataServer updatePlayersForGameID:[self chosenGameID] forHands:game.hands];
+        
         NSLog(@"In PerformSegueWithIdentifier:!! Woo!");
         DQUAppDelegate *appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
-        //self.gameName = self.gn.text;
-        //self.ownerName = self.on.text;
-        //self.numPlayers = [NSNumber numberWithInt:[self.n.text intValue]];
         appDel.currGame = game;
+        
         [appDel.currGame setUser:self.userName];
     }
     

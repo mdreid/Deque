@@ -87,7 +87,7 @@ NSString *suffix = @"_disp";
         DQUHand *od = [[DQUHand alloc] initWithHandID:[on stringByAppendingString:suffix]];
         [self.hands addObject:o];
         [self.hands addObject:od];
-        self.numHands = [NSNumber numberWithInt:2];
+        self.numHands = [NSNumber numberWithInt:1];
         
         // save
 
@@ -126,7 +126,7 @@ NSString *suffix = @"_disp";
         [self.hands addObject:p];
         [self.hands addObject:pd];
         int val = [self.numHands intValue];
-        self.numHands = [NSNumber numberWithInt:val+2];
+        self.numHands = [NSNumber numberWithInt:val+1];
         
         [p save];
         [p saveOwnObjID];
@@ -147,7 +147,8 @@ NSString *suffix = @"_disp";
         [self.hands[i] printCards:dict];
         [self.hands[i] printID];
     }
-    NSLog(@"Number of hands: %lui", (unsigned long)[self.hands count]);
+    NSLog(@"Number of hands: %lu", (unsigned long)[self.hands count]);
+    NSLog(@"Number of hands on database: %d", [self.numHands intValue]);
 }
 
 // draws card from deck and adds it to hand specified by handID

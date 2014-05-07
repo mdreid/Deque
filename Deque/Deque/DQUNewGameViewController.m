@@ -34,7 +34,7 @@
     self.gn.delegate = self;
     self.on.delegate = self;
     self.n.delegate = self;
-    
+    [self setGamesAndOwners:[DQUDataServer retrieveAllGames]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,14 +43,37 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL) doesGameExist:(NSString *)str {
+    for (int i = 0; i < [_gamesAndOwners count]; i++) {
+        if ([str isEqualToString:_gamesAndOwners[i][0]])
+            return true;
+    }
+    return false;
+}
+
 - (IBAction) StartGame_OnClick:(id)sender {
     // sanitize input
-    if ([self.gn.text length] < 3)
+    if ([self.gn.text length] < 4) {
+         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Game name must be at least 4 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+         [alert show];
         return;
-    if ([self.on.text length] < 3)
+    }
+    if ([self doesGameExist:self.gn.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Game name already exists" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
         return;
-    if ([self.n.text intValue] < 2)
+    }
+    if ([self.on.text length] < 4) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Username must be at least 4 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
         return;
+    }
+    int v = [self.n.text intValue];
+    if (v < 2 || v > 4 ) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Number of players must be integer between 2 and 4" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     NSLog(@"I'm here yo!");
     [self performSegueWithIdentifier:@"GoNext" sender:self];
 }

@@ -11,7 +11,8 @@
 
 @interface DQUExistingGameTableViewController : UITableViewController <UITableViewDelegate>
 
-@property (nonatomic) NSArray *arr;
+@property (nonatomic) NSMutableArray *gameArr;
+@property (nonatomic) NSMutableArray *nameArr;
 @property (nonatomic) NSString *chosenGameID;
 @property (nonatomic) NSString *userName;
 

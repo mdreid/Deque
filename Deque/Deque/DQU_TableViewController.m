@@ -23,6 +23,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -32,6 +33,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -45,6 +47,8 @@
     else {
         isOwner = NO;
     }
+    
+    [appDel.currGame printGame:appDel.allCards];
     
     [self createColors];
     
@@ -70,9 +74,11 @@
     }
     
     
-
+    NSLog(@"at this point0");
     NSString *ID = [appDel.currGame getUser];
+    NSLog(@"My Hand ID: %@", ID);
     myHandInd = [appDel.currGame findHandIndex:ID];
+    NSLog(@"My Hand INDEX: %d", myHandInd);
     NSArray *otherInds = [NSArray arrayWithArray:[appDel.currGame findHandInds]];
     numHands = [appDel.currGame.numHands intValue];
     
@@ -84,14 +90,17 @@
     for (NSNumber *num in otherInds) {
         [userInds addObject:num];
     }
-    
+    NSLog(@"We still in business");
+    NSLog(@"number of hands: %d", numHands);
     for (int i = 1; i <= numHands; i++) {
         int handInd = [userInds[i - 1] intValue];
+        
+        NSLog(@"hand index is: %d", handInd);
         
         UIScrollView *sv = [self drawDisplayCardwithHand:appDel.currGame.hands[handInd + 1] withID:i];
         [scrollViews addObject:sv];
     }
-
+    NSLog(@"Did you make it here");
     
     tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
     
@@ -431,6 +440,8 @@
     int numberOfPapers = [aHand getCardCount];
     float padding = 4.0;
     
+    NSLog(@"DISPLAYING CARD WITH INDEX: %d", playerID);
+    
     // the max width each view can be.
     // TODO: think about padding?
     NSInteger widthFactor = [widthTableMain intValue] / numHands;
@@ -440,13 +451,13 @@
     // create the overall frame of one player.
     CGRect viewRect = CGRectMake(widthFactor * (playerID - 1), [heightStart floatValue], widthFactor, [heightTableMain floatValue]);
     UIView* myView = [[UIView alloc] initWithFrame:viewRect];
-    UIColor *lighter = [self lighterColorForColor:availColors[playerID]];
+    UIColor *lighter = [self lighterColorForColor:availColors[playerID - 1]];
     myView.backgroundColor = lighter;
     
     // creates the little strip on the bottom.
     CGRect barRect = CGRectMake(widthFactor * (playerID - 1), [heightTableBarStart floatValue], widthFactor, [heightTableBar floatValue]);
     UIView *barView = [[UIView alloc] initWithFrame:barRect];
-    barView.backgroundColor = availColors[playerID];
+    barView.backgroundColor = availColors[playerID - 1];
     
     // also create the label.
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, widthFactor, [heightTableBar floatValue])];
@@ -465,7 +476,7 @@
     float widthStart = (widthFactorPadding - avatarDim) / 2;
     UIImageView *av = [[UIImageView alloc] initWithFrame:CGRectMake(widthStart, [yAvatarStartRelative floatValue], avatarDim, avatarDim)];
     av.contentMode = UIViewContentModeCenter;
-    av.image = [self imageWithImage: [UIImage imageNamed:avatars[playerID]] convertToSize:avResize];
+    av.image = [self imageWithImage: [UIImage imageNamed:avatars[playerID - 1]] convertToSize:avResize];
     
     [myView addSubview: av];
     
