@@ -74,12 +74,12 @@
     [DQUDataServer setDictionary:self.allCards];
     
     // Dummy game
-    self.gameID = @"test1";
+    //self.gameID = @"test1";
     
     // retrieve an existing game.
-    self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
+    //self.currGame = [DQUDataServer retrieveGameWithID:self.gameID];
     // set the current user for this instance.
-    [self.currGame setUser:@"xiw"];
+    //[self.currGame setUser:@"xiw"];
     
     // [DQUDataServer retrieveAllGames];
     

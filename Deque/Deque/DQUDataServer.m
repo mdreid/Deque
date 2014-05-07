@@ -80,9 +80,13 @@ static NSMutableDictionary *allCards = nil;
     
     game = [[DQUGame alloc] initWithoutInfo];
     game.gameID = [NSString stringWithString:gameID];
+    NSLog(@"gameID: %@", game.gameID);
     game.ownerID = [NSString stringWithString:ownerName];
+    NSLog(@"ownerID: %@", game.ownerID);
     game.numPlayers = [object objectForKey:@"numPlayers"];
+    NSLog(@"num players: %@", game.numPlayers);
     game.numHands = [object objectForKey:@"numHands"];
+    NSLog(@"numHands: %@", game.numHands);
     game.objID = [NSString stringWithString:object.objectId];
     
     // need to grab the hands, the deck, and discard.
