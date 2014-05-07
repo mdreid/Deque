@@ -53,9 +53,15 @@
      
      // set up the current user information for this view.
      appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
-     NSString *ID = [appDel.currGame getUser];
-     NSLog(@"Who the hell are you?!?!! lol im %@\n", ID);
-     myHandInd = [appDel.currGame findHandIndex:ID];
+     currentUser = [appDel.currGame getUser];
+     
+     refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector: @selector(callRepeatedlyHand:) userInfo: nil repeats:YES];
+     
+}
+
+- (void) drawEverything
+{
+     myHandInd = [appDel.currGame findHandIndex:currentUser];
      
      // initialize the scroll view.
      _myHandScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 30, 568, 200)];
@@ -65,6 +71,25 @@
      NSLog(@"We still good bud");
      NSLog(@"%ld", (long)myHandInd);
      [self drawDisplayHandCard:appDel.currGame.hands[myHandInd]];
+}
+
+- (void) callRepeatedlyHand:(id)sender
+{
+     appDel.currGame = [DQUDataServer retrieveGameWithID:appDel.currGame.gameID];
+     [appDel.currGame setUser:currentUser];
+     [appDel.currGame printGame:appDel.allCards];
+     [self drawEverything];
+}
+
+- (IBAction) BackClicked:(id)sender {
+     [refreshTimer invalidate];
+     refreshTimer = nil;
+     
+     [self performSegueWithIdentifier:@"ReturnToTable" sender:self];
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
      
 }
 
@@ -184,13 +209,14 @@
           
           // will only be the 'first' item of the array, since only one user.
           NSInteger otherHandInd = [appDel.currGame findHandIndex:array[1]];
+          NSLog(@"giving it to index: %ld", (long)otherHandInd);
           
           // the transfer.
           removedCard = [appDel.currGame.hands[myHandInd] grabAndRemoveCardAtIndex:(int) cardSelected];
           [appDel.currGame.hands[(int)otherHandInd] addCard:removedCard];
           
           [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
-          [DQUDataServer sendHand:appDel.currGame.hands[otherHandInd]];
+          [DQUDataServer sendHand:appDel.currGame.hands[(int)otherHandInd]];
      }
      if ([buttonTitle isEqualToString:@"Display"]) {
           // either move to display hand

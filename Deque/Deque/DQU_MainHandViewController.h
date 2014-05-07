@@ -16,10 +16,14 @@
     DQUAppDelegate *appDel;
     NSInteger cardSelected;
     NSInteger myHandInd;
+    
+    NSTimer *refreshTimer;
+    NSString *currentUser;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *myHandScroll;
-@property (strong, nonatomic) IBOutlet UIButton *myButton;
+-(IBAction) BackClicked:(id)sender;
+
 
 // maintain a "current" hand for the app.
 @property (strong, nonatomic) NSMutableArray *cardValues;

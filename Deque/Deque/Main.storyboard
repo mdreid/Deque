@@ -359,7 +359,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="adY-FH-05S" kind="modal" id="qPy-ag-9Wu"/>
+                                    <action selector="BackClicked:" destination="LcV-Bw-Iwt" eventType="touchUpInside" id="yKk-5i-Z9G"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -368,12 +368,14 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="BackClicked" destination="0Xb-dJ-GDh" id="Sr9-Qj-l93"/>
                         <outlet property="myHandScroll" destination="iz9-z1-YO4" id="rHh-UP-0KM"/>
+                        <segue destination="adY-FH-05S" kind="modal" identifier="ReturnToTable" id="Frn-v3-Moa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlY-qe-R2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="452" y="-63"/>
+            <point key="canvasLocation" x="427" y="-63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Avs-R2-hMw">
@@ -405,6 +407,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="9Il-M0-m3t"/>
+        <segue reference="Frn-v3-Moa"/>
     </inferredMetricsTieBreakers>
 </document>
