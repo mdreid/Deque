@@ -102,6 +102,7 @@
 		4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBAD7618F218B70016AAF2 /* DQU_HandCard.m */; };
 		6A0D9B5E191391AB00AA3F66 /* DQUExistingGameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */; };
 		6A151FB51919EA9F003E3215 /* 32421.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A151FB41919EA9F003E3215 /* 32421.png */; };
+		6A151FB8191A05C7003E3215 /* DQUGetUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A151FB7191A05C7003E3215 /* DQUGetUsernameViewController.m */; };
 		6A86AAE119127BC400D930BB /* DQUNewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A86AAE019127BC400D930BB /* DQUNewGameViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -225,6 +226,8 @@
 		6A0D9B5C191391AB00AA3F66 /* DQUExistingGameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUExistingGameTableViewController.h; sourceTree = "<group>"; };
 		6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUExistingGameTableViewController.m; sourceTree = "<group>"; };
 		6A151FB41919EA9F003E3215 /* 32421.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32421.png; sourceTree = SOURCE_ROOT; };
+		6A151FB6191A05C7003E3215 /* DQUGetUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUGetUsernameViewController.h; sourceTree = "<group>"; };
+		6A151FB7191A05C7003E3215 /* DQUGetUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUGetUsernameViewController.m; sourceTree = "<group>"; };
 		6A86AADF19127BC400D930BB /* DQUNewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUNewGameViewController.h; sourceTree = "<group>"; };
 		6A86AAE019127BC400D930BB /* DQUNewGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUNewGameViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -385,6 +388,8 @@
 				4EB038E218E8F83D0084D175 /* DQUAppDelegate.h */,
 				4EB038E318E8F83D0084D175 /* DQUAppDelegate.m */,
 				4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */,
+				6A151FB6191A05C7003E3215 /* DQUGetUsernameViewController.h */,
+				6A151FB7191A05C7003E3215 /* DQUGetUsernameViewController.m */,
 				6A151FB41919EA9F003E3215 /* 32421.png */,
 				6A0D9B5C191391AB00AA3F66 /* DQUExistingGameTableViewController.h */,
 				6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */,
@@ -600,6 +605,7 @@
 			files = (
 				4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */,
 				4EB038E018E8F83D0084D175 /* main.m in Sources */,
+				6A151FB8191A05C7003E3215 /* DQUGetUsernameViewController.m in Sources */,
 				4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */,
 				6A0D9B5E191391AB00AA3F66 /* DQUExistingGameTableViewController.m in Sources */,
 				4E9AEC32190C28F70062C1EF /* DQUDataServer.m in Sources */,

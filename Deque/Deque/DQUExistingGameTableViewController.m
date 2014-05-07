@@ -84,6 +84,7 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     _chosenGameID = _arr[indexPath.row][0];
 
+    /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter username" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *alertTextField = [alert textFieldAtIndex:0];
@@ -91,7 +92,8 @@
     alertTextField.placeholder = @"Enter your username";
     [alert show];
     _userName = alertTextField.text;
-    
+    */
+    //_userName = @"iamtheman";
     [self performSegueWithIdentifier:@"Existing" sender:self];
 }
 
@@ -142,6 +144,7 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"Existing"]) {
         DQUGame *game = [DQUDataServer retrieveGameWithID:[self chosenGameID]];
+        [game addPlayer:_userName];
         NSLog(@"In PerformSegueWithIdentifier:!! Woo!");
         DQUAppDelegate *appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
         //self.gameName = self.gn.text;

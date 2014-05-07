@@ -61,12 +61,14 @@
 
 - (void)viewDidLoad
 {
+     NSLog(@"%s", __PRETTY_FUNCTION__);
      [super viewDidLoad];
      // Do any additional setup after loading the view.
      
      // set up the current user information for this view.
      appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;
      NSString *ID = [appDel.currGame getUser];
+     NSLog(@"Who the hell are you?!?!! lol im %@\n", ID);
      myHandInd = [appDel.currGame findHandIndex:ID];
      
      // initialize the scroll view.
@@ -74,6 +76,8 @@
      _myHandScroll.showsHorizontalScrollIndicator = NO;
      
      [self.view addSubview:_myHandScroll];
+     NSLog(@"We still good bud");
+     NSLog(@"%ld", (long)myHandInd);
      [self drawDisplayHandCard:appDel.currGame.hands[myHandInd]];
      
 }
@@ -82,7 +86,7 @@
      
      CGFloat paperwidth = 200 * 6 / 7;
      NSUInteger numberOfPapers = [aHand getCardCount];
-     NSLog(@"number of cards: %ld", (long) numberOfPapers);
+     NSLog(@"DQU_MainHandViewController: number of cards: %ld", (long) numberOfPapers);
      CGFloat tablePaperWidth = 200 * 6 / 7;
      
      [_myHandScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];

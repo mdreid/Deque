@@ -17,6 +17,7 @@
 @property (nonatomic) NSString *gameName;
 @property (nonatomic) NSString *ownerName;
 @property (nonatomic) NSNumber *numPlayers;
+@property (nonatomic) NSArray *gamesAndOwners;
 -(IBAction) StartGame_OnClick: (id) sender;
 
 @end
