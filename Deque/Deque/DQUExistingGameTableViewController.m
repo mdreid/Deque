@@ -18,6 +18,7 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -27,6 +28,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [super viewDidLoad];
     
     [self setArr:[DQUDataServer retrieveAllGames]];
@@ -42,6 +44,7 @@
 
 - (void)didReceiveMemoryWarning
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -50,12 +53,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     // Return the number of rows in the section.
     return [[self arr] count];
 }
@@ -63,6 +68,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     // Configure the cell...
@@ -75,7 +81,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     _chosenGameID = _arr[indexPath.row][0];
 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter username" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -131,6 +137,7 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"Existing"]) {
