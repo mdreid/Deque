@@ -14,6 +14,7 @@
     DQUAppDelegate *appDel;
     NSInteger myHandInd;
     NSInteger numHands;
+    NSString *currentUser;
     NSMutableArray *availColors;
     NSMutableArray *scrollViews;
     NSMutableArray *userInds;

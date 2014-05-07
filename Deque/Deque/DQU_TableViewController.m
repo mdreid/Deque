@@ -45,10 +45,10 @@
         isOwner = NO;
     }
     
+    currentUser = [appDel.currGame getUser];
+    
     [self createColors];
     
-    userInds = [[NSMutableArray alloc] init];
-    scrollViews = [[NSMutableArray alloc] init];
     avatars = [[NSMutableArray alloc] init];
     
     cardWidthHeightRatio = 5.0 / 7;
@@ -68,7 +68,7 @@
 //        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
 //    }
     
-    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
     
     [self drawEverything];
     
@@ -110,12 +110,17 @@
 - (void) callRepeatedly:(id)sender
 {
     appDel.currGame = [DQUDataServer retrieveGameWithID:appDel.currGame.gameID];
-    [self viewDidLoad];
+    [appDel.currGame setUser:currentUser];
+    [appDel.currGame printGame:appDel.allCards];
+    [self drawEverything];
 }
 
 - (void)drawEverything
 {
     [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    userInds = [[NSMutableArray alloc] init];
+    scrollViews = [[NSMutableArray alloc] init];
     
     NSString *ID = [appDel.currGame getUser];
     myHandInd = [appDel.currGame findHandIndex:ID];
@@ -132,6 +137,8 @@
     for (NSNumber *num in otherInds) {
         [userInds addObject:num];
     }
+    
+    NSLog(@"USER INDICES ARE: %@", userInds);
     
     for (int i = 1; i <= numHands; i++) {
         int handInd = [userInds[i - 1] intValue];

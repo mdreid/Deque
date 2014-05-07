@@ -43,6 +43,8 @@
     }
     NSLog(@"DQUExistingGameTableViewController.m: Array size: %d", [_gameArr count]);
     
+    [self.tableView setContentInset:UIEdgeInsetsMake(75,0,0,0)];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
