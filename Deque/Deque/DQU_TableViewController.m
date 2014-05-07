@@ -59,6 +59,8 @@
         NSInteger n = arc4random_uniform((int)nElements) + i;
         [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
+    
+    
 
     NSString *ID = [appDel.currGame getUser];
     myHandInd = [appDel.currGame findHandIndex:ID];
@@ -83,7 +85,10 @@
 
     
     tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
-    //[self drawIcons];
+    
+    sideView = [self drawSideView];
+    
+    
     
     // TODO: draw side view!!!!
     
@@ -176,31 +181,6 @@
     return nil;
 }
 
-- (void)drawIcons {
-    CGSize firstSize = CGSizeMake(110.0,110.0);
-    UIImageView *p1Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 15, 123,123)];
-    p1Avatar.contentMode = UIViewContentModeCenter;
-  //  p1Avatar.image = [UIImage imageNamed:@"Pikachu.png"];
-    UIImageView *p2Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(123, 15, 123,123)];
-    p2Avatar.contentMode = UIViewContentModeCenter;
-    //p2Avatar.image = [UIImage imageNamed:@"Squirtle.png"];
-    UIImageView *p3Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(2*123, 15, 123,123)];
-    p3Avatar.contentMode = UIViewContentModeCenter;
-   // p3Avatar.image = [UIImage imageNamed:@"Gigglypuff.png"];
-    UIImageView *p4Avatar = [[UIImageView alloc] initWithFrame:CGRectMake(3*123, 15 , 123,123)];
-    p4Avatar.contentMode = UIViewContentModeCenter;
-    //p4Avatar.image = [UIImage imageNamed:@"Bulbasaur.png"];
-    p1Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Pikachu.png"] convertToSize:firstSize];
-    p2Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Squirtle.png"] convertToSize:firstSize];
-    p3Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Gigglypuff.png"] convertToSize:firstSize];
-    p4Avatar.image = [self imageWithImage: [UIImage imageNamed:@"Bulbasaur.png"] convertToSize:firstSize];
-    [self.view addSubview: p1Avatar];
-    [self.view addSubview: p2Avatar];
-    [self.view addSubview: p3Avatar];
-    [self.view addSubview: p4Avatar];
-    
-}
-
 - (void)showActionSheetDeck:(id)sender
 {
     NSString *actionSheetTitle = @"DECK"; //Action Sheet Title
@@ -288,6 +268,20 @@
         NSLog(@"Cancel pressed --> Cancel ActionSheet");
     }
     
+}
+
+// --------------------------------------------------------------------
+// most of the drawing happens here.
+
+- (UIView *) drawSideView
+{
+    CGRect viewRect = CGRectMake([xTableSideStart floatValue], [heightStart floatValue], [widthTableSide floatValue], [heightTableSide floatValue]);
+    UIView *side = [[UIView alloc] initWithFrame:viewRect];
+    side.backgroundColor = appDel.barColor;
+    
+    [self.view addSubview:side];
+    
+    return side;
 }
 
 - (UIScrollView *) drawDisplayCardwithHand:(DQUHand *)aHand withID:(int)playerID

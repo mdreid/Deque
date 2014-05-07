@@ -20,6 +20,8 @@
     UIScrollView *tableScroll;
     NSMutableArray *avatars;
     
+    UIView *sideView;
+    
     float cardWidthHeightRatio;
 }
 

@@ -96,6 +96,10 @@
 		4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EDBAD6D18F2149F0016AAF2 /* Main.storyboard */; };
 		4EDBAD7418F2187C0016AAF2 /* DQU_HandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */; };
 		4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBAD7618F218B70016AAF2 /* DQU_HandCard.m */; };
+		4EE5F6DF1919F4AB009A9914 /* trash_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6DC1919F4AB009A9914 /* trash_icon.png */; };
+		4EE5F6E01919F4AB009A9914 /* cards_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6DD1919F4AB009A9914 /* cards_icon.png */; };
+		4EE5F6E11919F4AB009A9914 /* hand_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6DE1919F4AB009A9914 /* hand_icon.png */; };
+		4EE5F6E31919F954009A9914 /* 32421.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6E21919F954009A9914 /* 32421.png */; };
 		6A0D9B5E191391AB00AA3F66 /* DQUExistingGameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */; };
 		6A151FB51919EA9F003E3215 /* 32421.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A151FB41919EA9F003E3215 /* 32421.png */; };
 		6A86AAE119127BC400D930BB /* DQUNewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A86AAE019127BC400D930BB /* DQUNewGameViewController.m */; };
@@ -215,6 +219,10 @@
 		4EDBAD7518F218B70016AAF2 /* DQU_HandCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_HandCard.h; sourceTree = "<group>"; };
 		4EDBAD7618F218B70016AAF2 /* DQU_HandCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_HandCard.m; sourceTree = "<group>"; };
 		4EE5F6DB19199E2A009A9914 /* DQUConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DQUConstants.h; sourceTree = "<group>"; };
+		4EE5F6DC1919F4AB009A9914 /* trash_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash_icon.png; sourceTree = "<group>"; };
+		4EE5F6DD1919F4AB009A9914 /* cards_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cards_icon.png; sourceTree = "<group>"; };
+		4EE5F6DE1919F4AB009A9914 /* hand_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_icon.png; sourceTree = "<group>"; };
+		4EE5F6E21919F954009A9914 /* 32421.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32421.png; sourceTree = "<group>"; };
 		6A0D9B5C191391AB00AA3F66 /* DQUExistingGameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUExistingGameTableViewController.h; sourceTree = "<group>"; };
 		6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUExistingGameTableViewController.m; sourceTree = "<group>"; };
 		6A151FB41919EA9F003E3215 /* 32421.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32421.png; sourceTree = SOURCE_ROOT; };
@@ -318,6 +326,10 @@
 		4EB038C718E8F83A0084D175 = {
 			isa = PBXGroup;
 			children = (
+				4EE5F6E21919F954009A9914 /* 32421.png */,
+				4EE5F6DC1919F4AB009A9914 /* trash_icon.png */,
+				4EE5F6DD1919F4AB009A9914 /* cards_icon.png */,
+				4EE5F6DE1919F4AB009A9914 /* hand_icon.png */,
 				3CD144921913680F0049CCC8 /* Bulbasaur.png */,
 				3CD144931913680F0049CCC8 /* Gigglypuff.png */,
 				3CD144941913680F0049CCC8 /* Pikachu.png */,
@@ -507,6 +519,7 @@
 				3CB82CF5190E22A200B1070E /* A_H.png in Resources */,
 				3CB82CF1190E22A200B1070E /* 9_H.png in Resources */,
 				3CB82CED190E22A200B1070E /* 8_H.png in Resources */,
+				4EE5F6E11919F4AB009A9914 /* hand_icon.png in Resources */,
 				3CB82CDE190E22A200B1070E /* 4_S.png in Resources */,
 				3CB82CE7190E22A200B1070E /* 7_C.png in Resources */,
 				3CB82CF8190E22A200B1070E /* J_D.png in Resources */,
@@ -520,6 +533,8 @@
 				3CD144961913680F0049CCC8 /* Bulbasaur.png in Resources */,
 				3CB82CF2190E22A200B1070E /* 9_S.png in Resources */,
 				3CB82CEF190E22A200B1070E /* 9_C.png in Resources */,
+				4EE5F6E31919F954009A9914 /* 32421.png in Resources */,
+				4EE5F6DF1919F4AB009A9914 /* trash_icon.png in Resources */,
 				3CB82CEA190E22A200B1070E /* 7_S.png in Resources */,
 				3CB82CD3190E22A200B1070E /* 2_C.png in Resources */,
 				3CB82CDF190E22A200B1070E /* 5_C.png in Resources */,
@@ -565,6 +580,7 @@
 				3CB82CDA190E22A200B1070E /* 3_S.png in Resources */,
 				3CB82CF9190E22A200B1070E /* J_H.png in Resources */,
 				3CB82CE1190E22A200B1070E /* 5_H.png in Resources */,
+				4EE5F6E01919F4AB009A9914 /* cards_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

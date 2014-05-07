@@ -65,6 +65,11 @@
         }
     }
     
+    self.barColor = [UIColor colorWithRed:((float)40)/255
+                               green:((float)64)/255
+                                blue:((float)102)/255
+                               alpha:1.0];
+    
     // set the dictionary.
     [DQUDataServer setDictionary:self.allCards];
     
@@ -106,10 +111,7 @@
     {
         UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 568, 20)];
         // this is a dark blue. should potentially change the theme to revolve around this...
-        view.backgroundColor = [UIColor colorWithRed:((float)40)/255
-                                             green:((float)64)/255
-                                              blue:((float)102)/255
-                                             alpha:1.0];
+        view.backgroundColor = self.barColor;
         [self.window.rootViewController.view addSubview:view];
     }
 
