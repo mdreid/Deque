@@ -7,27 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DQUAppDelegate.h"
 
 @interface DQU_TableViewController : UIViewController <UIActionSheetDelegate>
-
-@property (strong, nonatomic) IBOutlet UIView *p1view;
-@property (strong, nonatomic) IBOutlet UIView *p2view;
-@property (strong, nonatomic) IBOutlet UIView *p3view;
-
-
-@property (strong, nonatomic) IBOutlet UIView *p4view;
-
-
-
-
-
-
-
-
-
+{
+    DQUAppDelegate *appDel;
+    NSInteger myHandInd;
+    NSInteger numHands;
+    NSMutableArray *availColors;
+    NSMutableArray *scrollViews;
+    NSMutableArray *userInds;
+    UIScrollView *tableScroll;
+    NSMutableArray *avatars;
+    
+    float cardWidthHeightRatio;
+}
 
 @property (strong, nonatomic) IBOutlet UIButton *deck;
-
 @property (strong, nonatomic) IBOutlet UIButton *trash;
 
 @end

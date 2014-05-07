@@ -138,10 +138,14 @@ static NSMutableDictionary *allCards = nil;
     // this will be the game we ultimately return which will be completely filled in.
     [query whereKey:@"gameID" equalTo:gameID];
     
+    // should always be an even number of hands...
+    NSNumber *numHands = [NSNumber numberWithInt:((int)[hands count] / 2)];
+    
     NSArray *array = [query findObjects];
     PFObject *found = array[0];
     
     found[@"hands"] = [NSArray arrayWithArray:hands];
+    found[@"numHands"] = numHands;
     
     [found save];
 

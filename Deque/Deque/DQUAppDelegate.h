@@ -11,6 +11,7 @@
 #import "DQUGame.h"
 #import "DQUDataServer.h"
 #import "DQUNewGameViewController.h"
+#import "DQUConstants.h"
 
 @interface DQUAppDelegate : UIResponder <UIApplicationDelegate>
 {

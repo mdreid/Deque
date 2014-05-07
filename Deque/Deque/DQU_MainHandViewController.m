@@ -7,35 +7,22 @@
 //
 
 #import "DQU_MainHandViewController.h"
-#import "DQUAppDelegate.h"
 
 @interface DQU_MainHandViewController () <UIActionSheetDelegate>
 {
-     DQUAppDelegate *appDel;
-     NSInteger cardSelected;
-     NSInteger myHandInd;
+
 }
 
 - (void)showActionSheet:(id)sender;
 
-/*
- @property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
- @property(nonatomic, weak) IBOutlet UIBarButtonItem *deckButton; */
-
 @property (nonatomic, copy) NSString *handID;
 @property (nonatomic, copy) NSString *deckID;
 
-/*
- - (IBAction)deckButtonTapped:(id)sender;
- - (IBAction)displayActionSheet:(id)sender;*/
-
-
 @end
 
+// ------------------------------------------------------------------
+
 @implementation DQU_MainHandViewController
-- (IBAction)myButton:(id)sender {
-     
-}
 
 @synthesize cardValues;
 
@@ -48,7 +35,6 @@
      }
      return self;
 }
-
 
 
 - (NSMutableArray *)cardValues
