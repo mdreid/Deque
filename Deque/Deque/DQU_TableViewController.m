@@ -7,6 +7,7 @@
 //
 
 #import "DQU_TableViewController.h"
+#import "DQU_MainHandViewController.h"
 #import "DQUHand.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -271,13 +272,46 @@
 }
 
 // --------------------------------------------------------------------
+// button actions here.
+
+- (void)handBtnPressed:(id)sender
+{
+    // DQU_MainHandViewController *handVC = [[DQU_MainHandViewController alloc] init];
+    // [self presentViewController:handVC animated:YES completion:nil];
+    
+    DQU_MainHandViewController *handVC = (DQU_MainHandViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"mainHandView"];
+    [self presentViewController:handVC animated:YES completion:nil];
+}
+
+// --------------------------------------------------------------------
 // most of the drawing happens here.
 
 - (UIView *) drawSideView
 {
-    CGRect viewRect = CGRectMake([xTableSideStart floatValue], [heightStart floatValue], [widthTableSide floatValue], [heightTableSide floatValue]);
+    CGRect viewRect = CGRectMake(primaryWidth, [heightStart floatValue], sideWidth, [heightTableSide floatValue]);
     UIView *side = [[UIView alloc] initWithFrame:viewRect];
     side.backgroundColor = appDel.barColor;
+    
+    int iconSize = sideWidth * 0.8;
+    float sidePadding = (sideWidth - iconSize) / 2.0;
+    float heightPadding = 10.0;
+    
+    // draw the hand button.
+    UIButton *handBtn = [[UIButton alloc] init];
+    handBtn.frame = CGRectMake(sidePadding, heightPadding, (float)iconSize, (float)iconSize);
+    handBtn.bounds = CGRectMake(sidePadding, heightPadding, (float)iconSize, (float)iconSize);
+    
+    CGSize resizeIcon = CGSizeMake((float)iconSize, (float)iconSize);
+    UIImage *handImg = [self imageWithImage: [UIImage imageNamed:@"hand_icon.png"] convertToSize: resizeIcon];
+    
+    [handBtn setImage:handImg forState:UIControlStateNormal];
+    [handBtn setImage:handImg forState:UIControlStateHighlighted];
+    [handBtn addTarget:self action:@selector(handBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [side addSubview:handBtn];
+
+    
+    
     
     [self.view addSubview:side];
     
@@ -292,6 +326,8 @@
     // the max width each view can be.
     // TODO: think about padding?
     NSInteger widthFactor = [widthTableMain intValue] / numHands;
+    primaryWidth = widthFactor * numHands;
+    sideWidth = [widthTotal floatValue] - primaryWidth;
     
     // create the overall frame of one player.
     CGRect viewRect = CGRectMake(widthFactor * (playerID - 1), [heightStart floatValue], widthFactor, [heightTableMain floatValue]);
@@ -371,7 +407,7 @@
     
     // create the background for this.
     // create the overall frame of one player.
-    CGRect viewRect = CGRectMake(0, [yTableBotStart floatValue], [widthTableMain floatValue], [heightTableBot floatValue]);
+    CGRect viewRect = CGRectMake(0, [yTableBotStart floatValue], primaryWidth, [heightTableBot floatValue]);
     UIView* myView = [[UIView alloc] initWithFrame:viewRect];
     myView.backgroundColor = [UIColor colorWithRed:((float)255)/255
                                              green:((float)240)/255
@@ -379,7 +415,7 @@
                                              alpha:1.0];
 
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, [yTableCardsStart floatValue], [widthTableMain floatValue], [heightTableBot floatValue])];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, [yTableCardsStart floatValue], primaryWidth, [heightTableBot floatValue])];
     
     scrollView.showsHorizontalScrollIndicator = NO;
     

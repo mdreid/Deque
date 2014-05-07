@@ -11,7 +11,7 @@
 
 // resolution definitions for the table view.
 #define widthTableMain @500
-#define widthTableSide @68
+#define widthTotal @568
 #define widthSideIcons @55
 #define heightAvatar @105
 #define heightTableMain @200
@@ -28,4 +28,3 @@
 #define yTableCardsStart @223
 #define yTableBotStart @220
 #define yAvatarStartRelative @5
-#define xTableSideStart @500

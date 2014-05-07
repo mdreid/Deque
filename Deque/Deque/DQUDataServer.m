@@ -165,6 +165,7 @@ static NSMutableDictionary *allCards = nil;
     }
 }
 
+// returns an array of arrays. elements in order: gameID, ownerID, whether or not it's full.
 + (NSArray *) retrieveAllGames
 {
     NSMutableArray *games= [[NSMutableArray alloc] init];
@@ -176,7 +177,18 @@ static NSMutableDictionary *allCards = nil;
     for (PFObject *obj in objects) {
         NSString *gameID = [NSString stringWithString:[obj objectForKey:@"gameID"]];
         NSString *ownerID = [NSString stringWithString:[obj objectForKey:@"ownerID"]];
-        NSArray *info = @[gameID, ownerID];
+        
+        NSNumber *numHands = [obj objectForKey:@"numHands"];
+        NSNumber *numPlayers = [obj objectForKey:@"numPlayers"];
+        
+        int hands = [numHands intValue];
+        int players = [numPlayers intValue];
+        
+        BOOL isFull = NO;
+        if (hands == players)
+            isFull = YES;
+        
+        NSArray *info = @[gameID, ownerID, [NSNumber numberWithBool:isFull]];
         
         [games addObject:info];
     }

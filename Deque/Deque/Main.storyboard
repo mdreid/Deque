@@ -280,7 +280,7 @@
         <!--Main Hand View Controller-->
         <scene sceneID="hj6-2E-es5">
             <objects>
-                <viewController id="LcV-Bw-Iwt" customClass="DQU_MainHandViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainHandView" id="LcV-Bw-Iwt" customClass="DQU_MainHandViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gna-ko-yHZ"/>
                         <viewControllerLayoutGuide type="bottom" id="kYr-Jv-LZ7"/>
@@ -348,6 +348,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="9Il-M0-m3t"/>
+        <segue reference="GHI-LJ-1kz"/>
     </inferredMetricsTieBreakers>
 </document>

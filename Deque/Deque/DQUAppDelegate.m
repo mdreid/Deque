@@ -81,6 +81,8 @@
     // set the current user for this instance.
     [self.currGame setUser:@"xiw"];
     
+    // [DQUDataServer retrieveAllGames];
+    
     
     /* this section creates a new game from scratch.
     self.currGame = [[DQUGame alloc] initWithDeckandGameName:@"test1" OwnerName: @"mdr" numPlayers:4];

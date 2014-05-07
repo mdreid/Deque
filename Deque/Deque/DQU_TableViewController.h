@@ -23,9 +23,14 @@
     UIView *sideView;
     
     float cardWidthHeightRatio;
+    float primaryWidth;
+    float sideWidth;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *deck;
 @property (strong, nonatomic) IBOutlet UIButton *trash;
+
+- (void)handBtnPressed:(id)sender;
+
 
 @end

@@ -77,8 +77,6 @@
           UIButton *btn = [[UIButton alloc] init];
           btn.frame = CGRectMake((tablePaperWidth + 5)  * i, 0, paperwidth, _myHandScroll.bounds.size.height);
           btn.bounds = CGRectMake((tablePaperWidth + 5) * i, 0, paperwidth, _myHandScroll.bounds.size.height);
-     /*     [btn.layer setBorderColor: [[UIColor blackColor] CGColor]];
-          [btn.layer setBorderWidth: 0.8]; */
           
           [btn.layer setBorderColor: [[UIColor grayColor] CGColor]];
           [btn.layer setBorderWidth: 0.5];
