@@ -146,4 +146,29 @@
     
 }
 
+- (NSUInteger) supportedInterfaceOrientations {
+    
+    return UIInterfaceOrientationMaskPortrait;
+    
+}
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return NO;
+}
+
+-(BOOL)shouldAutorotate
+{
+    
+    return UIInterfaceOrientationMaskPortrait;
+    
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    
+    return UIInterfaceOrientationPortrait;
+    
+}
+
 @end

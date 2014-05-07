@@ -154,7 +154,11 @@
     // We have to clear out all data associated with this game
     
     
-    
 }
-
 @end
+@implementation UIViewController (rotate)
+-(BOOL)shouldAutorotate {
+    return NO;
+}
+@end
+
