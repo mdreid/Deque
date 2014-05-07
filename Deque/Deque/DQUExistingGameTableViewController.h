@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface DQUExistingGameTableViewController : UITableViewController
+@interface DQUExistingGameTableViewController : UITableViewController <UITableViewDelegate>
 
-@property (nonatomic) NSMutableArray *gameOwnerStrings;
+@property (nonatomic) NSArray *arr;
+@property (nonatomic) NSString *chosenGameID;
+@property (nonatomic) NSString *userName;
 
 @end

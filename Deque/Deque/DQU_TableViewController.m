@@ -291,9 +291,6 @@
     
 }
 
-
-
-
 - (void) drawDisplayTableCard: (UIScrollView *)scrollView withHand:(DQUHand *)tableHand {
     
     CGFloat paperwidth = 97 * 6 / 7;
