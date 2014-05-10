@@ -63,7 +63,20 @@
 
 - (void) drawEverything
 {
-     [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+     for (UIView *subview in [self.view subviews]) {
+          if([subview isKindOfClass:[UIScrollView class]]) {
+               for (UIView *c in [subview subviews]) {
+                    if ([c isKindOfClass:[UIButton class]]) {
+                         [c removeFromSuperview];
+                    }
+               }
+               [subview removeFromSuperview];
+               
+          } else {
+
+          }
+     }
+     
      myHandInd = [appDel.currGame findHandIndex:currentUser];
      
      // initialize the scroll view.
