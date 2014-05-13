@@ -100,6 +100,8 @@
 		4EE5F6E01919F4AB009A9914 /* cards_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6DD1919F4AB009A9914 /* cards_icon.png */; };
 		4EE5F6E11919F4AB009A9914 /* hand_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6DE1919F4AB009A9914 /* hand_icon.png */; };
 		4EE5F6E31919F954009A9914 /* 32421.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6E21919F954009A9914 /* 32421.png */; };
+		4EED89E61921A96600B0AC37 /* switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89E51921A96600B0AC37 /* switch.png */; };
+		4EED89E91921B11100B0AC37 /* DQU_DisplayHandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EED89E81921B11100B0AC37 /* DQU_DisplayHandViewController.m */; };
 		6A0D9B5E191391AB00AA3F66 /* DQUExistingGameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */; };
 		6A151FB51919EA9F003E3215 /* 32421.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A151FB41919EA9F003E3215 /* 32421.png */; };
 		6A151FB8191A05C7003E3215 /* DQUGetUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A151FB7191A05C7003E3215 /* DQUGetUsernameViewController.m */; };
@@ -224,6 +226,9 @@
 		4EE5F6DD1919F4AB009A9914 /* cards_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cards_icon.png; sourceTree = "<group>"; };
 		4EE5F6DE1919F4AB009A9914 /* hand_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_icon.png; sourceTree = "<group>"; };
 		4EE5F6E21919F954009A9914 /* 32421.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32421.png; sourceTree = "<group>"; };
+		4EED89E51921A96600B0AC37 /* switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = switch.png; path = Deque/switch.png; sourceTree = "<group>"; };
+		4EED89E71921B11100B0AC37 /* DQU_DisplayHandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_DisplayHandViewController.h; sourceTree = "<group>"; };
+		4EED89E81921B11100B0AC37 /* DQU_DisplayHandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_DisplayHandViewController.m; sourceTree = "<group>"; };
 		6A0D9B5C191391AB00AA3F66 /* DQUExistingGameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUExistingGameTableViewController.h; sourceTree = "<group>"; };
 		6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUExistingGameTableViewController.m; sourceTree = "<group>"; };
 		6A151FB41919EA9F003E3215 /* 32421.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32421.png; sourceTree = SOURCE_ROOT; };
@@ -329,6 +334,7 @@
 		4EB038C718E8F83A0084D175 = {
 			isa = PBXGroup;
 			children = (
+				4EED89E51921A96600B0AC37 /* switch.png */,
 				4EE5F6E21919F954009A9914 /* 32421.png */,
 				4EE5F6DC1919F4AB009A9914 /* trash_icon.png */,
 				4EE5F6DD1919F4AB009A9914 /* cards_icon.png */,
@@ -406,6 +412,8 @@
 				4E22100118FB57EC0020ED2F /* DQU_MainHandViewController.m */,
 				4E189F2C190C7513002878AD /* DQU_TableViewController.h */,
 				4E189F2D190C7513002878AD /* DQU_TableViewController.m */,
+				4EED89E71921B11100B0AC37 /* DQU_DisplayHandViewController.h */,
+				4EED89E81921B11100B0AC37 /* DQU_DisplayHandViewController.m */,
 				4EDBAD7218F2187C0016AAF2 /* DQU_HandViewController.h */,
 				4EDBAD7318F2187C0016AAF2 /* DQU_HandViewController.m */,
 				4EB038E518E8F83D0084D175 /* Images.xcassets */,
@@ -531,6 +539,7 @@
 				3CB82CF8190E22A200B1070E /* J_D.png in Resources */,
 				3CB82D00190E22A200B1070E /* Q_D.png in Resources */,
 				6A151FB51919EA9F003E3215 /* 32421.png in Resources */,
+				4EED89E61921A96600B0AC37 /* switch.png in Resources */,
 				3CB82CFA190E22A200B1070E /* J_S.png in Resources */,
 				3CD144991913680F0049CCC8 /* Squirtle.png in Resources */,
 				3CB82CD9190E22A200B1070E /* 3_H.png in Resources */,
@@ -608,6 +617,7 @@
 				4ED4E75618E9C9E4007946C7 /* DQUGame.m in Sources */,
 				4EB038E018E8F83D0084D175 /* main.m in Sources */,
 				6A151FB8191A05C7003E3215 /* DQUGetUsernameViewController.m in Sources */,
+				4EED89E91921B11100B0AC37 /* DQU_DisplayHandViewController.m in Sources */,
 				4EDBAD7718F218B70016AAF2 /* DQU_HandCard.m in Sources */,
 				6A0D9B5E191391AB00AA3F66 /* DQUExistingGameTableViewController.m in Sources */,
 				4E9AEC32190C28F70062C1EF /* DQUDataServer.m in Sources */,

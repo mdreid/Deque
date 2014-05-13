@@ -70,6 +70,8 @@
                                 blue:((float)102)/255
                                alpha:1.0];
     
+    self.cardWidthHeightRatio = 5.0 / 7;
+    
     // set the dictionary.
     [DQUDataServer setDictionary:self.allCards];
     

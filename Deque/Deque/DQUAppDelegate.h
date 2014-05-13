@@ -23,5 +23,6 @@
 @property (retain, nonatomic) NSString *gameID;
 @property (strong, nonatomic) NSMutableDictionary *allCards;
 @property (strong, nonatomic) UIColor *barColor;
+@property float cardWidthHeightRatio;
 
 @end

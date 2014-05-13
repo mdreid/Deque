@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kCc-KC-1rD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kCc-KC-1rD">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -271,7 +271,7 @@
         <!--Table View Controller-->
         <scene sceneID="5Cg-mU-uuB">
             <objects>
-                <viewController id="adY-FH-05S" customClass="DQU_TableViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tableView" id="adY-FH-05S" customClass="DQU_TableViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FOb-WN-Mga"/>
                         <viewControllerLayoutGuide type="bottom" id="gUp-bj-aDw"/>
@@ -352,16 +352,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="229" height="95"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xb-dJ-GDh">
-                                <rect key="frame" x="20" y="270" width="122" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Return To Table">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="BackClicked:" destination="LcV-Bw-Iwt" eventType="touchUpInside" id="yKk-5i-Z9G"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -375,6 +365,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlY-qe-R2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="427" y="-63"/>
+        </scene>
+        <!--Display Hand View Controller-->
+        <scene sceneID="Wtg-ce-r1Y">
+            <objects>
+                <viewController storyboardIdentifier="displayHandView" id="2Cj-eg-8TV" customClass="DQU_DisplayHandViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lxZ-TF-hpv"/>
+                        <viewControllerLayoutGuide type="bottom" id="IXj-0R-qgk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EX2-gU-CGW">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="StP-6y-GPk">
+                                <rect key="frame" x="0.0" y="0.0" width="229" height="95"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K3V-e4-YNf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="427" y="457"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Avs-R2-hMw">

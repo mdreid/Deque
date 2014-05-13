@@ -374,8 +374,6 @@
 
 - (void)handBtnPressed:(id)sender
 {
-    // DQU_MainHandViewController *handVC = [[DQU_MainHandViewController alloc] init];
-    // [self presentViewController:handVC animated:YES completion:nil];
     
     [refreshTimer invalidate];
     refreshTimer = nil;
@@ -500,7 +498,7 @@
         CGSize firstSize = CGSizeMake(cardHeight * cardWidthHeightRatio, cardHeight);
         
         // TODO: come back to this.
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((paperwidth + padding) * i, 0, paperwidth, scrollView.bounds.size.height)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(((paperwidth + (2 * padding)) * i) + padding, 0, paperwidth, scrollView.bounds.size.height)];
         
         int cardID = [aHand.cards[i] intValue];
         DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
@@ -514,7 +512,7 @@
     }
 
 
-    CGSize contentSize = CGSizeMake((paperwidth + padding) * numberOfPapers, scrollView.bounds.size.height);
+    CGSize contentSize = CGSizeMake((paperwidth + (2 * padding)) * numberOfPapers, scrollView.bounds.size.height);
     scrollView.contentSize = contentSize;
     
     [self.view addSubview:myView];

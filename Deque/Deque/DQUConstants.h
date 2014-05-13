@@ -21,6 +21,8 @@
 #define heightTableBar @25
 #define heightTableScroll @60
 
+#define heightHandView @200 // maybe?
+
 // these are going to be coordinate starts.
 #define heightTableBarStart @195
 #define heightTableScrollStart @135
@@ -28,3 +30,5 @@
 #define yTableCardsStart @223
 #define yTableBotStart @220
 #define yAvatarStartRelative @5
+
+#define yHandStart @50
