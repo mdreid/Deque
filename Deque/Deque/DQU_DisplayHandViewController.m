@@ -239,20 +239,6 @@
                 [DQUDataServer sendHand:appDel.currGame.table];
                 [DQUDataServer sendHand:appDel.currGame.hands[myHandInd + 1]];
             }
-            if ([buttonTitle rangeOfString:@"Give to"].location != NSNotFound) {
-                NSArray *array = [buttonTitle componentsSeparatedByString:@"Give to "];
-                
-                // will only be the 'first' item of the array, since only one user.
-                NSInteger otherHandInd = [appDel.currGame findHandIndex:array[1]];
-                NSLog(@"giving it to index: %ld", (long)otherHandInd);
-                
-                // the transfer.
-                removedCard = [appDel.currGame.hands[myHandInd + 1] grabAndRemoveCardAtIndex:(int) cardSelected];
-                [appDel.currGame.hands[(int)otherHandInd] addCard:removedCard];
-                
-                [DQUDataServer sendHand:appDel.currGame.hands[myHandInd + 1]];
-                [DQUDataServer sendHand:appDel.currGame.hands[(int)otherHandInd]];
-            }
             if ([buttonTitle isEqualToString:@"Return to Hand"]) {
                 // either move to display hand
                 // TODO: make an option to switch to display hand.
@@ -269,7 +255,7 @@
             // update the hand on the database.
             
             // redraw the view.
-            [self drawDisplayHandCard:appDel.currGame.hands[myHandInd]];
+            [self drawDisplayHandCard:appDel.currGame.hands[myHandInd + 1]];
         }
         case 1:
         {

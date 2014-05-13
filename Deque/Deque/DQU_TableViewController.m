@@ -324,7 +324,7 @@
                 [alert addButtonWithTitle:@"Okay"];
                 [alert show];
             }
-            if ([buttonTitle isEqualToString:@"Deal Cards"]) {
+            if ([buttonTitle isEqualToString:@"Deal 4 Cards"]) {
                 // need to reinitialize the deck, essentially.
                 [appDel.currGame.deck emptyHand];
                 // TODO: should modularize the deck.
