@@ -170,7 +170,7 @@
 
 - (void)showActionSheet:(id)sender
 {
-    NSString *actionSheetTitle = @"CARD"; //Action Sheet Title
+    NSString *actionSheetTitle = @"What would you like to do with this card?"; //Action Sheet Title
     NSString *destructiveTitle = @"Discard"; //Action Sheet Button Titles
     
     UIButton *btn = (UIButton *)sender;

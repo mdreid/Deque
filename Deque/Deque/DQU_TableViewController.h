@@ -30,10 +30,14 @@
     float sideWidth;
     
     BOOL isOwner;
+    
+    NSInteger cardSelected;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *deck;
 @property (strong, nonatomic) IBOutlet UIButton *trash;
+
+@property UIScrollView *tableScroll;
 
 - (void)handBtnPressed:(id)sender;
 

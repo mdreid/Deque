@@ -21,6 +21,7 @@
 
 @implementation DQU_TableViewController
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
@@ -67,6 +68,8 @@
 //        NSInteger n = arc4random_uniform((int)nElements) + i;
 //        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
 //    }
+    
+    
     
     refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
     
@@ -127,7 +130,25 @@
     NSArray *otherInds = [NSArray arrayWithArray:[appDel.currGame findHandInds]];
     numHands = [appDel.currGame.numHands intValue];
     
-    NSLog(@"NUMBER OF HANDS IS: %ld", (long)numHands);
+    NSInteger widthFactor = [widthTableMain intValue] / numHands;
+    primaryWidth = widthFactor * numHands;
+    sideWidth = [widthTotal floatValue] - primaryWidth;
+    
+    // draw the rectangle behind the table scroll.
+    // create the overall frame of one player.
+    CGRect viewRect = CGRectMake(0, [yTableBotStart floatValue], primaryWidth, [heightTableBot floatValue]);
+    UIView* myView = [[UIView alloc] initWithFrame:viewRect];
+    // random color .___.
+    myView.backgroundColor = [UIColor colorWithRed:((float)255)/255
+                                             green:((float)240)/255
+                                              blue:((float)235)/255
+                                             alpha:1.0];
+    
+    self.tableScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, [yTableCardsStart floatValue], primaryWidth, [heightTableBot floatValue])];
+    self.tableScroll.showsHorizontalScrollIndicator = NO;
+    
+    [self.view addSubview:myView];
+    [self.view addSubview:self.tableScroll];
     
     [userInds addObject:[NSNumber numberWithInteger:myHandInd]];
     
@@ -138,8 +159,6 @@
         [userInds addObject:num];
     }
     
-    NSLog(@"USER INDICES ARE: %@", userInds);
-    
     for (int i = 1; i <= numHands; i++) {
         int handInd = [userInds[i - 1] intValue];
         
@@ -147,7 +166,7 @@
         [scrollViews addObject:sv];
     }
     
-    tableScroll = [self drawDisplayTableCardWithHand:appDel.currGame.table];
+    [self drawDisplayTableCardWithHand:appDel.currGame.table];
     
     sideView = [self drawSideView];
     
@@ -273,6 +292,34 @@
     
 }
 
+- (void)showActionSheetCards:(id)sender
+{
+    NSString *actionSheetTitle = @"What would you like to do with this card?";
+    NSString *destructiveTitle = @"Discard";
+    
+    NSString *putInHand = @"Place in My Hand";
+    NSString *cancelTitle = @"Cancel";
+    
+    UIButton *btn = (UIButton *)sender;
+    cardSelected = btn.tag;
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:actionSheetTitle
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:destructiveTitle
+                                  otherButtonTitles:nil];
+    
+    [actionSheet addButtonWithTitle:putInHand];
+    [actionSheet addButtonWithTitle:cancelTitle];
+    
+    actionSheet.cancelButtonIndex = [actionSheet numberOfButtons] - 1;
+    
+    [actionSheet setTag:2];
+    
+    [actionSheet showInView:self.view];
+}
+
 // tag 0 = deck. tag 1 = discard.
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     //Get the name of the current pressed button
@@ -356,6 +403,26 @@
                 [alert addButtonWithTitle:@"Okay"];
                 [alert show];
             }
+        }
+        case 2:
+        {
+            int removedCard = -1;
+            if ([buttonTitle isEqualToString:@"Discard"]) {
+                removedCard = [appDel.currGame.table grabAndRemoveCardAtIndex:(int)cardSelected];
+                [appDel.currGame.discard addCard:removedCard];
+                
+                [DQUDataServer sendHand:appDel.currGame.discard];
+                [DQUDataServer sendHand:appDel.currGame.table];
+            }
+            if ([buttonTitle isEqualToString:@"Place in My Hand"]) {
+                removedCard = [appDel.currGame.table grabAndRemoveCardAtIndex:(int)cardSelected];
+                [appDel.currGame.hands[myHandInd] addCard:removedCard];
+                
+                [DQUDataServer sendHand:appDel.currGame.hands[myHandInd]];
+                [DQUDataServer sendHand:appDel.currGame.table];
+            }
+            
+            [self drawDisplayTableCardWithHand:appDel.currGame.table];
         }
     }
     
@@ -451,8 +518,6 @@
     // the max width each view can be.
     // TODO: think about padding?
     NSInteger widthFactor = [widthTableMain intValue] / numHands;
-    primaryWidth = widthFactor * numHands;
-    sideWidth = [widthTotal floatValue] - primaryWidth;
     
     // create the overall frame of one player.
     CGRect viewRect = CGRectMake(widthFactor * (playerID - 1), [heightStart floatValue], widthFactor, [heightTableMain floatValue]);
@@ -529,42 +594,35 @@
     int numberOfPapers = [tableHand getCardCount];
     float paperWidth = [heightTableBotCards floatValue] * cardWidthHeightRatio;
     float padding = 5.0;
-    
-    // create the background for this.
-    // create the overall frame of one player.
-    CGRect viewRect = CGRectMake(0, [yTableBotStart floatValue], primaryWidth, [heightTableBot floatValue]);
-    UIView* myView = [[UIView alloc] initWithFrame:viewRect];
-    myView.backgroundColor = [UIColor colorWithRed:((float)255)/255
-                                             green:((float)240)/255
-                                              blue:((float)235)/255
-                                             alpha:1.0];
 
-    
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, [yTableCardsStart floatValue], primaryWidth, [heightTableBot floatValue])];
-    
-    scrollView.showsHorizontalScrollIndicator = NO;
+    [self.tableScroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     for (NSUInteger i = 0; i < numberOfPapers; i++) {
-        CGSize firstSize = CGSizeMake(paperWidth, [heightTableBotCards floatValue]);
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((paperWidth + padding) * i, 0, paperWidth, scrollView.bounds.size.height)];
+        UIButton *btn = [[UIButton alloc] init];
+        btn.frame = CGRectMake(((paperWidth + (2 * padding)) * i) + padding, 0, paperWidth, self.tableScroll.bounds.size.height);
+        btn.bounds = CGRectMake(((paperWidth + (2 * padding)) * i) + padding, 0, paperWidth, self.tableScroll.bounds.size.height);
+        
+        [btn.layer setBorderColor: [[UIColor grayColor] CGColor]];
+        [btn.layer setBorderWidth: 0.5];
         
         int cardID = [tableHand.cards[i] intValue];
-
         DQUCard *aCard = [appDel.allCards objectForKey: [NSNumber numberWithInt:cardID]];
-         imageView.image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
-        [imageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
-        [imageView.layer setBorderWidth: 0.5];
+        CGSize firstSize = CGSizeMake(paperWidth, [heightTableBotCards floatValue]);
+        
+        UIImage *image = [self imageWithImage: [UIImage imageNamed:aCard.picName] convertToSize:firstSize];
+        
+        [btn setImage:image forState:UIControlStateNormal];
+        [btn setImage:image forState:UIControlStateHighlighted];
+        btn.tag = i;
+        [btn addTarget:self action:@selector(showActionSheetCards:) forControlEvents:UIControlEventTouchUpInside];
          
-        [scrollView addSubview:imageView];
+        [self.tableScroll addSubview:btn];
     }
     
-    CGSize contentSizeTable = CGSizeMake(paperWidth * numberOfPapers + (padding * numberOfPapers), scrollView.bounds.size.height);
-    scrollView.contentSize = contentSizeTable;
+    CGSize contentSizeTable = CGSizeMake((paperWidth + (2 * padding)) * numberOfPapers, self.tableScroll.bounds.size.height);
+    self.tableScroll.contentSize = contentSizeTable;
     
-    [self.view addSubview:myView];
-    [self.view addSubview:scrollView];
-    
-    return scrollView;
+    return self.tableScroll;
     
 }
 
