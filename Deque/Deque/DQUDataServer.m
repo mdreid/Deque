@@ -88,6 +88,7 @@ static NSMutableDictionary *allCards = nil;
     game.numHands = [object objectForKey:@"numHands"];
     NSLog(@"numHands: %@", game.numHands);
     game.objID = [NSString stringWithString:object.objectId];
+    game.avatars = [NSMutableArray arrayWithArray:[object objectForKey:@"avatars"]];
     
     // need to grab the hands, the deck, and discard.
     PFObject *objDeck = [object objectForKey:@"deck"];
@@ -135,7 +136,7 @@ static NSMutableDictionary *allCards = nil;
 
 }
 
-+ (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands
++ (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands withAvatars:(NSMutableArray *)avs
 {
     PFQuery *query = [DQUGame query];
     
@@ -150,6 +151,8 @@ static NSMutableDictionary *allCards = nil;
     
     found[@"hands"] = [NSArray arrayWithArray:hands];
     found[@"numHands"] = numHands;
+    
+    found[@"avatars"] = avs;
     
     [found save];
 

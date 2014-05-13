@@ -22,6 +22,7 @@ NSString *suffix = @"_disp";
 @dynamic numPlayers;
 @dynamic numHands;
 @dynamic objID;
+@dynamic avatars;
 
 + (NSString *)parseClassName {
     return @"DQUGame";
@@ -41,6 +42,7 @@ NSString *suffix = @"_disp";
         self.numPlayers = nil;
         self.numHands = nil;
         self.objID = nil;
+        self.avatars = nil;
         
         // make hands array
         NSMutableArray* array = [[NSMutableArray alloc] init];
@@ -88,6 +90,12 @@ NSString *suffix = @"_disp";
         [self.hands addObject:o];
         [self.hands addObject:od];
         self.numHands = [NSNumber numberWithInt:1];
+        
+        self.avatars = [[NSMutableArray alloc] init];
+        NSString *first = [self chooseAvatar:self.avatars];
+        [self.avatars addObject:first];
+        
+        // randomly choose an avatar from the list.
         
         // save
 
@@ -240,6 +248,39 @@ NSString *suffix = @"_disp";
     }
     
     return inds;
+}
+
+- (NSString *) chooseAvatar:(NSMutableArray *)currAvs
+{
+    NSMutableArray *avatars = [[NSMutableArray alloc] init];
+    
+    [avatars addObject:@"Bulbasaur.png"];
+    [avatars addObject:@"Gigglypuff.png"];
+    [avatars addObject:@"Pikachu.png"];
+    [avatars addObject:@"Squirtle.png"];
+    
+    // shuffle this list. ...should really put this in a function. ><
+    NSUInteger count = [avatars count];
+    for (NSUInteger i = 0; i < count; ++i) {
+        // Select a random element between i and end of array to swap with.
+        NSInteger nElements = count - i;
+        NSInteger n = arc4random_uniform((int)nElements) + i;
+        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
+    
+    for (NSString *curr in avatars) {
+        BOOL isPresent = NO;
+        for (NSString *other in currAvs) {
+            if ([other isEqualToString:curr]) {
+                isPresent = YES;
+            }
+        }
+        if (isPresent == NO) {
+            return curr;
+        }
+    }
+    
+    return nil;
 }
 
 @end

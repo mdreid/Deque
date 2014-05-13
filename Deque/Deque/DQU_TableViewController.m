@@ -21,6 +21,8 @@
 
 @implementation DQU_TableViewController
 
+@synthesize tableScroll;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,53 +62,11 @@
     [avatars addObject:@"Pikachu.png"];
     [avatars addObject:@"Squirtle.png"];
     
-    // shuffle this list. ...should really put this in a function. ><
-//    NSUInteger count = [avatars count];
-//    for (NSUInteger i = 0; i < count; ++i) {
-//        // Select a random element between i and end of array to swap with.
-//        NSInteger nElements = count - i;
-//        NSInteger n = arc4random_uniform((int)nElements) + i;
-//        [avatars exchangeObjectAtIndex:i withObjectAtIndex:n];
-//    }
-    
-    
     
     refreshTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target: self selector: @selector(callRepeatedly:) userInfo: nil repeats:YES];
     
     [self drawEverything];
     
-    // TODO: draw side view!!!!
-    
-   /* UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.frame = CGRectMake(20.0f, 186.0f, 280.0f, 88.0f);
-    [button setTitle:@"Show Action Sheet" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button.tintColor = [UIColor darkGrayColor];*/
-
-    /*
-    self.deck.center = CGPointMake(530, 150);
-    [_deck addTarget:self action:@selector(showActionSheetDeck:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_deck];
-    
-    self.trash.center = CGPointMake(530, 200);
-    [_trash addTarget:self action:@selector(showActionSheetTrash:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_trash];
-    */
-    
- /*   _p1view.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _p1view.layer.borderWidth = 0.5f;
-    _p2view.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _p2view.layer.borderWidth = 0.5f;
-    _p3view.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _p3view.layer.borderWidth = 0.5f;
-    _p4view.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _p4view.layer.borderWidth = 0.5f; */
-  /*  _publicTableView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _publicTableView.layer.borderWidth = 0.5f; */
-    
-   // CGSize firstSize = CGSizeMake(150.0,150.0);
-
-    // [self drawPlayerLabels];
 
 }
 
@@ -130,6 +90,19 @@
     NSArray *otherInds = [NSArray arrayWithArray:[appDel.currGame findHandInds]];
     numHands = [appDel.currGame.numHands intValue];
     
+    NSUInteger avCount = [appDel.currGame.avatars count];
+    BOOL shouldSave = NO;
+    
+    // do the check for the avatars.
+    for (int i = (int)avCount; i < numHands; i++) {
+        shouldSave = YES;
+        NSString *newAv = [appDel.currGame chooseAvatar:appDel.currGame.avatars];
+        [appDel.currGame.avatars addObject:newAv];
+    }
+    if (shouldSave == YES) {
+        [DQUDataServer updatePlayersForGameID:appDel.currGame.gameID forHands:appDel.currGame.hands withAvatars:appDel.currGame.avatars];
+    }
+    
     NSInteger widthFactor = [widthTableMain intValue] / numHands;
     primaryWidth = widthFactor * numHands;
     sideWidth = [widthTotal floatValue] - primaryWidth;
@@ -151,9 +124,6 @@
     [self.view addSubview:self.tableScroll];
     
     [userInds addObject:[NSNumber numberWithInteger:myHandInd]];
-    
-    //    [appDel.currGame.hands[myHandInd] printCards:appDel.allCards];
-    //    [appDel.currGame.hands[myHandInd + 1] printCards:appDel.allCards];
     
     for (NSNumber *num in otherInds) {
         [userInds addObject:num];
@@ -249,7 +219,8 @@
     
     if (isOwner) {
         NSString *shuffle = @"Shuffle Deck";
-        NSString *deal = @"Deal Cards";             // make sure everyone's hands are empty. redeal.
+        // default is 4 right now. Would have liked to parametrize this, but running out of time.
+        NSString *deal = @"Deal 4 Cards";             // make sure everyone's hands are empty. redeal.
         
         [actionSheet addButtonWithTitle:shuffle];
         [actionSheet addButtonWithTitle:deal];
@@ -545,9 +516,12 @@
     float avatarDim = MIN(widthFactorPadding, [heightAvatar floatValue]);
     CGSize avResize = CGSizeMake(avatarDim, avatarDim);
     float widthStart = (widthFactorPadding - avatarDim) / 2;
+    
+    NSNumber *corrInd = userInds[playerID - 1];
+    
     UIImageView *av = [[UIImageView alloc] initWithFrame:CGRectMake(widthStart, [yAvatarStartRelative floatValue], avatarDim, avatarDim)];
     av.contentMode = UIViewContentModeCenter;
-    av.image = [self imageWithImage: [UIImage imageNamed:avatars[playerID - 1]] convertToSize:avResize];
+    av.image = [self imageWithImage: [UIImage imageNamed:appDel.currGame.avatars[[corrInd intValue] / 2]] convertToSize:avResize];
     
     [myView addSubview: av];
     

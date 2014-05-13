@@ -54,6 +54,8 @@
 // returns an array of all the other hand indices (just hand, not display hands) except for own.
 - (NSMutableArray *) findHandInds;
 
+- (NSString *) chooseAvatar:(NSMutableArray *)currAvs;
+
 
 // items in this array should be of type DQUHand
 @property (nonatomic) NSMutableArray *hands;
@@ -65,5 +67,6 @@
 @property NSNumber *numPlayers;
 @property NSNumber *numHands;
 @property NSString *objID;
+@property (nonatomic) NSMutableArray *avatars;
 
 @end

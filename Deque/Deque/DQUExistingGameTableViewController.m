@@ -41,7 +41,6 @@
             [_nameArr addObject: tmp[i][1]];
         }
     }
-    NSLog(@"DQUExistingGameTableViewController.m: Array size: %d", [_gameArr count]);
     
     [self.tableView setContentInset:UIEdgeInsetsMake(75,0,0,0)];
     
@@ -145,7 +144,7 @@
     if ([segue.identifier isEqualToString:@"Existing"]) {
         DQUGame *game = [DQUDataServer retrieveGameWithID:[self chosenGameID]];
         [game addPlayer:_userName];
-        [DQUDataServer updatePlayersForGameID:[self chosenGameID] forHands:game.hands];
+        [DQUDataServer updatePlayersForGameID:[self chosenGameID] forHands:game.hands withAvatars:game.avatars];
         
         NSLog(@"In PerformSegueWithIdentifier:!! Woo!");
         DQUAppDelegate *appDel = (DQUAppDelegate *)[UIApplication sharedApplication].delegate;

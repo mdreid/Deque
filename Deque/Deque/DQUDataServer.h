@@ -31,7 +31,7 @@
 + (DQUGame *) retrieveGameWithID:(NSString *)gameID;
 
 // update the hands array on the database.
-+ (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands;
++ (void)updatePlayersForGameID:(NSString *)gameID forHands:(NSMutableArray *)hands withAvatars:(NSMutableArray *)avs;
 
 // will update everything - deck, discard, table, and hands.
 + (void) updateAllHandsForGame:(DQUGame *)game;

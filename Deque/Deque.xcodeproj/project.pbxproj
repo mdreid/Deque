@@ -102,6 +102,12 @@
 		4EE5F6E31919F954009A9914 /* 32421.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE5F6E21919F954009A9914 /* 32421.png */; };
 		4EED89E61921A96600B0AC37 /* switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89E51921A96600B0AC37 /* switch.png */; };
 		4EED89E91921B11100B0AC37 /* DQU_DisplayHandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EED89E81921B11100B0AC37 /* DQU_DisplayHandViewController.m */; };
+		4EED89EC1921F3C100B0AC37 /* AppIcon_60.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89EA1921F3C100B0AC37 /* AppIcon_60.png */; };
+		4EED89ED1921F3C200B0AC37 /* AppIcon_120.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89EB1921F3C100B0AC37 /* AppIcon_120.png */; };
+		4EED89F01921F42D00B0AC37 /* AppIcon_29.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89EE1921F42D00B0AC37 /* AppIcon_29.png */; };
+		4EED89F11921F42D00B0AC37 /* AppIcon_40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89EF1921F42D00B0AC37 /* AppIcon_40.png */; };
+		4EED89F41921F5A700B0AC37 /* AppIcon_58.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89F21921F5A600B0AC37 /* AppIcon_58.png */; };
+		4EED89F51921F5A700B0AC37 /* AppIcon_80.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EED89F31921F5A700B0AC37 /* AppIcon_80.png */; };
 		6A0D9B5E191391AB00AA3F66 /* DQUExistingGameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */; };
 		6A151FB51919EA9F003E3215 /* 32421.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A151FB41919EA9F003E3215 /* 32421.png */; };
 		6A151FB8191A05C7003E3215 /* DQUGetUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A151FB7191A05C7003E3215 /* DQUGetUsernameViewController.m */; };
@@ -229,6 +235,12 @@
 		4EED89E51921A96600B0AC37 /* switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = switch.png; path = Deque/switch.png; sourceTree = "<group>"; };
 		4EED89E71921B11100B0AC37 /* DQU_DisplayHandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQU_DisplayHandViewController.h; sourceTree = "<group>"; };
 		4EED89E81921B11100B0AC37 /* DQU_DisplayHandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQU_DisplayHandViewController.m; sourceTree = "<group>"; };
+		4EED89EA1921F3C100B0AC37 /* AppIcon_60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon_60.png; path = Deque/AppIcon_60.png; sourceTree = "<group>"; };
+		4EED89EB1921F3C100B0AC37 /* AppIcon_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon_120.png; path = Deque/AppIcon_120.png; sourceTree = "<group>"; };
+		4EED89EE1921F42D00B0AC37 /* AppIcon_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon_29.png; path = Deque/AppIcon_29.png; sourceTree = "<group>"; };
+		4EED89EF1921F42D00B0AC37 /* AppIcon_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon_40.png; path = Deque/AppIcon_40.png; sourceTree = "<group>"; };
+		4EED89F21921F5A600B0AC37 /* AppIcon_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon_58.png; path = Deque/AppIcon_58.png; sourceTree = "<group>"; };
+		4EED89F31921F5A700B0AC37 /* AppIcon_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon_80.png; path = Deque/AppIcon_80.png; sourceTree = "<group>"; };
 		6A0D9B5C191391AB00AA3F66 /* DQUExistingGameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DQUExistingGameTableViewController.h; sourceTree = "<group>"; };
 		6A0D9B5D191391AB00AA3F66 /* DQUExistingGameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DQUExistingGameTableViewController.m; sourceTree = "<group>"; };
 		6A151FB41919EA9F003E3215 /* 32421.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32421.png; sourceTree = SOURCE_ROOT; };
@@ -334,6 +346,12 @@
 		4EB038C718E8F83A0084D175 = {
 			isa = PBXGroup;
 			children = (
+				4EED89F21921F5A600B0AC37 /* AppIcon_58.png */,
+				4EED89F31921F5A700B0AC37 /* AppIcon_80.png */,
+				4EED89EE1921F42D00B0AC37 /* AppIcon_29.png */,
+				4EED89EF1921F42D00B0AC37 /* AppIcon_40.png */,
+				4EED89EA1921F3C100B0AC37 /* AppIcon_60.png */,
+				4EED89EB1921F3C100B0AC37 /* AppIcon_120.png */,
 				4EED89E51921A96600B0AC37 /* switch.png */,
 				4EE5F6E21919F954009A9914 /* 32421.png */,
 				4EE5F6DC1919F4AB009A9914 /* trash_icon.png */,
@@ -532,6 +550,7 @@
 			files = (
 				3CB82CF5190E22A200B1070E /* A_H.png in Resources */,
 				3CB82CF1190E22A200B1070E /* 9_H.png in Resources */,
+				4EED89F11921F42D00B0AC37 /* AppIcon_40.png in Resources */,
 				3CB82CED190E22A200B1070E /* 8_H.png in Resources */,
 				4EE5F6E11919F4AB009A9914 /* hand_icon.png in Resources */,
 				3CB82CDE190E22A200B1070E /* 4_S.png in Resources */,
@@ -556,11 +575,13 @@
 				3CB82CFB190E22A200B1070E /* K_C.png in Resources */,
 				3CB82CFF190E22A200B1070E /* Q_C.png in Resources */,
 				3CD144981913680F0049CCC8 /* Pikachu.png in Resources */,
+				4EED89ED1921F3C200B0AC37 /* AppIcon_120.png in Resources */,
 				3CB82CD5190E22A200B1070E /* 2_H.png in Resources */,
 				4EDBAD6E18F2149F0016AAF2 /* Main.storyboard in Resources */,
 				4E189F30190C7513002878AD /* star.png in Resources */,
 				3CB82CDD190E22A200B1070E /* 4_H.png in Resources */,
 				3CB82CD4190E22A200B1070E /* 2_D.png in Resources */,
+				4EED89F41921F5A700B0AC37 /* AppIcon_58.png in Resources */,
 				3CB82CEE190E22A200B1070E /* 8_S.png in Resources */,
 				3CB82CF0190E22A200B1070E /* 9_D.png in Resources */,
 				3CB82D01190E22A200B1070E /* Q_H.png in Resources */,
@@ -575,6 +596,7 @@
 				3CB82CE3190E22A200B1070E /* 6_C.png in Resources */,
 				3CB82CE0190E22A200B1070E /* 5_D.png in Resources */,
 				3CB82CE4190E22A200B1070E /* 6_D.png in Resources */,
+				4EED89EC1921F3C100B0AC37 /* AppIcon_60.png in Resources */,
 				3CB82CF4190E22A200B1070E /* A_D.png in Resources */,
 				3CB82CEB190E22A200B1070E /* 8_C.png in Resources */,
 				3CB82CE9190E22A200B1070E /* 7_H.png in Resources */,
@@ -584,11 +606,13 @@
 				3CB82CE6190E22A200B1070E /* 6_S.png in Resources */,
 				3CB82CE5190E22A200B1070E /* 6_H.png in Resources */,
 				3CB82CDB190E22A200B1070E /* 4_C.png in Resources */,
+				4EED89F51921F5A700B0AC37 /* AppIcon_80.png in Resources */,
 				3CB82CD0190E22A200B1070E /* 10_D.png in Resources */,
 				3CB82CF3190E22A200B1070E /* A_C.png in Resources */,
 				3CB82CEC190E22A200B1070E /* 8_D.png in Resources */,
 				3CB82CD8190E22A200B1070E /* 3_D.png in Resources */,
 				4EB038DE18E8F83C0084D175 /* InfoPlist.strings in Resources */,
+				4EED89F01921F42D00B0AC37 /* AppIcon_29.png in Resources */,
 				3CB82CD2190E22A200B1070E /* 10_S.png in Resources */,
 				4EB038E618E8F83D0084D175 /* Images.xcassets in Resources */,
 				3CB82CF6190E22A200B1070E /* A_S.png in Resources */,
